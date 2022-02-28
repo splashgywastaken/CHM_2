@@ -29,7 +29,6 @@ D:\доки с рабочего стола\важные документы\ка�
 D:\доки с рабочего стола\важные документы\карантин\6 семестр\чм\лабораторные\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.SecondTaskForm.resources
 D:\доки с рабочего стола\важные документы\карантин\6 семестр\чм\лабораторные\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.ThirdTaskForm.resources
 C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.FirstTaskForm.resources
-C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.MainForm.resources
 C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.SecondTaskForm.resources
 C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.ThirdTaskForm.resources
 C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.Properties.Resources.resources
@@ -56,3 +55,5 @@ C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\Fir
 C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirtsLabWindowsFormsApp.csproj.CopyComplete
 C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.exe
 C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.pdb
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirtsLabWindowsFormsApp.csprojAssemblyReference.cache
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.Forms.MainForm.resources

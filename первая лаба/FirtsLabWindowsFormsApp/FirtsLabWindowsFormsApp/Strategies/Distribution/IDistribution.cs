@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace FirstLabWindowsFormsApp.Strategies.Distribution
+namespace FirstLabWindowsFormsApp.Strategies.Distribution;
+
+public interface IDistribution
 {
-    public interface IDistribution
-    {
-        public double[] Distribute(
-                double a,
-                double b,
-                int n
-            );
-    }
+    public double[] Distribute(
+        double a,
+        double b,
+        int n
+    );
 }

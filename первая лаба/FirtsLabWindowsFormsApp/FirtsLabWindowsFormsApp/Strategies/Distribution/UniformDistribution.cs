@@ -1,33 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FirstLabWindowsFormsApp.Strategies.Distribution
+namespace FirstLabWindowsFormsApp.Strategies.Distribution;
+
+public class UniformDistribution : IDistribution
 {
-    public class UniformDistribution : IDistribution
+    public double[] Distribute(
+        double a,
+        double b,
+        int n
+    )
     {
-        public double[] Distribute(
-            double a,
-            double b,
-            int n
-            )
+        var result = new double[n];
+
+        for (var index = 0; index < n; index++)
         {
-            var result = new double[n];
-
-            for (var index = 0; index < n; index++)
+            try
             {
-                try
-                {
-                    result[index] = a + (b - a) / n * index;
-                }
-                catch (System.IndexOutOfRangeException ex)
-                {
-                    Console.WriteLine("[Distribute] Index is out of range: {0}", index);
-                    throw;
-                }
+                result[index] = a + (b - a) / n * index;
             }
-
-            return result;
-
+            catch (System.IndexOutOfRangeException ex)
+            {
+                Console.WriteLine("[Distribute] Index is out of range: {0}", index);
+                throw;
+            }
         }
+
+        return result;
+
     }
 }

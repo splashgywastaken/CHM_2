@@ -1,4 +1,4 @@
-﻿namespace FirstLabWindowsFormsApp
+﻿namespace FirstLabWindowsFormsApp.Forms
 {
     partial class SecondTaskForm
     {
