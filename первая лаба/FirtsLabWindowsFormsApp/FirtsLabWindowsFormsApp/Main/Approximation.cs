@@ -11,6 +11,7 @@ public class Approximation
     private double[] _xDoubles;
     private double[] _yDoubles;
     private double[] _bDoubles;
+    private double[] _pDoubles;
 
     private double _a;
     private double _b;
@@ -33,16 +34,26 @@ public class Approximation
         _xDoubles = new double[_n];
         _yDoubles = new double[_n];
         _bDoubles = new double[_n];
+        _pDoubles = new double[_n];
 
         _distribution = distribution;
 
     }
 
-    public void Deconstruct(out double[] xDoubles, out double[] yDoubles, out double[] bDoubles, out double a, out double b, out int n)
+    public void Deconstruct(
+        out double[] xDoubles,
+        out double[] yDoubles,
+        out double[] bDoubles,
+        double[] pDoubles,
+        out double a,
+        out double b,
+        out int n
+        )
     {
         xDoubles = _xDoubles;
         yDoubles = _yDoubles;
         bDoubles = _bDoubles;
+        _pDoubles = pDoubles;
         a = _a;
         b = _b;
         n = _n;
@@ -58,6 +69,12 @@ public class Approximation
     {
         get => _yDoubles;
         set => _yDoubles = value;
+    }
+
+    public double[] PDoubles
+    {
+        get => _pDoubles;  
+        set => _pDoubles = value;
     }
 
     public double[] BDoubles
@@ -90,18 +107,16 @@ public class Approximation
         set => _distribution = value;
     }
 
-    public void SetData()
+    public void GenerateData()
     {
-
         _xDoubles = _distribution.Distribute(_a, _b, _n);
-        SetY();
-        SetB();
-
+        GenerateY();
+        GenerateB();
+        GenerateP();
     }
 
-    private void SetB()
+    private void GenerateB()
     {
-
         var h = _xDoubles[1] - _xDoubles[0];
         
         for (var index = 0; index < _n; index++)
@@ -116,41 +131,48 @@ public class Approximation
                         /
                         (Fact(innerIndex) * Fact(index - innerIndex) * Math.Pow(h, index));
                 }
-                catch (System.IndexOutOfRangeException ex)
+                catch (IndexOutOfRangeException ex)
                 {
                     Console.WriteLine("[GetB] Inner index out of range, index: {0}", innerIndex);
                 }
             }
             _bDoubles[index] = sum;
-
         }
-
     }
 
-    private void SetY()
+    private void GenerateP()
     {
+        var h = XDoubles[1] - XDoubles[0];
 
+        for (var i = 0; i < N; i++)
+        {
+            PDoubles[i] = Math.Pow(h, i) * BDoubles[i];
+        }
+    }
+
+    private void GenerateY()
+    {
         for (var index = 0; index < _n; index++)
         {
-
             try
             {
-                _yDoubles[index] = Function(_xDoubles[index]);
+                _yDoubles[index] = ParabolicFunction(
+                    _xDoubles[index],
+                    1,
+                    2,
+                    3
+                    );
             }
             catch (System.IndexOutOfRangeException ex)
             {
                 Console.WriteLine("Index out of range: {0}", index);
             }
-            
         }
-
     }
 
-    private static double Function(double x)
-    {
+    private static double ParabolicFunction(double x, double a, double b, double c)
+        => a * x * x + b * 2 * x + c;
 
-        return Math.Pow(x, 2) + 2*x + 3;
+    private static double TrigonometricFunction(double x) => Math.Sin(x);
 
-    }
-    
 }

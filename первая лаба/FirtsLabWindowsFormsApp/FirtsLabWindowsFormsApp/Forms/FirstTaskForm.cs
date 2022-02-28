@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using FirstLabWindowsFormsApp.Main;
 using FirstLabWindowsFormsApp.Strategies.Distribution;
 using ZedGraph;
 
-namespace FirstLabWindowsFormsApp
+namespace FirstLabWindowsFormsApp.Forms
 {
     public partial class FirstTaskForm : Form
     {
@@ -51,11 +46,13 @@ namespace FirstLabWindowsFormsApp
                 Distribute(new UniformDistribution());
             }
 
-            _approximation.SetData();
+            _approximation.GenerateData();
+
             if (
                 _approximation.XDoubles != Array.Empty<double>()
                 && _approximation.YDoubles != Array.Empty<double>()
                 && _approximation.BDoubles != Array.Empty<double>()
+                && _approximation.PDoubles != Array.Empty<double>()
             )
             {
                 MessageBox.Show(
@@ -106,7 +103,7 @@ namespace FirstLabWindowsFormsApp
         private void Plot_Click(object sender, EventArgs e)
         {
             
-            DrawGraph(_approximation.XDoubles, _approximation.YDoubles);
+            DrawGraph(_approximation.XDoubles, _approximation.PDoubles);
 
         }
 
