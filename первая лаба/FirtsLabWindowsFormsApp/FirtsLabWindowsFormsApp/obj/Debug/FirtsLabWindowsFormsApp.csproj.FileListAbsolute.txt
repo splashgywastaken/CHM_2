@@ -18,13 +18,41 @@ D:\доки с рабочего стола\важные документы\ка�
 D:\доки с рабочего стола\важные документы\карантин\6 семестр\чм\лабораторные\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\bin\Debug\zh-tw\ZedGraph.resources.dll
 D:\доки с рабочего стола\важные документы\карантин\6 семестр\чм\лабораторные\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirtsLabWindowsFormsApp.csproj.AssemblyReference.cache
 D:\доки с рабочего стола\важные документы\карантин\6 семестр\чм\лабораторные\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirtsLabWindowsFormsApp.csproj.SuggestedBindingRedirects.cache
+D:\доки с рабочего стола\важные документы\карантин\6 семестр\чм\лабораторные\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.MainForm.resources
 D:\доки с рабочего стола\важные документы\карантин\6 семестр\чм\лабораторные\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.Properties.Resources.resources
 D:\доки с рабочего стола\важные документы\карантин\6 семестр\чм\лабораторные\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirtsLabWindowsFormsApp.csproj.GenerateResource.cache
 D:\доки с рабочего стола\важные документы\карантин\6 семестр\чм\лабораторные\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirtsLabWindowsFormsApp.csproj.CoreCompileInputs.cache
 D:\доки с рабочего стола\важные документы\карантин\6 семестр\чм\лабораторные\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirtsLabWindowsFormsApp.csproj.CopyComplete
 D:\доки с рабочего стола\важные документы\карантин\6 семестр\чм\лабораторные\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.exe
 D:\доки с рабочего стола\важные документы\карантин\6 семестр\чм\лабораторные\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.pdb
+D:\доки с рабочего стола\важные документы\карантин\6 семестр\чм\лабораторные\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.FirstTaskForm.resources
 D:\доки с рабочего стола\важные документы\карантин\6 семестр\чм\лабораторные\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.SecondTaskForm.resources
 D:\доки с рабочего стола\важные документы\карантин\6 семестр\чм\лабораторные\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.ThirdTaskForm.resources
-D:\доки с рабочего стола\важные документы\карантин\6 семестр\чм\лабораторные\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.Forms.FirstTaskForm.resources
-D:\доки с рабочего стола\важные документы\карантин\6 семестр\чм\лабораторные\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.Forms.MainForm.resources
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.FirstTaskForm.resources
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.MainForm.resources
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.SecondTaskForm.resources
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.ThirdTaskForm.resources
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.Properties.Resources.resources
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirtsLabWindowsFormsApp.csproj.GenerateResource.cache
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirtsLabWindowsFormsApp.csproj.CoreCompileInputs.cache
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\bin\Debug\FirstLabWindowsFormsApp.exe.config
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\bin\Debug\FirstLabWindowsFormsApp.exe
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\bin\Debug\FirstLabWindowsFormsApp.pdb
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\bin\Debug\ZedGraph.dll
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\bin\Debug\ZedGraph.xml
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\bin\Debug\de\ZedGraph.resources.dll
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\bin\Debug\es\ZedGraph.resources.dll
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\bin\Debug\fr\ZedGraph.resources.dll
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\bin\Debug\hu\ZedGraph.resources.dll
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\bin\Debug\it\ZedGraph.resources.dll
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\bin\Debug\ja\ZedGraph.resources.dll
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\bin\Debug\pt\ZedGraph.resources.dll
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\bin\Debug\ru\ZedGraph.resources.dll
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\bin\Debug\sk\ZedGraph.resources.dll
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\bin\Debug\sv\ZedGraph.resources.dll
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\bin\Debug\tr\ZedGraph.resources.dll
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\bin\Debug\zh-cn\ZedGraph.resources.dll
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\bin\Debug\zh-tw\ZedGraph.resources.dll
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirtsLabWindowsFormsApp.csproj.CopyComplete
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.exe
+C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.pdb

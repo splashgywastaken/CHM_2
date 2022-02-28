@@ -3,176 +3,155 @@ using System.Collections.Generic;
 using FirstLabWindowsFormsApp.Strategies.Distribution;
 using static FirstLabWindowsFormsApp.Services.MathFunctions;
 
-namespace FirstLabWindowsFormsApp.Main;
-
-public class Approximation
+namespace FirstLabWindowsFormsApp.Main
 {
-
-    private double[] _xDoubles;
-    private double[] _yDoubles;
-    private double[] _bDoubles;
-    private double[] _pDoubles;
-
-    private double _a;
-    private double _b;
-    private int _n;
-
-    private IDistribution _distribution;
-
-
-    public Approximation(
-            IDistribution distribution,
-            double a,
-            double b,
-            int n
-        )
+    public class Approximation
     {
-        _a = a;
-        _b = b;
-        _n = n;
 
-        _xDoubles = new double[_n];
-        _yDoubles = new double[_n];
-        _bDoubles = new double[_n];
-        _pDoubles = new double[_n];
+        private double[] _xDoubles;
+        private double[] _yDoubles;
+        private double[] _bDoubles;
 
-        _distribution = distribution;
+        private double _a;
+        private double _b;
+        private int _n;
 
-    }
+        private IDistribution _distribution;
 
-    public void Deconstruct(
-        out double[] xDoubles,
-        out double[] yDoubles,
-        out double[] bDoubles,
-        double[] pDoubles,
-        out double a,
-        out double b,
-        out int n
-        )
-    {
-        xDoubles = _xDoubles;
-        yDoubles = _yDoubles;
-        bDoubles = _bDoubles;
-        _pDoubles = pDoubles;
-        a = _a;
-        b = _b;
-        n = _n;
-    }
 
-    public double[] XDoubles
-    {
-        get => _xDoubles;
-        set => _xDoubles = value;
-    }
-
-    public double[] YDoubles
-    {
-        get => _yDoubles;
-        set => _yDoubles = value;
-    }
-
-    public double[] PDoubles
-    {
-        get => _pDoubles;  
-        set => _pDoubles = value;
-    }
-
-    public double[] BDoubles
-    {
-        get => _bDoubles;
-        set => _bDoubles = value;
-    }
-
-    public double A
-    {
-        get => _a;
-        set => _a = value;
-    }
-
-    public double B
-    {
-        get => _b;
-        set => _b = value;
-    }
-
-    public int N
-    {
-        get => _n;
-        set => _n = value;
-    }
-
-    public IDistribution Distribution
-    {
-        get => _distribution;
-        set => _distribution = value;
-    }
-
-    public void GenerateData()
-    {
-        _xDoubles = _distribution.Distribute(_a, _b, _n);
-        GenerateY();
-        GenerateB();
-        GenerateP();
-    }
-
-    private void GenerateB()
-    {
-        var h = _xDoubles[1] - _xDoubles[0];
-        
-        for (var index = 0; index < _n; index++)
+        public Approximation(
+                IDistribution distribution,
+                double a,
+                double b,
+                int n
+            )
         {
-            var sum = 0.0;
-            for (var innerIndex = 0; innerIndex < index; innerIndex++)
+            _a = a;
+            _b = b;
+            _n = n;
+
+            _xDoubles = new double[_n];
+            _yDoubles = new double[_n];
+            _bDoubles = new double[_n];
+
+            _distribution = distribution;
+
+        }
+
+        public void Deconstruct(out double[] xDoubles, out double[] yDoubles, out double[] bDoubles, out double a, out double b, out int n)
+        {
+            xDoubles = _xDoubles;
+            yDoubles = _yDoubles;
+            bDoubles = _bDoubles;
+            a = _a;
+            b = _b;
+            n = _n;
+        }
+
+        public double[] XDoubles
+        {
+            get => _xDoubles;
+            set => _xDoubles = value;
+        }
+
+        public double[] YDoubles
+        {
+            get => _yDoubles;
+            set => _yDoubles = value;
+        }
+
+        public double[] BDoubles
+        {
+            get => _bDoubles;
+            set => _bDoubles = value;
+        }
+
+        public double A
+        {
+            get => _a;
+            set => _a = value;
+        }
+
+        public double B
+        {
+            get => _b;
+            set => _b = value;
+        }
+
+        public int N
+        {
+            get => _n;
+            set => _n = value;
+        }
+
+        public IDistribution Distribution
+        {
+            get => _distribution;
+            set => _distribution = value;
+        }
+
+        public void SetData()
+        {
+
+            _xDoubles = _distribution.Distribute(_a, _b, _n);
+            SetY();
+            SetB();
+
+        }
+
+        private void SetB()
+        {
+
+            var h = _xDoubles[1] - _xDoubles[0];
+
+            for (var index = 0; index < _n; index++)
             {
+                var sum = 0.0;
+                for (var innerIndex = 0; innerIndex < index; innerIndex++)
+                {
+                    try
+                    {
+                        sum +=
+                            Math.Pow(-1, index - innerIndex) * _yDoubles[innerIndex]
+                            /
+                            (Fact(innerIndex) * Fact(index - innerIndex) * Math.Pow(h, index));
+                    }
+                    catch (System.IndexOutOfRangeException ex)
+                    {
+                        Console.WriteLine("[GetB] Inner index out of range, index: {0}", innerIndex);
+                    }
+                }
+                _bDoubles[index] = sum;
+
+            }
+
+        }
+
+        private void SetY()
+        {
+
+            for (var index = 0; index < _n; index++)
+            {
+
                 try
                 {
-                    sum +=
-                        Math.Pow(-1, index - innerIndex) * _yDoubles[innerIndex]
-                        /
-                        (Fact(innerIndex) * Fact(index - innerIndex) * Math.Pow(h, index));
+                    _yDoubles[index] = Function(_xDoubles[index]);
                 }
-                catch (IndexOutOfRangeException ex)
+                catch (System.IndexOutOfRangeException ex)
                 {
-                    Console.WriteLine("[GetB] Inner index out of range, index: {0}", innerIndex);
+                    Console.WriteLine("Index out of range: {0}", index);
                 }
+
             }
-            _bDoubles[index] = sum;
+
         }
-    }
 
-    private void GenerateP()
-    {
-        var h = XDoubles[1] - XDoubles[0];
-
-        for (var i = 0; i < N; i++)
+        private static double Function(double x)
         {
-            PDoubles[i] = Math.Pow(h, i) * BDoubles[i];
+
+            return Math.Pow(x, 2) + 2 * x + 3;
+
         }
+
     }
-
-    private void GenerateY()
-    {
-        for (var index = 0; index < _n; index++)
-        {
-            try
-            {
-                _yDoubles[index] = ParabolicFunction(
-                    _xDoubles[index],
-                    1,
-                    2,
-                    3
-                    );
-            }
-            catch (System.IndexOutOfRangeException ex)
-            {
-                Console.WriteLine("Index out of range: {0}", index);
-            }
-        }
-    }
-
-    private static double ParabolicFunction(double x, double a, double b, double c)
-        => a * x * x + b * 2 * x + c;
-
-    private static double TrigonometricFunction(double x) => Math.Sin(x);
-
 }

@@ -1,22 +1,23 @@
-﻿namespace FirstLabWindowsFormsApp.Services;
-
-public static class MathFunctions
+﻿namespace FirstLabWindowsFormsApp.Services
 {
-
-    public static double Fact(int x)
+    public static class MathFunctions
     {
-        if (x <= 0) return -1;
-        
-        var result = 1;
 
-        do
+        public static double Fact(int x)
         {
-            result *= x;
-            x--;
-        } while (x > 1);
-            
-        return result;
+            if (x <= 0) return -1;
+
+            var result = 1;
+
+            do
+            {
+                result *= x;
+                x--;
+            } while (x > 1);
+
+            return result;
+
+        }
 
     }
-    
 }
