@@ -59,12 +59,14 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Main\Approximation.cs" />
+    <Compile Include="Main\Interpolation.cs" />
     <Compile Include="Forms\SecondTaskForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\SecondTaskForm.Designer.cs">
       <DependentUpon>SecondTaskForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Services\Functions.cs" />
     <Compile Include="Strategies\Distribution\ChebushevDistribution.cs" />
     <Compile Include="Forms\FirstTaskForm.cs">
       <SubType>Form</SubType>

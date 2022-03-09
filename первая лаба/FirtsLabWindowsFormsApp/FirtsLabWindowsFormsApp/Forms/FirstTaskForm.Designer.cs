@@ -39,9 +39,14 @@
             this.nTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.plot = new System.Windows.Forms.Button();
-            this.ExitButton = new System.Windows.Forms.Button();
             this.radioButtonUniform = new System.Windows.Forms.RadioButton();
             this.radioButtonChebushev = new System.Windows.Forms.RadioButton();
+            this.ExitButton = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.coefficientsBox = new System.Windows.Forms.TextBox();
+            this.functionComboBox = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.errorTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // ApproximationPlot
@@ -76,7 +81,7 @@
             // 
             // generate
             // 
-            this.generate.Location = new System.Drawing.Point(553, 156);
+            this.generate.Location = new System.Drawing.Point(553, 260);
             this.generate.Name = "generate";
             this.generate.Size = new System.Drawing.Size(238, 34);
             this.generate.TabIndex = 6;
@@ -120,7 +125,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(550, 106);
+            this.label4.Location = new System.Drawing.Point(549, 210);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(222, 24);
             this.label4.TabIndex = 16;
@@ -128,7 +133,7 @@
             // 
             // plot
             // 
-            this.plot.Location = new System.Drawing.Point(553, 196);
+            this.plot.Location = new System.Drawing.Point(553, 300);
             this.plot.Name = "plot";
             this.plot.Size = new System.Drawing.Size(238, 39);
             this.plot.TabIndex = 7;
@@ -136,21 +141,11 @@
             this.plot.UseVisualStyleBackColor = true;
             this.plot.Click += new System.EventHandler(this.Plot_Click);
             // 
-            // ExitButton
-            // 
-            this.ExitButton.Location = new System.Drawing.Point(550, 404);
-            this.ExitButton.Name = "ExitButton";
-            this.ExitButton.Size = new System.Drawing.Size(238, 33);
-            this.ExitButton.TabIndex = 17;
-            this.ExitButton.Text = "Вернуться на главную форму";
-            this.ExitButton.UseVisualStyleBackColor = true;
-            this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
-            // 
             // radioButtonUniform
             // 
             this.radioButtonUniform.AutoSize = true;
             this.radioButtonUniform.Checked = true;
-            this.radioButtonUniform.Location = new System.Drawing.Point(554, 133);
+            this.radioButtonUniform.Location = new System.Drawing.Point(553, 237);
             this.radioButtonUniform.Name = "radioButtonUniform";
             this.radioButtonUniform.Size = new System.Drawing.Size(94, 17);
             this.radioButtonUniform.TabIndex = 18;
@@ -161,7 +156,7 @@
             // radioButtonChebushev
             // 
             this.radioButtonChebushev.AutoSize = true;
-            this.radioButtonChebushev.Location = new System.Drawing.Point(709, 133);
+            this.radioButtonChebushev.Location = new System.Drawing.Point(708, 237);
             this.radioButtonChebushev.Name = "radioButtonChebushev";
             this.radioButtonChebushev.Size = new System.Drawing.Size(79, 17);
             this.radioButtonChebushev.TabIndex = 19;
@@ -169,14 +164,78 @@
             this.radioButtonChebushev.Text = "Чебышева";
             this.radioButtonChebushev.UseVisualStyleBackColor = true;
             // 
+            // ExitButton
+            // 
+            this.ExitButton.Location = new System.Drawing.Point(553, 405);
+            this.ExitButton.Name = "ExitButton";
+            this.ExitButton.Size = new System.Drawing.Size(238, 33);
+            this.ExitButton.TabIndex = 20;
+            this.ExitButton.Text = "Вернуться на главную форму";
+            this.ExitButton.UseVisualStyleBackColor = true;
+            this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click_1);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(550, 143);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(152, 13);
+            this.label5.TabIndex = 21;
+            this.label5.Text = "Коэффициенты для функций";
+            // 
+            // coefficientsBox
+            // 
+            this.coefficientsBox.Location = new System.Drawing.Point(553, 160);
+            this.coefficientsBox.Multiline = true;
+            this.coefficientsBox.Name = "coefficientsBox";
+            this.coefficientsBox.Size = new System.Drawing.Size(234, 47);
+            this.coefficientsBox.TabIndex = 22;
+            // 
+            // functionComboBox
+            // 
+            this.functionComboBox.FormattingEnabled = true;
+            this.functionComboBox.Items.AddRange(new object[] {
+            "синусоида (a,b)",
+            "линейная функция (a,b)",
+            "квадратичная функция (a,b,c)",
+            "кубическая функция (a,b,c,d)"});
+            this.functionComboBox.Location = new System.Drawing.Point(551, 109);
+            this.functionComboBox.Name = "functionComboBox";
+            this.functionComboBox.Size = new System.Drawing.Size(236, 21);
+            this.functionComboBox.TabIndex = 23;
+            this.functionComboBox.Text = "Выбор функции";
+            this.functionComboBox.SelectedIndexChanged += new System.EventHandler(this.FunctionComboBox_SelectedIndexChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(551, 346);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(141, 26);
+            this.label6.TabIndex = 24;
+            this.label6.Text = "Максимальное по модулю\r\nзначение погрешности\r\n";
+            // 
+            // errorTextBox
+            // 
+            this.errorTextBox.Location = new System.Drawing.Point(699, 346);
+            this.errorTextBox.Name = "errorTextBox";
+            this.errorTextBox.ReadOnly = true;
+            this.errorTextBox.Size = new System.Drawing.Size(88, 20);
+            this.errorTextBox.TabIndex = 25;
+            // 
             // FirstTaskForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.errorTextBox);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.functionComboBox);
+            this.Controls.Add(this.coefficientsBox);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.ExitButton);
             this.Controls.Add(this.radioButtonChebushev);
             this.Controls.Add(this.radioButtonUniform);
-            this.Controls.Add(this.ExitButton);
             this.Controls.Add(this.plot);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -189,6 +248,7 @@
             this.Controls.Add(this.ApproximationPlot);
             this.Name = "FirstTaskForm";
             this.Text = "Главное окно";
+            this.Load += new System.EventHandler(this.FirstTaskForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -206,9 +266,14 @@
         private System.Windows.Forms.TextBox nTextBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button plot;
-        private System.Windows.Forms.Button ExitButton;
         private System.Windows.Forms.RadioButton radioButtonUniform;
         private System.Windows.Forms.RadioButton radioButtonChebushev;
+        private System.Windows.Forms.Button ExitButton;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox coefficientsBox;
+        private System.Windows.Forms.ComboBox functionComboBox;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox errorTextBox;
     }
 }
 

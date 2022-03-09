@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
+using System.Globalization;
+using System.Linq;
 using System.Windows.Forms;
 using FirstLabWindowsFormsApp.Main;
 using FirstLabWindowsFormsApp.Strategies.Distribution;
@@ -11,7 +14,7 @@ namespace FirstLabWindowsFormsApp.Forms;
 public partial class FirstTaskForm : Form
 {
 
-    private Approximation _approximation;
+    private Interpolation _approximation;
 
     public FirstTaskForm()
     {
@@ -22,9 +25,11 @@ public partial class FirstTaskForm : Form
     {
 
         if (
-            aTextBox.Text == string.Empty
+               aTextBox.Text == string.Empty
             || bTextBox.Text == string.Empty
             || nTextBox.Text == string.Empty
+            || coefficientsBox.Text == string.Empty
+            || functionComboBox.SelectedItem == null
         )
         {
             MessageBox.Show(
@@ -47,6 +52,12 @@ public partial class FirstTaskForm : Form
         }
 
         _approximation.GenerateData();
+
+        errorTextBox.Text = Convert.ToString(
+            _approximation.GetMaxAbsoluteError(), 
+            CultureInfo.InvariantCulture
+            );
+
         if (
             _approximation.XDoubles != Array.Empty<double>()
             && _approximation.YDoubles != Array.Empty<double>()
@@ -90,11 +101,13 @@ public partial class FirstTaskForm : Form
         }
         else
         {
-            _approximation = new Approximation(
+            _approximation = new Interpolation(
                 distribution,
                 Convert.ToInt32(aTextBox.Text),
                 Convert.ToInt32(bTextBox.Text),
-                Convert.ToInt32(nTextBox.Text)
+                Convert.ToInt32(nTextBox.Text),
+                coefficientsBox.Text.Split(' ').Select(Convert.ToDouble).ToArray(),
+                functionComboBox.SelectedIndex
             );
         }
     }
@@ -117,15 +130,25 @@ public partial class FirstTaskForm : Form
             pane,
             _approximation.XDoubles,
             _approximation.YDoubles,
-            "Парабола",
+            "Функция",
             Color.Red
         );
+
+        DrawGraph(
+            pane,
+            _approximation.XDoubles,
+            _approximation.ErrorDoubles,
+            "График погрешности интерполяции",
+            Color.Green
+        );
+
+        //TODO: Add errors graph and Fix GenerateB method
 
         ApproximationPlot.AxisChange();
         ApproximationPlot.Invalidate();
     }
 
-    private void PaneInit(ZedGraph.GraphPane pane)
+    private static void PaneInit(ZedGraph.GraphPane pane)
     {
         // !!!
         // Включаем отображение сетки напротив крупных рисок по оси X
@@ -178,15 +201,48 @@ public partial class FirstTaskForm : Form
 
         for (int index = 0; index < n; index++)
         {
-
             list.Add(xData[index], yData[index]);
-
         }
 
-        var myCurve = pane.AddCurve(graphName, list, color, SymbolType.Circle);
+        pane.AddCurve(graphName, list, color, SymbolType.Circle);
     }
 
     private void ExitButton_Click(object sender, EventArgs e)
+        => Close();
+
+    private void FunctionComboBox_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (_approximation == null)
+        {
+            return;
+        }
+
+        if (coefficientsBox.Text == string.Empty)
+        {
+            MessageBox.Show(
+                "Заполните поле с коэффициентами",
+                "Ошибка",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+            );
+            
+            functionComboBox.Text = "Выбор функции";
+
+            return;
+        }
+
+        _approximation.SetFunctionAndCoefficients(
+            functionComboBox.SelectedIndex,
+            coefficientsBox.Text.Split(' ').Select(Convert.ToDouble).ToArray()
+        );
+    }
+
+    private void FirstTaskForm_Load(object sender, EventArgs e)
+    {
+
+    }
+
+    private void ExitButton_Click_1(object sender, EventArgs e)
     {
         Close();
     }

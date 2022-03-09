@@ -1,158 +1,85 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Permissions;
+using System.Text;
+using System.Threading.Tasks;
+using FirstLabWindowsFormsApp.Services;
 using FirstLabWindowsFormsApp.Strategies.Distribution;
-using static FirstLabWindowsFormsApp.Services.MathFunctions;
 
 namespace FirstLabWindowsFormsApp.Main;
 
-public class Approximation
+//  Вариант 3
+//  функция phi(x) = a + b/x 
+
+class Approximation
 {
+    private double A { get; set; }
+    private double B { get; set; }
+    private int N { get; set; }
 
-    private double[] _xDoubles;
-    private double[] _yDoubles;
-    private double[] _bDoubles;
-
-    private double _a;
-    private double _b;
-    private int _n;
-
-    private IDistribution _distribution;
-
+    public double[] XDoubles { get; private set; }
+    public double[] FDoubles { get; private set; }
+    public double[] PhiDoubles { get; private set; }
+    private double[] CoefficientsDoubles { get; set; }
+    
+    private IDistribution Distribution { get; set; }
 
     public Approximation(
-        IDistribution distribution,
         double a,
         double b,
-        int n
-    )
+        int n,
+        double[] coefficientsDoubles
+        )
     {
-        _a = a;
-        _b = b;
-        _n = n;
+        A = a;
+        B = b;
+        N = n;
+        
+        Distribution = new UniformDistribution();
+        CoefficientsDoubles = coefficientsDoubles;
 
-        _xDoubles = new double[_n];
-        _yDoubles = new double[_n];
-        _bDoubles = new double[_n];
-
-        _distribution = distribution;
+        GenerateXDoubles();
 
     }
 
-    public void Deconstruct(
-        out double[] xDoubles,
-        out double[] yDoubles,
-        out double[] bDoubles,
-        double[] pDoubles,
-        out double a,
-        out double b,
-        out int n
-    )
+    public void GenerateXDoubles()
     {
-        xDoubles = _xDoubles;
-        yDoubles = _yDoubles;
-        bDoubles = _bDoubles;
-        a = _a;
-        b = _b;
-        n = _n;
+
+        Distribution.Distribute(A, B, N);
+
     }
 
-    public double[] XDoubles
+    public void GenerateFDoubles()
     {
-        get => _xDoubles;
-        set => _xDoubles = value;
+        for (var index = 0; index < N; index++)
+        {
+            FDoubles[index] = Function(XDoubles[index], new double[] {0.0});
+        }
     }
 
-    public double[] YDoubles
+    public void GeneratePhiDoubles()
     {
-        get => _yDoubles;
-        set => _yDoubles = value;
-    }
+        var d = 0.2 * FDoubles.Max();
+        var minValue = -d / 2;
+        var maxValue = d / 2;
 
-    public double[] BDoubles
-    {
-        get => _bDoubles;
-        set => _bDoubles = value;
-    }
-
-    public double A
-    {
-        get => _a;
-        set => _a = value;
-    }
-
-    public double B
-    {
-        get => _b;
-        set => _b = value;
-    }
-
-    public int N
-    {
-        get => _n;
-        set => _n = value;
-    }
-
-    public IDistribution Distribution
-    {
-        get => _distribution;
-        set => _distribution = value;
-    }
-
-    public void GenerateData()
-    {
-        _xDoubles = _distribution.Distribute(_a, _b, _n);
-        GenerateY();
-        GenerateB();
-    }
-
-    private void GenerateB()
-    {
-        var h = XDoubles[1] - XDoubles[0];
+        var random = new Random();
 
         for (var index = 0; index < N; index++)
         {
-            var sum = 0.0;
-            for (var innerIndex = 0; innerIndex <= index; innerIndex++)
-            {
-                try
-                {
-                    sum += Math.Pow(-1, index - innerIndex) *
-                           YDoubles[innerIndex]
-                           /
-                           (Fact(innerIndex) * Fact(index - innerIndex) * Math.Pow(h, index));
-                }
-                catch (IndexOutOfRangeException ex)
-                {
-                    Console.WriteLine("[GetB] Inner index out of range, index: {0}", innerIndex);
-                }
-            }
-            BDoubles[index] = sum;
+            PhiDoubles[index] =     //(phi doubles)[i]
+                FDoubles[index] + random.NextDouble() * (maxValue - minValue) + minValue;
         }
     }
 
-    private void GenerateY()
-    {
-        for (var index = 0; index < _n; index++)
-        {
-            try
-            {
-                _yDoubles[index] = ParabolicFunction(
-                    _xDoubles[index],
-                    1,
-                    2,
-                    3
-                );
-            }
-            catch (System.IndexOutOfRangeException ex)
-            {
-                Console.WriteLine("Index out of range: {0}", index);
-            }
-        }
-    }
+    private static double Function(double x, IReadOnlyList<double> coefficients)
+        => x;
 
-    private static double ParabolicFunction(double x, double a, double b, double c)
-        => a * x * x + b * 2 * x + c;
+    private static double PhiFunction(double x, IReadOnlyList<double> coefficients)
+        => coefficients[0] + coefficients[1] / x;
 
-    private static double TrigonometricFunction(double x) => Math.Sin(x);
+    private static double PhiSquareFunction(double x, IReadOnlyList<double> coefficients)
+        => coefficients[0] * coefficients[0] + (coefficients[1] * coefficients[1]) / (x * x);
 
 }
