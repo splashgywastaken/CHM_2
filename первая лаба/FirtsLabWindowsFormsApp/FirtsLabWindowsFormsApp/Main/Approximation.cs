@@ -14,34 +14,46 @@ namespace FirstLabWindowsFormsApp.Main;
 
 class Approximation
 {
-    private double A { get; set; }
-    private double B { get; set; }
-    private int N { get; set; }
+    public double A { get; set; }
+    public double B { get; set; }
+    public int N { get; set; }
 
     public double[] XDoubles { get; private set; }
     public double[] FDoubles { get; private set; }
     public double[] PhiDoubles { get; private set; }
-    private double[] CoefficientsDoubles { get; set; }
+    private double[] ExperimentalCoefficients { get; set; }
+    private double[] ApproximationCoefficients { get; set; }
     
-    private IDistribution Distribution { get; set; }
+    public IDistribution Distribution { get; set; }
 
     public Approximation(
         double a,
         double b,
         int n,
-        double[] coefficientsDoubles
+        double[] experimentalCoefficients,
+        double[] approximationCoefficients,
+        IDistribution distribution
         )
     {
         A = a;
         B = b;
         N = n;
         
-        Distribution = new UniformDistribution();
-        CoefficientsDoubles = coefficientsDoubles;
+        Distribution = distribution;
+        ExperimentalCoefficients = experimentalCoefficients;
+        ApproximationCoefficients = approximationCoefficients;
 
         GenerateXDoubles();
 
     }
+
+    //TODO:  Реализовать процедуру вычисления коэффициентов аппроксимирующей функции
+
+
+
+    //TODO:  Реализовать процедуру вычисления среднеквадратичной погрешности аппроксимации
+
+
 
     public void GenerateXDoubles()
     {
@@ -54,7 +66,7 @@ class Approximation
     {
         for (var index = 0; index < N; index++)
         {
-            FDoubles[index] = Function(XDoubles[index], new double[] {0.0});
+            FDoubles[index] = Function(XDoubles[index], ExperimentalCoefficients);
         }
     }
 
@@ -80,6 +92,6 @@ class Approximation
         => coefficients[0] + coefficients[1] / x;
 
     private static double PhiSquareFunction(double x, IReadOnlyList<double> coefficients)
-        => coefficients[0] * coefficients[0] + (coefficients[1] * coefficients[1]) / (x * x);
+        => coefficients[0] * coefficients[0] + coefficients[1] * coefficients[1] / (x * x);
 
 }

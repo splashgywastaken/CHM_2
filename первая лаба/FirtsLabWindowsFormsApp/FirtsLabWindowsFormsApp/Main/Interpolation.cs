@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
+using System.Windows.Forms;
 using FirstLabWindowsFormsApp.Services;
 using FirstLabWindowsFormsApp.Strategies.Distribution;
 using static FirstLabWindowsFormsApp.Services.MathFunctions;
@@ -34,6 +36,8 @@ public class Interpolation
 
     public double[] BDoubles { get; private set; }
 
+    public double[] PDoubles { get; private set; }
+
     public double[] ErrorDoubles { get; private set; }
 
     private double[] CoefficientsDoubles { get; set; }
@@ -51,11 +55,13 @@ public class Interpolation
         XDoubles = new double[N];
         YDoubles = new double[N];
         BDoubles = new double[N];
+        PDoubles = new double[N];
         ErrorDoubles = new double[N];
 
         XDoubles = Distribution.Distribute(A, B, N);
         GenerateY();
         GenerateB();
+        GenerateP();
 
         GetErrors();
     }
@@ -91,10 +97,47 @@ public class Interpolation
         }
     }
 
+    private void GenerateP()
+    {
+
+        for (var index = 0; index < N; index++)
+        {
+            PDoubles[index] = BDoubles[0];
+        }
+
+        for (var index = 0; index < N; index++)
+        {
+
+            var sum = 0.0;
+
+            for (var sumIndex = 1; sumIndex < N; sumIndex++)
+            {
+
+                if (sumIndex == index)
+                    continue;
+
+                var product = 1.0;
+                for (var productIndex = 0; productIndex < N; productIndex++)
+                {
+                    if (index == productIndex)
+                        continue;
+                    product *= XDoubles[index] - XDoubles[productIndex];
+                }
+
+                sum += product;
+
+            }
+
+            PDoubles[index] = sum;
+
+        }
+
+    }
+
     private void GenerateY()
     {
 
-        Functions.Function function = _functions.GetFunction();
+        var function = _functions.GetFunction();
 
         for (var index = 0; index < N; index++)
         {

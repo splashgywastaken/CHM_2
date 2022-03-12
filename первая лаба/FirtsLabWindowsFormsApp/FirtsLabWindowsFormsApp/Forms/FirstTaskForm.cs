@@ -14,7 +14,7 @@ namespace FirstLabWindowsFormsApp.Forms;
 public partial class FirstTaskForm : Form
 {
 
-    private Interpolation _approximation;
+    private Interpolation _interpolation;
 
     public FirstTaskForm()
     {
@@ -51,17 +51,17 @@ public partial class FirstTaskForm : Form
             Distribute(new UniformDistribution());
         }
 
-        _approximation.GenerateData();
+        _interpolation.GenerateData();
 
         errorTextBox.Text = Convert.ToString(
-            _approximation.GetMaxAbsoluteError(), 
+            _interpolation.GetMaxAbsoluteError(), 
             CultureInfo.InvariantCulture
             );
 
         if (
-            _approximation.XDoubles != Array.Empty<double>()
-            && _approximation.YDoubles != Array.Empty<double>()
-            && _approximation.BDoubles != Array.Empty<double>()
+            _interpolation.XDoubles != Array.Empty<double>()
+            && _interpolation.YDoubles != Array.Empty<double>()
+            && _interpolation.BDoubles != Array.Empty<double>()
         )
         {
             MessageBox.Show(
@@ -91,17 +91,17 @@ public partial class FirstTaskForm : Form
             return;
         }
 
-        if (_approximation != null)
+        if (_interpolation != null)
         {
-            _approximation.A = Convert.ToInt32(aTextBox.Text);
-            _approximation.B = Convert.ToInt32(bTextBox.Text);
-            _approximation.N = Convert.ToInt32(nTextBox.Text);
+            _interpolation.A = Convert.ToInt32(aTextBox.Text);
+            _interpolation.B = Convert.ToInt32(bTextBox.Text);
+            _interpolation.N = Convert.ToInt32(nTextBox.Text);
 
-            _approximation.Distribution = distribution;
+            _interpolation.Distribution = distribution;
         }
         else
         {
-            _approximation = new Interpolation(
+            _interpolation = new Interpolation(
                 distribution,
                 Convert.ToInt32(aTextBox.Text),
                 Convert.ToInt32(bTextBox.Text),
@@ -121,23 +121,23 @@ public partial class FirstTaskForm : Form
 
         DrawGraph(
             pane,
-            _approximation.XDoubles,
-            _approximation.BDoubles,
+            _interpolation.XDoubles,
+            _interpolation.BDoubles,
             "Полином",
             Color.Blue
         );
         DrawGraph(
             pane,
-            _approximation.XDoubles,
-            _approximation.YDoubles,
+            _interpolation.XDoubles,
+            _interpolation.YDoubles,
             "Функция",
             Color.Red
         );
 
         DrawGraph(
             pane,
-            _approximation.XDoubles,
-            _approximation.ErrorDoubles,
+            _interpolation.XDoubles,
+            _interpolation.ErrorDoubles,
             "График погрешности интерполяции",
             Color.Green
         );
@@ -148,7 +148,7 @@ public partial class FirstTaskForm : Form
         ApproximationPlot.Invalidate();
     }
 
-    private static void PaneInit(ZedGraph.GraphPane pane)
+    private static void PaneInit(GraphPane pane)
     {
         // !!!
         // Включаем отображение сетки напротив крупных рисок по оси X
@@ -185,10 +185,13 @@ public partial class FirstTaskForm : Form
         // Аналогично задаем вид пунктирной линии для крупных рисок по оси Y
         pane.XAxis.MinorGrid.DashOn = 1;
         pane.XAxis.MinorGrid.DashOff = 2;
+
+        pane.XAxis.Scale.Max = 15.0;
+        pane.YAxis.Scale.Max = 15.0;
     }
 
     private void DrawGraph(
-        ZedGraph.GraphPane pane,
+        GraphPane pane,
         IReadOnlyList<double> xData,
         IReadOnlyList<double> yData,
         string graphName,
@@ -197,7 +200,7 @@ public partial class FirstTaskForm : Form
     {
         var list = new PointPairList();
 
-        var n = _approximation.N;
+        var n = _interpolation.N;
 
         for (int index = 0; index < n; index++)
         {
@@ -212,7 +215,7 @@ public partial class FirstTaskForm : Form
 
     private void FunctionComboBox_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (_approximation == null)
+        if (_interpolation == null)
         {
             return;
         }
@@ -231,7 +234,7 @@ public partial class FirstTaskForm : Form
             return;
         }
 
-        _approximation.SetFunctionAndCoefficients(
+        _interpolation.SetFunctionAndCoefficients(
             functionComboBox.SelectedIndex,
             coefficientsBox.Text.Split(' ').Select(Convert.ToDouble).ToArray()
         );
