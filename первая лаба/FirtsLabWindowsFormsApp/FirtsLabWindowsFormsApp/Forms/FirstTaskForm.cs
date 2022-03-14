@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using FirstLabWindowsFormsApp.Main;
+using FirstLabWindowsFormsApp.Services;
 using FirstLabWindowsFormsApp.Strategies.Distribution;
 using ZedGraph;
 
@@ -176,12 +177,24 @@ public partial class FirstTaskForm : Form
 
         PaneInit(pane);
 
+        var n = 100;
+        var x = new double[n];
+        var f = new double[n];
+        var p = new double[n];
+        var errors = new double[n];
+        _interpolation.GenerateGraphData(
+            ref x,
+            ref f, 
+            ref p,
+            ref errors,
+            n);
+
         if (_drawPolynomial)
         {
             DrawGraph(
                 pane,
-                _interpolation.XDoubles,
-                _interpolation.PDoubles,
+                x,
+                p,
                 "Полином",
                 Color.Blue,
                 SymbolType.Star
@@ -192,8 +205,8 @@ public partial class FirstTaskForm : Form
         {
             DrawGraph(
                 pane,
-                _interpolation.XDoubles,
-                _interpolation.YDoubles,
+                x,
+                f,
                 "Функция",
                 Color.Red,
                 SymbolType.Plus
@@ -204,8 +217,8 @@ public partial class FirstTaskForm : Form
         {
             DrawGraph(
                 pane,
-                _interpolation.XDoubles,
-                _interpolation.ErrorDoubles,
+                x,
+                errors,
                 "График погрешности интерполяции",
                 Color.Green,
                 SymbolType.Circle
@@ -256,15 +269,17 @@ public partial class FirstTaskForm : Form
     {
         var list = new PointPairList();
 
-        var n = _interpolation.N;
+        var n = xData.Count;
 
-        for (int index = 0; index < n; index++)
+        for (var index = 0; index < n; index++)
         {
             list.Add(xData[index], yData[index]);
         }
 
         pane.AddCurve(graphName, list, color, symbolType);
     }
+
+    
 
     private void ExitButton_Click(object sender, EventArgs e)
         => Close();

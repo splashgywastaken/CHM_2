@@ -50,6 +50,8 @@ public class Interpolation
 
     public IDistribution Distribution { get; set; }
 
+    public Func<double, double> NewtonPolynomial { get; set; }
+
     public void GenerateData()
     {
         XDoubles = new double[N];
@@ -67,11 +69,11 @@ public class Interpolation
     private void GeneratePDoubles()
     {
 
-        var newtonPolynomial = CreateNewtonPolynomial(XDoubles, YDoubles);
+        NewtonPolynomial = CreateNewtonPolynomial(XDoubles, YDoubles);
 
         for (var index = 0; index < N; index++)
         {
-            PDoubles[index] = newtonPolynomial(XDoubles[index]);
+            PDoubles[index] = NewtonPolynomial(XDoubles[index]);
         }
 
     }
@@ -162,5 +164,64 @@ public class Interpolation
     {
         CoefficientsDoubles = coefficients;
         _functions = new Functions(selectedIndex);
+    }
+
+    public void GenerateGraphData(
+        ref double[] xDoubles,
+        ref double[] function,
+        ref double[] polynomial,
+        ref double[] errors,
+        int n
+    )
+    {
+
+        xDoubles = new double[n];
+        var h = (B - A) / n;
+        for (var index = 0; index < n; index++)
+        {
+            xDoubles[index] = A + index * h;
+        }
+
+        function = GenerateFunctionGraphData(xDoubles, n);
+        polynomial = GeneratePolynomialGraphData(xDoubles, n);
+
+        errors = new double[n];
+        for (var index = 0; index < n; index++)
+        {
+            errors[index] = Math.Abs(polynomial[index] - function[index]);
+        }
+
+    }
+
+    public double[] GenerateFunctionGraphData(double[] x, int n)
+    {
+
+        var result = new double[n];
+        var h = (B - A) / n;
+
+        var func = _functions.GetFunction();
+
+        for (var index = 0; index < n; index++)
+        {
+            result[index] = func(x[index], CoefficientsDoubles);
+        }
+
+        return result;
+
+    }
+
+    public double[] GeneratePolynomialGraphData(double[] x, int n)
+    {
+
+        var result = new double[n];
+        var h = (B - A) / n;
+
+        for (var index = 0; index < n; index++)
+        {
+            result[index] = NewtonPolynomial(x[index]);
+        }
+
+        return result;
+
     }
 }

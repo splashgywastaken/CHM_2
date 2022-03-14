@@ -60,6 +60,12 @@ class Approximation
         CoefficientsCalculation();
         GeneratePhiDoubles();
 
+        //var h = FDoubles[0] - PhiDoubles[0];
+        //for (var index = 0; index < N; index++)
+        //{
+        //    PhiDoubles[index] += h;
+        //}
+
         FindSquaredError();
     }
 
@@ -77,6 +83,7 @@ class Approximation
 
         var k = N / 2;
 
+        //TODO: Составить систему на подобии той, что сохранил и дифференцировав решить 
         for (var index = 0; index < k; index++)
         {
             var tmp = Function(XDoubles[index], ExperimentalCoefficients);
@@ -176,7 +183,7 @@ class Approximation
 
         for (var index = 0; index < N; index++)
         {
-            result += Math.Pow( FTableDoubles[index] - PhiDoubles[index], 2);
+            result += Math.Pow( FDoubles[index] - PhiDoubles[index], 2);
         }
         
         SquaredError = result / N;
