@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing.Text;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml.Schema;
 using FirstLabWindowsFormsApp.Services;
 using FirstLabWindowsFormsApp.Strategies.Distribution;
-using static FirstLabWindowsFormsApp.Services.MathFunctions;
 
 namespace FirstLabWindowsFormsApp.Main;
 
@@ -34,8 +36,6 @@ public class Interpolation
 
     public double[] YDoubles { get; private set; }
 
-    public double[] BDoubles { get; private set; }
-
     public double[] PDoubles { get; private set; }
 
     public double[] ErrorDoubles { get; private set; }
@@ -54,87 +54,79 @@ public class Interpolation
     {
         XDoubles = new double[N];
         YDoubles = new double[N];
-        BDoubles = new double[N];
         PDoubles = new double[N];
         ErrorDoubles = new double[N];
 
         XDoubles = Distribution.Distribute(A, B, N);
-        GenerateY();
-        GenerateB();
-        GenerateP();
+        GenerateYDoubles();
+        GeneratePDoubles();
 
         GetErrors();
     }
 
-    private void GenerateB()
+    private void GeneratePDoubles()
     {
-        var h = XDoubles[1] - XDoubles[0];
 
-        for (var loopIndex = 0; loopIndex < N; loopIndex++)
-        {
-            var sum = 0.0;
-            for (var sumIndex = 0; sumIndex <= loopIndex; sumIndex++)
-            {
-                try
-                {
-                    sum +=
-                        Math.Pow(-1, loopIndex - sumIndex) * YDoubles[sumIndex]
-                        /
-                        (Fact(sumIndex) * Fact(loopIndex - sumIndex) * Math.Pow(h, loopIndex));
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    Console.WriteLine(
-                        "[GetB] Inner index out of range" +
-                        "\nsum index: {0}" +
-                        "\nindex: {1}",
-                        sumIndex,
-                        loopIndex
-                        );
-                }
-            }
-            BDoubles[loopIndex] = sum;
-        }
-    }
-
-    private void GenerateP()
-    {
+        var newtonPolynomial = CreateNewtonPolynomial(XDoubles, YDoubles);
 
         for (var index = 0; index < N; index++)
         {
-            PDoubles[index] = BDoubles[0];
-        }
-
-        for (var index = 0; index < N; index++)
-        {
-
-            var sum = 0.0;
-
-            for (var sumIndex = 1; sumIndex < N; sumIndex++)
-            {
-
-                if (sumIndex == index)
-                    continue;
-
-                var product = 1.0;
-                for (var productIndex = 0; productIndex < N; productIndex++)
-                {
-                    if (index == productIndex)
-                        continue;
-                    product *= XDoubles[index] - XDoubles[productIndex];
-                }
-
-                sum += product;
-
-            }
-
-            PDoubles[index] = sum;
-
+            PDoubles[index] = newtonPolynomial(XDoubles[index]);
         }
 
     }
 
-    private void GenerateY()
+    private static double CalculateDividedDifferences(
+        IReadOnlyList<double> x,
+        IReadOnlyList<double> y, 
+        int k
+        )
+    {
+        double result = 0;
+        for (var j = 0; j <= k; j++)
+        {
+            double mul = 1;
+            for (var i = 0; i <= k; i++)
+            {
+                if (j != i)
+                {
+                    mul *= (x[j] - x[i]);
+                }
+            }
+            result += y[j] / mul;
+        }
+        return result;
+    }
+
+    private static Func<double, double> CreateNewtonPolynomial(double[] x, double[] y)
+    {
+        var divDiff = new double[x.Length - 1];
+        for (var index = 1; index < x.Length; index++)
+        {
+            divDiff[index - 1] = CalculateDividedDifferences(x, y, index);
+        }
+
+        double NewtonPolynomial(double xVal)
+        {
+            var result = y[0];
+            for (var index = 1; index < x.Length; index++)
+            {
+                double mul = 1;
+                for (var innerIndex = 0; innerIndex < index; innerIndex++)
+                {
+                    mul *= (xVal - x[innerIndex]);
+                }
+
+                result += divDiff[index - 1] * mul;
+            }
+
+            return result;
+        }
+
+        return NewtonPolynomial;
+    }
+
+    private void GenerateYDoubles()
     {
 
         var function = _functions.GetFunction();
@@ -159,7 +151,7 @@ public class Interpolation
 
         for (var i = 0; i < N; i++)
         {
-            ErrorDoubles[i] = Math.Abs(YDoubles[i] - BDoubles[i]);
+            ErrorDoubles[i] = Math.Abs(YDoubles[i] - PDoubles[i]);
         }
 
     }
@@ -168,7 +160,6 @@ public class Interpolation
 
     public void SetFunctionAndCoefficients(int selectedIndex, double[] coefficients)
     {
-        //Реализовать работу функций через отдельный класс
         CoefficientsDoubles = coefficients;
         _functions = new Functions(selectedIndex);
     }

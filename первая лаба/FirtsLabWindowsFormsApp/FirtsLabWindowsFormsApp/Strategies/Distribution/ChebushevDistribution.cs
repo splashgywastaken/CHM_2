@@ -18,7 +18,7 @@ public class ChebushevDistribution : IDistribution
             {
                 result[index] = (a + b) / 2 - (b - a) / 2 * Math.Cos((2.0f * index + 1) / (2 * n + 2) * Math.PI);
             }
-            catch (System.IndexOutOfRangeException ex)
+            catch (IndexOutOfRangeException ex)
             {
                 Console.WriteLine("Index is out of range: {0}", index);
                 throw;

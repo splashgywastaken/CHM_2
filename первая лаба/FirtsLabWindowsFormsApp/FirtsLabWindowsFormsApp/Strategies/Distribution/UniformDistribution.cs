@@ -19,7 +19,7 @@ public class UniformDistribution : IDistribution
             {
                 result[index] = a + (b - a) / n * index;
             }
-            catch (System.IndexOutOfRangeException ex)
+            catch (IndexOutOfRangeException ex)
             {
                 Console.WriteLine("[Distribute] Index is out of range: {0}", index);
                 throw;

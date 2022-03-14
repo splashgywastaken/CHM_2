@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using FirstLabWindowsFormsApp.Main;
 using FirstLabWindowsFormsApp.Strategies.Distribution;
 using ZedGraph;
@@ -15,6 +16,9 @@ public partial class FirstTaskForm : Form
 {
 
     private Interpolation _interpolation;
+    private bool _drawPolynomial = true;
+    private bool _drawFunction = true;
+    private bool _drawErrors = true;
 
     public FirstTaskForm()
     {
@@ -61,7 +65,6 @@ public partial class FirstTaskForm : Form
         if (
             _interpolation.XDoubles != Array.Empty<double>()
             && _interpolation.YDoubles != Array.Empty<double>()
-            && _interpolation.BDoubles != Array.Empty<double>()
         )
         {
             MessageBox.Show(
@@ -96,6 +99,11 @@ public partial class FirstTaskForm : Form
             _interpolation.A = Convert.ToInt32(aTextBox.Text);
             _interpolation.B = Convert.ToInt32(bTextBox.Text);
             _interpolation.N = Convert.ToInt32(nTextBox.Text);
+            
+            _interpolation.SetFunctionAndCoefficients(
+                functionComboBox.SelectedIndex,
+                coefficientsBox.Text.Split(' ').Select(Convert.ToDouble).ToArray()
+            );
 
             _interpolation.Distribution = distribution;
         }
@@ -112,44 +120,109 @@ public partial class FirstTaskForm : Form
         }
     }
 
+    //Ms charts graph
+    //private void plot_Click(object sender, EventArgs e)
+    //{
+    //    graphPane.Series.Clear();
+
+    //    DrawGraph(
+    //        "Функция",
+    //        _interpolation.XDoubles,
+    //        _interpolation.YDoubles
+    //        );
+    //    DrawGraph(
+    //        "Погрешность интерполяции",
+    //        _interpolation.XDoubles,
+    //        _interpolation.ErrorDoubles
+    //    );
+    //    DrawGraph(
+    //        "Интерполяционный полином",
+    //        _interpolation.XDoubles,
+    //        _interpolation.PDoubles
+    //    );
+
+    //}
+
+    //private void DrawGraph(
+    //    string graphName,
+    //    IReadOnlyList<double> x,
+    //    IReadOnlyList<double> y
+    //    )
+    //{
+
+    //    var length = x.Count;
+
+    //    var series = graphPane.Series.Add(graphName);
+    //    series.ChartType = SeriesChartType.Spline;
+
+    //    for (var index = 0; index < length; index++)
+    //    {
+    //        series.Points.AddXY(x[index], y[index]);
+    //    }
+
+    //}
+
+    //ZedGraph charts
+
     private void Plot_Click(object sender, EventArgs e)
     {
-        var pane = ApproximationPlot.GraphPane;
+        Plot();
+    }
+
+    private void Plot()
+    {
+        var pane = InterpolationGraphPane.GraphPane;
         pane.CurveList.Clear();
 
         PaneInit(pane);
 
-        DrawGraph(
-            pane,
-            _interpolation.XDoubles,
-            _interpolation.BDoubles,
-            "Полином",
-            Color.Blue
-        );
-        DrawGraph(
-            pane,
-            _interpolation.XDoubles,
-            _interpolation.YDoubles,
-            "Функция",
-            Color.Red
-        );
+        if (_drawPolynomial)
+        {
+            DrawGraph(
+                pane,
+                _interpolation.XDoubles,
+                _interpolation.PDoubles,
+                "Полином",
+                Color.Blue,
+                SymbolType.Star
+            );
+        }
 
-        DrawGraph(
-            pane,
-            _interpolation.XDoubles,
-            _interpolation.ErrorDoubles,
-            "График погрешности интерполяции",
-            Color.Green
-        );
+        if (_drawFunction)
+        {
+            DrawGraph(
+                pane,
+                _interpolation.XDoubles,
+                _interpolation.YDoubles,
+                "Функция",
+                Color.Red,
+                SymbolType.Plus
+            );
+        }
 
-        //TODO: Add errors graph and Fix GenerateB method
+        if (_drawErrors)
+        {
+            DrawGraph(
+                pane,
+                _interpolation.XDoubles,
+                _interpolation.ErrorDoubles,
+                "График погрешности интерполяции",
+                Color.Green,
+                SymbolType.Circle
+            );
+        }
 
-        ApproximationPlot.AxisChange();
-        ApproximationPlot.Invalidate();
+        InterpolationGraphPane.AxisChange();
+        InterpolationGraphPane.Invalidate();
     }
 
-    private static void PaneInit(GraphPane pane)
+    private void PaneInit(GraphPane pane)
     {
+
+        InterpolationGraphPane.BackColor = Color.BlanchedAlmond;
+
+        pane.LineType = LineType.Normal;
+
         // !!!
         // Включаем отображение сетки напротив крупных рисок по оси X
         pane.XAxis.MajorGrid.IsVisible = true;
@@ -168,24 +241,6 @@ public partial class FirstTaskForm : Form
         pane.YAxis.MajorGrid.DashOn = 10;
         pane.YAxis.MajorGrid.DashOff = 5;
 
-
-        // Включаем отображение сетки напротив мелких рисок по оси X
-        pane.YAxis.MinorGrid.IsVisible = true;
-
-        // Задаем вид пунктирной линии для крупных рисок по оси Y:
-        // Длина штрихов равна одному пикселю, ...
-        pane.YAxis.MinorGrid.DashOn = 1;
-
-        // затем 2 пикселя - пропуск
-        pane.YAxis.MinorGrid.DashOff = 2;
-
-        // Включаем отображение сетки напротив мелких рисок по оси Y
-        pane.XAxis.MinorGrid.IsVisible = true;
-
-        // Аналогично задаем вид пунктирной линии для крупных рисок по оси Y
-        pane.XAxis.MinorGrid.DashOn = 1;
-        pane.XAxis.MinorGrid.DashOff = 2;
-
         pane.XAxis.Scale.Max = 15.0;
         pane.YAxis.Scale.Max = 15.0;
     }
@@ -195,7 +250,8 @@ public partial class FirstTaskForm : Form
         IReadOnlyList<double> xData,
         IReadOnlyList<double> yData,
         string graphName,
-        Color color
+        Color color,
+        SymbolType symbolType
     )
     {
         var list = new PointPairList();
@@ -207,7 +263,7 @@ public partial class FirstTaskForm : Form
             list.Add(xData[index], yData[index]);
         }
 
-        pane.AddCurve(graphName, list, color, SymbolType.Circle);
+        pane.AddCurve(graphName, list, color, symbolType);
     }
 
     private void ExitButton_Click(object sender, EventArgs e)
@@ -248,5 +304,23 @@ public partial class FirstTaskForm : Form
     private void ExitButton_Click_1(object sender, EventArgs e)
     {
         Close();
+    }
+    
+    private void polynomialCheckBox_CheckedChanged(object sender, EventArgs e)
+    {
+        _drawPolynomial = drawPolynomialCheckBox.Checked;
+        Plot();
+    }
+
+    private void drawFunctionCheckBox_CheckedChanged(object sender, EventArgs e)
+    {
+        _drawFunction = drawFunctionCheckBox.Checked;
+        Plot();
+    }
+
+    private void drawErrorsCheckBox_CheckedChanged(object sender, EventArgs e)
+    {
+        _drawErrors = drawErrorsCheckBox.Checked;
+        Plot();
     }
 }

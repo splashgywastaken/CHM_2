@@ -61,7 +61,6 @@ public partial class SecondTaskForm : Form
     }
 
     //TODO: доделать методы с генерацией данных + сделать отрисовку графиков ниже
-
     public void GenerateData()
     {
         if (
@@ -106,9 +105,30 @@ public partial class SecondTaskForm : Form
 
         PaneInit(pane);
 
-        //TODO: построить графики экспериментальной функции, таблично заданной функции и аппроксимирующей функции
-        
-
+        //Табличная функция
+        DrawGraph(
+            pane,
+            _approximation.XDoubles,
+            _approximation.FDoubles,
+            "Табличная функция",
+            Color.Red
+        );
+        //Экспериментальная функция
+        DrawGraph(
+            pane,
+            _approximation.XDoubles,
+            _approximation.ExperimentalDoubles,
+            "Табличная функция",
+            Color.Green
+        );
+        //Аппроксимирующая функция
+        DrawGraph(
+            pane,
+            _approximation.XDoubles,
+            _approximation.ApproximationDoubles,
+            "Табличная функция",
+            Color.Blue
+        );
 
         ApproximationPlot.AxisChange();
         ApproximationPlot.Invalidate();

@@ -19,7 +19,7 @@ internal class Functions
     }
 
     private static double LinearFunction(double x, IReadOnlyList<double> coefficients)
-        => coefficients[0] * (coefficients[1] * x);
+        => coefficients[0] * x + coefficients[1];
 
     private static double QuadraticFunction(double x, IReadOnlyList<double> coefficients)
         => coefficients[0] * x * x + coefficients[1] * 2 * x + coefficients[2];

@@ -19,12 +19,16 @@ class Approximation
     public int N { get; set; }
 
     public double[] XDoubles { get; private set; }
+
     public double[] FDoubles { get; private set; }
-    public double[] PhiDoubles { get; private set; }
+    private double[] PhiDoubles { get; set; }
+    public double[] ExperimentalDoubles { get; private set; }
+    public double[] ApproximationDoubles { get; private set; }
+
     private double[] ExperimentalCoefficients { get; set; }
     private double[] ApproximationCoefficients { get; set; }
-    
-    public IDistribution Distribution { get; set; }
+
+    private IDistribution Distribution { get; set; }
 
     public Approximation(
         double a,
@@ -35,6 +39,12 @@ class Approximation
         IDistribution distribution
         )
     {
+
+        FDoubles = new double[N];
+        PhiDoubles = new double[N];
+        ExperimentalDoubles = new double[N];
+        ApproximationDoubles = new double[N];
+
         A = a;
         B = b;
         N = n;
