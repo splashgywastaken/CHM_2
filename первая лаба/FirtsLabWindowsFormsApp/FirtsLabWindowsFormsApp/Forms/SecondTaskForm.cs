@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using FirstLabWindowsFormsApp.Main;
@@ -25,43 +26,10 @@ public partial class SecondTaskForm : Form
 
     private void generate_Click(object sender, EventArgs e)
     {
-        if (
-            aTextBox.Text == string.Empty
-            || bTextBox.Text == string.Empty
-            || nTextBox.Text == string.Empty
-        )
-        {
-            MessageBox.Show(
-                "Одно или несколько полей не заполнено, заполните поля чтобы продолжить работу",
-                "Ошибка",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error
-            );
-
-            return;
-        }
-
-        if (_approximation != null)
-        {
-            _approximation.A = Convert.ToInt32(aTextBox.Text);
-            _approximation.B = Convert.ToInt32(bTextBox.Text);
-            _approximation.N = Convert.ToInt32(nTextBox.Text);
-        }
-        else
-        {
-            _approximation = new Approximation(
-                Convert.ToDouble(aTextBox.Text),
-                Convert.ToDouble(bTextBox.Text),
-                Convert.ToInt32(nTextBox.Text),
-                experimentalCoefficientsTextBox.Text.Split(' ').Select(Convert.ToDouble).ToArray(),
-                approximationCoefficientsTextBox.Text.Split(' ').Select(Convert.ToDouble).ToArray(),
-                radioButtonUniform.Checked ? new UniformDistribution() : new ChebushevDistribution()
-            );
-        }
+        GenerateData();
     }
 
-    //TODO: доделать методы с генерацией данных + сделать отрисовку графиков ниже
-    public void GenerateData()
+    private void GenerateData()
     {
         if (
             aTextBox.Text == string.Empty
@@ -92,10 +60,20 @@ public partial class SecondTaskForm : Form
                 Convert.ToDouble(bTextBox.Text),
                 Convert.ToInt32(nTextBox.Text),
                 experimentalCoefficientsTextBox.Text.Split(' ').Select(Convert.ToDouble).ToArray(),
-                approximationCoefficientsTextBox.Text.Split(' ').Select(Convert.ToDouble).ToArray(),
                 radioButtonUniform.Checked ? new UniformDistribution() : new ChebushevDistribution()
             );
         }
+
+        _approximation.GenerateData();
+
+        approximationCoefficientsTextBox.Text =
+            string.Join(", ", _approximation.ApproximationCoefficients);
+
+        errorTextBox.Text = Convert.ToString(
+            _approximation.SquaredError, 
+            CultureInfo.InvariantCulture
+            );
+
     }
 
     private void plot_Click(object sender, EventArgs e)
@@ -109,24 +87,24 @@ public partial class SecondTaskForm : Form
         DrawGraph(
             pane,
             _approximation.XDoubles,
-            _approximation.FDoubles,
-            "Табличная функция",
+            _approximation.FTableDoubles,
+            "Таблично заданная функция",
             Color.Red
         );
         //Экспериментальная функция
         DrawGraph(
             pane,
             _approximation.XDoubles,
-            _approximation.ExperimentalDoubles,
-            "Табличная функция",
+            _approximation.FDoubles,
+            "Экспериментальная функция",
             Color.Green
         );
         //Аппроксимирующая функция
         DrawGraph(
             pane,
             _approximation.XDoubles,
-            _approximation.ApproximationDoubles,
-            "Табличная функция",
+            _approximation.PhiDoubles,
+            "Функция аппроксимации",
             Color.Blue
         );
 

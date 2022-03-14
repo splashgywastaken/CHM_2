@@ -66,6 +66,7 @@
     <Compile Include="Forms\SecondTaskForm.Designer.cs">
       <DependentUpon>SecondTaskForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Main\CubicInterpolation.cs" />
     <Compile Include="Services\Functions.cs" />
     <Compile Include="Strategies\Distribution\ChebushevDistribution.cs" />
     <Compile Include="Forms\FirstTaskForm.cs">

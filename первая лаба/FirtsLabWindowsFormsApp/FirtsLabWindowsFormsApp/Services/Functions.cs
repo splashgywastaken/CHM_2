@@ -30,6 +30,15 @@ internal class Functions
     private static double SinFunction(double x, IReadOnlyList<double> coefficients)
         => coefficients[0] * Math.Sin(coefficients[1] * x);
 
+    private static double AbsFunction(double x, IReadOnlyList<double> coefficients)
+        => Math.Abs(coefficients[0] * x) + coefficients[1];
+
+    private static double RungeFunction(double x, IReadOnlyList<double> coefficients)
+        => 1 / (1 + coefficients[0] * Math.Pow(x, 2));
+
+    private static double HyperbolicFunction(double x, IReadOnlyList<double> coefficients)
+        => 1 / Math.Pow(x, coefficients[0]);
+
     private void SetFunction(int functionIndex)
     {
         _function = functionIndex switch
@@ -38,6 +47,9 @@ internal class Functions
             1 => LinearFunction,
             2 => QuadraticFunction,
             3 => CubicFunction,
+            4 => HyperbolicFunction,
+            5 => RungeFunction,
+            6 => AbsFunction,
             _ => _function
         };
     }

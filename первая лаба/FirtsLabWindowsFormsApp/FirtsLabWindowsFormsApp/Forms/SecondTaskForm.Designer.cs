@@ -88,7 +88,7 @@
             this.nTextBox.Location = new System.Drawing.Point(578, 64);
             this.nTextBox.Name = "nTextBox";
             this.nTextBox.Size = new System.Drawing.Size(210, 20);
-            this.nTextBox.TabIndex = 27;
+            this.nTextBox.TabIndex = 3;
             // 
             // label2
             // 
@@ -104,7 +104,7 @@
             this.bTextBox.Location = new System.Drawing.Point(578, 38);
             this.bTextBox.Name = "bTextBox";
             this.bTextBox.Size = new System.Drawing.Size(210, 20);
-            this.bTextBox.TabIndex = 25;
+            this.bTextBox.TabIndex = 2;
             // 
             // label1
             // 
@@ -120,7 +120,7 @@
             this.aTextBox.Location = new System.Drawing.Point(578, 12);
             this.aTextBox.Name = "aTextBox";
             this.aTextBox.Size = new System.Drawing.Size(210, 20);
-            this.aTextBox.TabIndex = 24;
+            this.aTextBox.TabIndex = 1;
             // 
             // errorTextBox
             // 
@@ -128,7 +128,7 @@
             this.errorTextBox.Name = "errorTextBox";
             this.errorTextBox.ReadOnly = true;
             this.errorTextBox.Size = new System.Drawing.Size(238, 20);
-            this.errorTextBox.TabIndex = 38;
+            this.errorTextBox.TabIndex = 9;
             // 
             // label6
             // 
@@ -145,7 +145,7 @@
             this.radioButtonChebushev.Location = new System.Drawing.Point(709, 280);
             this.radioButtonChebushev.Name = "radioButtonChebushev";
             this.radioButtonChebushev.Size = new System.Drawing.Size(79, 17);
-            this.radioButtonChebushev.TabIndex = 36;
+            this.radioButtonChebushev.TabIndex = 6;
             this.radioButtonChebushev.TabStop = true;
             this.radioButtonChebushev.Text = "Чебышева";
             this.radioButtonChebushev.UseVisualStyleBackColor = true;
@@ -157,7 +157,7 @@
             this.radioButtonUniform.Location = new System.Drawing.Point(554, 280);
             this.radioButtonUniform.Name = "radioButtonUniform";
             this.radioButtonUniform.Size = new System.Drawing.Size(94, 17);
-            this.radioButtonUniform.TabIndex = 35;
+            this.radioButtonUniform.TabIndex = 5;
             this.radioButtonUniform.TabStop = true;
             this.radioButtonUniform.Text = "Равномерное";
             this.radioButtonUniform.UseVisualStyleBackColor = true;
@@ -167,7 +167,7 @@
             this.plot.Location = new System.Drawing.Point(554, 343);
             this.plot.Name = "plot";
             this.plot.Size = new System.Drawing.Size(238, 39);
-            this.plot.TabIndex = 33;
+            this.plot.TabIndex = 8;
             this.plot.Text = "Построить график";
             this.plot.UseVisualStyleBackColor = true;
             this.plot.Click += new System.EventHandler(this.plot_Click);
@@ -187,7 +187,7 @@
             this.generate.Location = new System.Drawing.Point(554, 303);
             this.generate.Name = "generate";
             this.generate.Size = new System.Drawing.Size(238, 34);
-            this.generate.TabIndex = 32;
+            this.generate.TabIndex = 7;
             this.generate.Text = "Сгенерировать";
             this.generate.UseVisualStyleBackColor = true;
             this.generate.Click += new System.EventHandler(this.generate_Click);
@@ -198,7 +198,7 @@
             this.experimentalCoefficientsTextBox.Multiline = true;
             this.experimentalCoefficientsTextBox.Name = "experimentalCoefficientsTextBox";
             this.experimentalCoefficientsTextBox.Size = new System.Drawing.Size(234, 47);
-            this.experimentalCoefficientsTextBox.TabIndex = 40;
+            this.experimentalCoefficientsTextBox.TabIndex = 4;
             // 
             // label5
             // 
@@ -214,6 +214,7 @@
             this.approximationCoefficientsTextBox.Location = new System.Drawing.Point(550, 195);
             this.approximationCoefficientsTextBox.Multiline = true;
             this.approximationCoefficientsTextBox.Name = "approximationCoefficientsTextBox";
+            this.approximationCoefficientsTextBox.ReadOnly = true;
             this.approximationCoefficientsTextBox.Size = new System.Drawing.Size(234, 47);
             this.approximationCoefficientsTextBox.TabIndex = 42;
             // 

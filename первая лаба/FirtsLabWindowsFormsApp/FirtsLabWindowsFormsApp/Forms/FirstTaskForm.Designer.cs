@@ -187,7 +187,10 @@
             "синусоида (a,b)",
             "линейная функция (a,b)",
             "квадратичная функция (a,b,c)",
-            "кубическая функция (a,b,c,d)"});
+            "кубическая функция (a,b,c,d)",
+            "Гипербола (степень a)",
+            "Пример Рунге (a)",
+            "Модуль (a,b)"});
             this.functionComboBox.Location = new System.Drawing.Point(561, 87);
             this.functionComboBox.Name = "functionComboBox";
             this.functionComboBox.Size = new System.Drawing.Size(296, 21);
