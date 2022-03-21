@@ -16,7 +16,7 @@ public class ChebushevDistribution : IDistribution
         {
             try
             {
-                result[index] = (a + b) / 2 - (b - a) / 2 * Math.Cos((2.0f * index + 1) / (2 * n + 2) * Math.PI);
+                result[index] = (a + b) / 2 - (b - a) / 2 * Math.Cos(Math.PI * (2.0f * index + 1) / (2 * n + 2));
             }
             catch (IndexOutOfRangeException ex)
             {

@@ -121,50 +121,6 @@ public partial class FirstTaskForm : Form
         }
     }
 
-    //Ms charts graph
-    //private void plot_Click(object sender, EventArgs e)
-    //{
-    //    graphPane.Series.Clear();
-
-    //    DrawGraph(
-    //        "Функция",
-    //        _interpolation.XDoubles,
-    //        _interpolation.YDoubles
-    //        );
-    //    DrawGraph(
-    //        "Погрешность интерполяции",
-    //        _interpolation.XDoubles,
-    //        _interpolation.ErrorDoubles
-    //    );
-    //    DrawGraph(
-    //        "Интерполяционный полином",
-    //        _interpolation.XDoubles,
-    //        _interpolation.PDoubles
-    //    );
-
-    //}
-
-    //private void DrawGraph(
-    //    string graphName,
-    //    IReadOnlyList<double> x,
-    //    IReadOnlyList<double> y
-    //    )
-    //{
-
-    //    var length = x.Count;
-
-    //    var series = graphPane.Series.Add(graphName);
-    //    series.ChartType = SeriesChartType.Spline;
-
-    //    for (var index = 0; index < length; index++)
-    //    {
-    //        series.Points.AddXY(x[index], y[index]);
-    //    }
-
-    //}
-
-    //ZedGraph charts
-
     private void Plot_Click(object sender, EventArgs e)
     {
         Plot();
@@ -188,6 +144,22 @@ public partial class FirstTaskForm : Form
             ref p,
             ref errors,
             n);
+
+        if (p.Any(d => double.IsNaN(d) || double.IsInfinity(d))
+            ||
+            f.Any(d => double.IsInfinity(d) || double.IsNaN(d))
+           )
+        {
+
+            MessageBox.Show(
+                "В одном из массивов было получена бесконечность либо не число. Конец работы программы",
+                "Ошибка",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+            );
+            return;
+
+        }
 
         if (_drawPolynomial)
         {

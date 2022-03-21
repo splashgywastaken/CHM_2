@@ -68,6 +68,8 @@ public partial class SecondTaskForm : Form
 
         _approximation.GenerateData();
 
+        //_approximation.PartitionNum = Convert.ToInt32(partitionTextBox.Text);
+
         approximationCoefficientsTextBox.Text =
             string.Join(", ", _approximation.ApproximationCoefficients);
 
@@ -174,5 +176,10 @@ public partial class SecondTaskForm : Form
         }
 
         pane.AddCurve(graphName, list, color, SymbolType.Circle);
+    }
+
+    private void partitionTrackBar_Scroll(object sender, EventArgs e)
+    {
+
     }
 }

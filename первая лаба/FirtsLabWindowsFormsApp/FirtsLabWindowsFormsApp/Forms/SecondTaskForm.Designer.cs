@@ -48,11 +48,13 @@
             this.label5 = new System.Windows.Forms.Label();
             this.approximationCoefficientsTextBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.partitionTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // ExitButton
             // 
-            this.ExitButton.Location = new System.Drawing.Point(550, 457);
+            this.ExitButton.Location = new System.Drawing.Point(550, 495);
             this.ExitButton.Name = "ExitButton";
             this.ExitButton.Size = new System.Drawing.Size(238, 33);
             this.ExitButton.TabIndex = 18;
@@ -124,7 +126,7 @@
             // 
             // errorTextBox
             // 
-            this.errorTextBox.Location = new System.Drawing.Point(550, 431);
+            this.errorTextBox.Location = new System.Drawing.Point(550, 469);
             this.errorTextBox.Name = "errorTextBox";
             this.errorTextBox.ReadOnly = true;
             this.errorTextBox.Size = new System.Drawing.Size(238, 20);
@@ -133,7 +135,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(552, 389);
+            this.label6.Location = new System.Drawing.Point(552, 427);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(183, 39);
             this.label6.TabIndex = 37;
@@ -142,7 +144,7 @@
             // radioButtonChebushev
             // 
             this.radioButtonChebushev.AutoSize = true;
-            this.radioButtonChebushev.Location = new System.Drawing.Point(709, 280);
+            this.radioButtonChebushev.Location = new System.Drawing.Point(709, 318);
             this.radioButtonChebushev.Name = "radioButtonChebushev";
             this.radioButtonChebushev.Size = new System.Drawing.Size(79, 17);
             this.radioButtonChebushev.TabIndex = 6;
@@ -154,7 +156,7 @@
             // 
             this.radioButtonUniform.AutoSize = true;
             this.radioButtonUniform.Checked = true;
-            this.radioButtonUniform.Location = new System.Drawing.Point(554, 280);
+            this.radioButtonUniform.Location = new System.Drawing.Point(554, 318);
             this.radioButtonUniform.Name = "radioButtonUniform";
             this.radioButtonUniform.Size = new System.Drawing.Size(94, 17);
             this.radioButtonUniform.TabIndex = 5;
@@ -164,7 +166,7 @@
             // 
             // plot
             // 
-            this.plot.Location = new System.Drawing.Point(554, 343);
+            this.plot.Location = new System.Drawing.Point(554, 381);
             this.plot.Name = "plot";
             this.plot.Size = new System.Drawing.Size(238, 39);
             this.plot.TabIndex = 8;
@@ -176,7 +178,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(550, 253);
+            this.label4.Location = new System.Drawing.Point(550, 291);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(222, 24);
             this.label4.TabIndex = 34;
@@ -184,7 +186,7 @@
             // 
             // generate
             // 
-            this.generate.Location = new System.Drawing.Point(554, 303);
+            this.generate.Location = new System.Drawing.Point(554, 341);
             this.generate.Name = "generate";
             this.generate.Size = new System.Drawing.Size(238, 34);
             this.generate.TabIndex = 7;
@@ -227,11 +229,29 @@
             this.label7.TabIndex = 41;
             this.label7.Text = "Коэффициенты для \r\nфункции аппроксимации";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(550, 249);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(123, 13);
+            this.label8.TabIndex = 44;
+            this.label8.Text = "Количество разбиений";
+            // 
+            // partitionTextBox
+            // 
+            this.partitionTextBox.Location = new System.Drawing.Point(551, 266);
+            this.partitionTextBox.Name = "partitionTextBox";
+            this.partitionTextBox.Size = new System.Drawing.Size(237, 20);
+            this.partitionTextBox.TabIndex = 45;
+            // 
             // SecondTaskForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 502);
+            this.ClientSize = new System.Drawing.Size(800, 558);
+            this.Controls.Add(this.partitionTextBox);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.approximationCoefficientsTextBox);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.experimentalCoefficientsTextBox);
@@ -279,5 +299,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox approximationCoefficientsTextBox;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox partitionTextBox;
     }
 }

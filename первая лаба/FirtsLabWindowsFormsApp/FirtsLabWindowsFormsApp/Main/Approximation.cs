@@ -11,6 +11,13 @@ namespace FirstLabWindowsFormsApp.Main;
 
 //  Вариант 3
 //  функция phi(x) = a + b/x 
+// Добавить уплотнение
+// Взять для примера экспоненту
+// Добавить возможность использовать функцию без искажения при подсчёте коэффициентов
+//
+// В первой задаче не должна погрешность увеличиваться с увеличением количества узлов
+// 
+//
 
 class Approximation
 {
@@ -19,6 +26,7 @@ class Approximation
     public double SquaredError { get; private set; }
 
     public int N { get; set; }
+    public int PartitionNum { get; set; }
 
     public double[] XDoubles { get; private set; }
 
@@ -63,6 +71,32 @@ class Approximation
         FindSquaredError();
     }
 
+    public void Compact()
+    {
+
+
+
+    }
+
+    private double[] Partition(double[] array)
+    {
+
+        var n = array.Count();
+        var result = new List<double>(n * (PartitionNum + 1));
+        var temp = new double[PartitionNum];
+        var distribution = new UniformDistribution();
+
+        for (var i = 0; i < n - 1; i++)
+        {
+            temp = distribution.Distribute(array[i], array[i + 1], PartitionNum);
+            for (var j = 0; j < 3; j++)
+                result.Add(temp[j]);
+        }
+
+        return result.ToArray();
+
+    }
+
     private void CoefficientsCalculation()
     {
         const int n = 2;
@@ -75,8 +109,8 @@ class Approximation
             var temp = 1 / XDoubles[index];
             S[0, 1] += temp;
             S[1, 1] += temp * temp;
-            t[0] += FTableDoubles[index];
-            t[1] += FTableDoubles[index] * temp;
+            t[0] += FDoubles[index];
+            t[1] += FDoubles[index] * temp;
         }
 
         S[0, 0] = N + 1;

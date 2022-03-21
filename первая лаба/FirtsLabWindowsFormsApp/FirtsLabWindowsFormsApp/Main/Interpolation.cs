@@ -81,7 +81,7 @@ public class Interpolation
 
     private static double CalculateDividedDifferences(
         IReadOnlyList<double> x,
-        IReadOnlyList<double> y, 
+        IReadOnlyList<double> y,
         int k
         )
     {
@@ -101,12 +101,33 @@ public class Interpolation
         return result;
     }
 
+    private static double CalculateDividedDifferences(
+        double h,
+        IReadOnlyList<double> y,
+        int k
+    )
+    {
+        double result = 0;
+        for (var j = 0; j <= k; j++)
+        {
+
+            result += 
+                Math.Pow(-1, k - j) * y[j] 
+                /
+                (MathFunctions.Fact(j) * MathFunctions.Fact(k - j) * Math.Pow(h, k));
+
+        }
+        return result;
+    }
+
     private static Func<double, double> CreateNewtonPolynomial(double[] x, double[] y)
     {
         var divDiff = new double[x.Length - 1];
+        var h = x[1] - x[0];
         for (var index = 1; index < x.Length; index++)
         {
-            divDiff[index - 1] = CalculateDividedDifferences(x, y, index);
+            //divDiff[index - 1] = CalculateDividedDifferences(x, y, index);
+            divDiff[index - 1] = CalculateDividedDifferences(h, y, index);
         }
 
         double NewtonPolynomial(double xVal)
@@ -125,7 +146,6 @@ public class Interpolation
 
             return result;
         }
-
         return NewtonPolynomial;
     }
 
@@ -138,9 +158,7 @@ public class Interpolation
         {
             try
             {
-                
                 YDoubles[index] = function(XDoubles[index], CoefficientsDoubles);
-
             }
             catch (System.IndexOutOfRangeException ex)
             {
@@ -151,15 +169,26 @@ public class Interpolation
 
     private void GetErrors()
     {
-
         for (var i = 0; i < N; i++)
         {
             ErrorDoubles[i] = Math.Abs(YDoubles[i] - PDoubles[i]);
         }
-
     }
 
-    public double GetMaxAbsoluteError() => ErrorDoubles.Max();
+    public double GetMaxAbsoluteError()
+    {
+        var max = ErrorDoubles[0];
+
+        for (var i = 0; i < N; i++)
+        {
+
+            if (ErrorDoubles[i] < max || ErrorDoubles[i] != 0)
+                max = ErrorDoubles[i];
+
+        }
+
+        return max;
+    }
 
     public void SetFunctionAndCoefficients(int selectedIndex, double[] coefficients)
     {
