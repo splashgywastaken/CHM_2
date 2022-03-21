@@ -16,7 +16,7 @@ class Approximation
 {
     public double A { get; set; }
     public double B { get; set; }
-    public double SquaredError { get; set; }
+    public double SquaredError { get; private set; }
 
     public int N { get; set; }
 
@@ -26,7 +26,7 @@ class Approximation
     public double[] FTableDoubles { get; private set; }
     public double[] PhiDoubles { get; private set; }
 
-    private double[] ExperimentalCoefficients { get; set; }
+    public double[] ExperimentalCoefficients { get; set; }
     public double[] ApproximationCoefficients { get; private set; }
 
     private IDistribution Distribution { get; set; }
@@ -59,13 +59,7 @@ class Approximation
         //Поиск коэффициентов аппроксимации и генерирование вектора функции аппроксимации
         CoefficientsCalculation();
         GeneratePhiDoubles();
-
-        //var h = FDoubles[0] - PhiDoubles[0];
-        //for (var index = 0; index < N; index++)
-        //{
-        //    PhiDoubles[index] += h;
-        //}
-
+        
         FindSquaredError();
     }
 
@@ -73,63 +67,24 @@ class Approximation
     {
         const int n = 2;
 
-        var a = new double[n, n];
-        var f = new double[n];
-        var x = new double[n];
-        double function = 0;
-        double functionSquared = 0;
-        double y = 0;
-        double functionY = 0;
+        var S = new double[n, n];
+        var t = new double[n];
 
-        var k = N / 2;
-
-        //TODO: Составить систему на подобии той, что сохранил и дифференцировав решить 
-        for (var index = 0; index < k; index++)
+        for (var index = 0; index < N; index++)
         {
-            var tmp = Function(XDoubles[index], ExperimentalCoefficients);
-            function += tmp;
-            functionSquared += tmp * tmp;
-            functionY += FTableDoubles[index] * tmp;
-            y += FTableDoubles[index];
+            var temp = 1 / XDoubles[index];
+            S[0, 1] += temp;
+            S[1, 1] += temp * temp;
+            t[0] += FTableDoubles[index];
+            t[1] += FTableDoubles[index] * temp;
         }
 
-        a[0, 0] = k;
-        a[0, 1] = a[1, 0] = function;
-        a[1, 1] = functionSquared;
-        f[0] = y;
-        f[1] = functionY;
-
-        SolveSystem(a, f, ref x);
-
+        S[0, 0] = N + 1;
+        S[1, 0] = S[0, 1];
+        
         ApproximationCoefficients = new double[2];
-        ApproximationCoefficients[0] = x[0];
-        ApproximationCoefficients[1] = x[1];
-    }
-
-    private static void SolveSystem(double[,] a, IList<double> f, ref double[] x)
-    {
-        var n = f.Count;
-        for (var i = 0; i < n; i++)
-        {
-            var R = 1 / a[i, i];
-            a[i, i] = 1;
-            f[i] *= R;
-            for (var j = i + 1; j < n; j++)
-            {
-                a[i, j] *= R;
-            }
-            for (var k = 0; k < n; k++)
-                if (k != i)
-                {
-                    R = a[k, i];
-                    f[k] -= R * f[i];
-                    for (var j = i + 1; j < n; j++)
-                        a[k, j] -= R * a[i, j];
-                }
-        }
-
-        for (var i = 0; i < n; i++)
-            x[i] = f[i];
+        ApproximationCoefficients[0] = (t[0] * S[1, 1] - S[0, 1] * t[1]) / (S[0, 0] * S[1, 1] - S[0, 1] * S[0, 1]);
+        ApproximationCoefficients[1] = (t[1] * S[0, 0] - t[0] * S[0, 1]) / (S[0, 0] * S[1, 1] - S[0, 1] * S[0, 1]);
     }
 
     private void GenerateXDoubles()

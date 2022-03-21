@@ -63,6 +63,7 @@ public class Interpolation
         GenerateYDoubles();
         GeneratePDoubles();
 
+        
         GetErrors();
     }
 
@@ -137,7 +138,7 @@ public class Interpolation
         {
             try
             {
-
+                
                 YDoubles[index] = function(XDoubles[index], CoefficientsDoubles);
 
             }

@@ -52,6 +52,8 @@ public partial class SecondTaskForm : Form
             _approximation.A = Convert.ToInt32(aTextBox.Text);
             _approximation.B = Convert.ToInt32(bTextBox.Text);
             _approximation.N = Convert.ToInt32(nTextBox.Text);
+            _approximation.ExperimentalCoefficients =
+                experimentalCoefficientsTextBox.Text.Split(' ').Select(Convert.ToDouble).ToArray();
         }
         else
         {
