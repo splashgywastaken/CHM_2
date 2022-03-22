@@ -87,8 +87,8 @@ public partial class SecondTaskForm : Form
 
         PaneInit(pane);
 
-        if (checkBox1.Checked)
-        {
+        //if (checkBox1.Checked)
+        //{
             //Табличная функция
             DrawScatterPlot(
                 pane,
@@ -97,9 +97,9 @@ public partial class SecondTaskForm : Form
                 "Таблично заданная функция",
                 Color.Red
             );
-        }
+        //}
         //Экспериментальная функция
-        DrawGraph(
+        DrawScatterPlot(
             pane,
             _approximation.XDoubles,
             _approximation.FDoubles,
@@ -194,7 +194,7 @@ public partial class SecondTaskForm : Form
 
         // !!!
         // Размер ромбиков
-        myCurve.Symbol.Size = 7;
+        myCurve.Symbol.Size = 5;
     }
 
     private void DrawGraph(

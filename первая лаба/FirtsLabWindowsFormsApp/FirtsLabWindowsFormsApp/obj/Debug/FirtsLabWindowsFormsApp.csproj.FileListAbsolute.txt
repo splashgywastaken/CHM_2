@@ -57,7 +57,6 @@ C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\Fir
 C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirtsLabWindowsFormsApp.csproj.SuggestedBindingRedirects.cache
 C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.Forms.FirstTaskForm.resources
 C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.Forms.SecondTaskForm.resources
-C:\projects\github_clone\CHM_2\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\obj\Debug\FirstLabWindowsFormsApp.Forms.ThirdTaskForm.resources
 D:\доки с рабочего стола\важные документы\вуз\6 семестр\чм\лабораторные\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\bin\Debug\FirstLabWindowsFormsApp.exe.config
 D:\доки с рабочего стола\важные документы\вуз\6 семестр\чм\лабораторные\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\bin\Debug\FirstLabWindowsFormsApp.exe
 D:\доки с рабочего стола\важные документы\вуз\6 семестр\чм\лабораторные\первая лаба\FirtsLabWindowsFormsApp\FirtsLabWindowsFormsApp\bin\Debug\FirstLabWindowsFormsApp.pdb

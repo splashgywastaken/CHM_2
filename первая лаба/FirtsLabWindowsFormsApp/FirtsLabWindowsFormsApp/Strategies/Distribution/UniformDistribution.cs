@@ -12,12 +12,13 @@ public class UniformDistribution : IDistribution
     )
     {
         var result = new double[n];
+        var temp = 1 / (n - 1);
 
         for (var index = 0; index < n; index++)
         {
             try
             {
-                result[index] = a + (b - a) / n * index;
+                result[index] = a + (b - a) * temp * index;
             }
             catch (IndexOutOfRangeException ex)
             {
