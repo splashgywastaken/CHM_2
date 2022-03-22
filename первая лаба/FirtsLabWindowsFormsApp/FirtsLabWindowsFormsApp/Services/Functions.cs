@@ -28,7 +28,7 @@ internal class Functions
         => Math.Pow(x, 3) * coefficients[0] + Math.Pow(x, 2) * coefficients[1] + x * coefficients[2] + coefficients[0];
 
     private static double SinFunction(double x, IReadOnlyList<double> coefficients)
-        => coefficients[0] + Math.Sin(coefficients[1] * x);
+        => coefficients[0] + Math.Cos(coefficients[1] * x);
 
     private static double AbsFunction(double x, IReadOnlyList<double> coefficients)
         => Math.Abs(coefficients[0] * x) + coefficients[1];

@@ -14,25 +14,9 @@ public class Interpolation
 {
     private Functions _functions;
 
-    public Interpolation(
-        IDistribution distribution,
-        double a,
-        double b,
-        int n,
-        double[] coefficients,
-        int functionNumber
-        )
-    {
-        A = a;
-        B = b;
-        N = n;
-
-        Distribution = distribution;
-
-        SetFunctionAndCoefficients(functionNumber, coefficients);
-    }
-
     public double[] XDoubles { get; private set; }
+
+    public double[] HDoubles { get; private set; }
 
     public double[] YDoubles { get; private set; }
 
@@ -52,14 +36,34 @@ public class Interpolation
 
     public Func<double, double> NewtonPolynomial { get; set; }
 
-    public void GenerateData()
+    public Interpolation(
+        IDistribution distribution,
+        double a,
+        double b,
+        int n,
+        double[] coefficients,
+        int functionNumber
+    )
     {
-        XDoubles = new double[N];
-        YDoubles = new double[N];
+        A = a;
+        B = b;
+        N = n;
+        
+        Distribution = distribution;
+
+        SetFunctionAndCoefficients(functionNumber, coefficients);
+    }
+
+    public void GenerateData()          
+    {
+        XDoubles = new double[N + 1];
+        YDoubles = new double[N + 1];
         PDoubles = new double[N];
         ErrorDoubles = new double[N];
+        HDoubles = new double[N];
 
-        XDoubles = Distribution.Distribute(A, B, N);
+        //XDoubles = Distribution.Distribute(A, B, N);
+        GenerateXDoubles();
         GenerateYDoubles();
         GeneratePDoubles();
 
@@ -67,16 +71,58 @@ public class Interpolation
         GetErrors();
     }
 
+    private void GenerateXDoubles()
+    {
+        HDoubles = new double[N];
+
+        if (Distribution.GetType() == typeof(UniformDistribution))
+        {
+            EvenNodes(A, B, N + 1);
+        }
+        else
+        {
+            ChebushevNodes(A, B, N + 1);
+        }
+    }
+
+    private void EvenNodes(double a, double b, int N)
+    {
+        XDoubles[0] = a;
+        var h = (b - a) / (N - 1);
+        for (var i = 1; i < N; i++)
+        {
+            XDoubles[i] = XDoubles[i - 1] + h;
+        }
+        for (var i = 0; i < N - 1; i++)
+        {
+            HDoubles[i] = h;
+        }
+    }
+
+    private void ChebushevNodes(double a, double b, double N)
+    {
+        double
+            t1 = (a + b) / 2,
+            t2 = (b - a) / 2,
+            t3 = 1 / (2 * N) * Math.PI;
+        for (var i = 0; i < N; i++)
+        {
+            XDoubles[i] = t1 - t2 * Math.Cos((2 * i + 1) * t3);
+        }
+        for (var i = 1; i < N - 1; i++)
+        {
+            HDoubles[i] = XDoubles[i] - XDoubles[i - 1];
+        }
+    }
+
     private void GeneratePDoubles()
     {
-
         NewtonPolynomial = CreateNewtonPolynomial(XDoubles, YDoubles);
 
         for (var index = 0; index < N; index++)
         {
             PDoubles[index] = NewtonPolynomial(XDoubles[index]);
         }
-
     }
 
     private static double CalculateDividedDifferences(
@@ -91,10 +137,8 @@ public class Interpolation
             double mul = 1;
             for (var i = 0; i <= k; i++)
             {
-                if (j != i)
-                {
-                    mul *= (x[j] - x[i]);
-                }
+                if (j == i) continue;
+                mul *= x[j] - x[i];
             }
             result += y[j] / mul;
         }
@@ -122,26 +166,26 @@ public class Interpolation
 
     private static Func<double, double> CreateNewtonPolynomial(double[] x, double[] y)
     {
-        var divDiff = new double[x.Length - 1];
+        var divDiff = new double[x.Length];
         var h = x[1] - x[0];
-        for (var index = 1; index < x.Length; index++)
+        for (var index = 0; index < x.Length; index++)
         {
-            //divDiff[index - 1] = CalculateDividedDifferences(x, y, index);
-            divDiff[index - 1] = CalculateDividedDifferences(h, y, index);
+            divDiff[index] = CalculateDividedDifferences(x, y, index);
+            //divDiff[index] = CalculateDividedDifferences(h, y, index);
         }
 
         double NewtonPolynomial(double xVal)
         {
-            var result = y[0];
+            var result = divDiff[0];
             for (var index = 1; index < x.Length; index++)
             {
                 double mul = 1;
                 for (var innerIndex = 0; innerIndex < index; innerIndex++)
                 {
-                    mul *= (xVal - x[innerIndex]);
+                    mul *= xVal - x[innerIndex];
                 }
 
-                result += divDiff[index - 1] * mul;
+                result += divDiff[index] * mul;
             }
 
             return result;
@@ -154,7 +198,7 @@ public class Interpolation
 
         var function = _functions.GetFunction();
 
-        for (var index = 0; index < N; index++)
+        for (var index = 0; index < N + 1; index++)
         {
             try
             {
@@ -177,17 +221,7 @@ public class Interpolation
 
     public double GetMaxAbsoluteError()
     {
-        var max = ErrorDoubles[0];
-
-        for (var i = 0; i < N; i++)
-        {
-
-            if (ErrorDoubles[i] < max || ErrorDoubles[i] != 0)
-                max = ErrorDoubles[i];
-
-        }
-
-        return max;
+        return ErrorDoubles.Max();
     }
 
     public void SetFunctionAndCoefficients(int selectedIndex, double[] coefficients)
@@ -223,7 +257,7 @@ public class Interpolation
 
     }
 
-    public double[] GenerateFunctionGraphData(double[] x, int n)
+    private double[] GenerateFunctionGraphData(IReadOnlyList<double> x, int n)
     {
 
         var result = new double[n];
@@ -240,7 +274,7 @@ public class Interpolation
 
     }
 
-    public double[] GeneratePolynomialGraphData(double[] x, int n)
+    private double[] GeneratePolynomialGraphData(IReadOnlyList<double> x, int n)
     {
 
         var result = new double[n];

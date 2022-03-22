@@ -39,22 +39,18 @@
             this.aTextBox = new System.Windows.Forms.TextBox();
             this.errorTextBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.radioButtonChebushev = new System.Windows.Forms.RadioButton();
-            this.radioButtonUniform = new System.Windows.Forms.RadioButton();
             this.plot = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
             this.generate = new System.Windows.Forms.Button();
-            this.experimentalCoefficientsTextBox = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.approximationCoefficientsTextBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.partitionTextBox = new System.Windows.Forms.TextBox();
+            this.compactValuesButton = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // ExitButton
             // 
-            this.ExitButton.Location = new System.Drawing.Point(550, 495);
+            this.ExitButton.Location = new System.Drawing.Point(792, 435);
             this.ExitButton.Name = "ExitButton";
             this.ExitButton.Size = new System.Drawing.Size(238, 33);
             this.ExitButton.TabIndex = 18;
@@ -73,13 +69,13 @@
             this.ApproximationPlot.ScrollMinX = 0D;
             this.ApproximationPlot.ScrollMinY = 0D;
             this.ApproximationPlot.ScrollMinY2 = 0D;
-            this.ApproximationPlot.Size = new System.Drawing.Size(533, 478);
+            this.ApproximationPlot.Size = new System.Drawing.Size(772, 589);
             this.ApproximationPlot.TabIndex = 19;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(550, 67);
+            this.label3.Location = new System.Drawing.Point(792, 64);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(22, 13);
             this.label3.TabIndex = 29;
@@ -87,7 +83,7 @@
             // 
             // nTextBox
             // 
-            this.nTextBox.Location = new System.Drawing.Point(578, 64);
+            this.nTextBox.Location = new System.Drawing.Point(820, 61);
             this.nTextBox.Name = "nTextBox";
             this.nTextBox.Size = new System.Drawing.Size(210, 20);
             this.nTextBox.TabIndex = 3;
@@ -95,7 +91,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(550, 41);
+            this.label2.Location = new System.Drawing.Point(792, 38);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(22, 13);
             this.label2.TabIndex = 28;
@@ -103,7 +99,7 @@
             // 
             // bTextBox
             // 
-            this.bTextBox.Location = new System.Drawing.Point(578, 38);
+            this.bTextBox.Location = new System.Drawing.Point(820, 35);
             this.bTextBox.Name = "bTextBox";
             this.bTextBox.Size = new System.Drawing.Size(210, 20);
             this.bTextBox.TabIndex = 2;
@@ -111,7 +107,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(550, 15);
+            this.label1.Location = new System.Drawing.Point(792, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(22, 13);
             this.label1.TabIndex = 26;
@@ -119,14 +115,14 @@
             // 
             // aTextBox
             // 
-            this.aTextBox.Location = new System.Drawing.Point(578, 12);
+            this.aTextBox.Location = new System.Drawing.Point(820, 9);
             this.aTextBox.Name = "aTextBox";
             this.aTextBox.Size = new System.Drawing.Size(210, 20);
             this.aTextBox.TabIndex = 1;
             // 
             // errorTextBox
             // 
-            this.errorTextBox.Location = new System.Drawing.Point(550, 469);
+            this.errorTextBox.Location = new System.Drawing.Point(792, 354);
             this.errorTextBox.Name = "errorTextBox";
             this.errorTextBox.ReadOnly = true;
             this.errorTextBox.Size = new System.Drawing.Size(238, 20);
@@ -135,38 +131,15 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(552, 427);
+            this.label6.Location = new System.Drawing.Point(792, 312);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(183, 39);
             this.label6.TabIndex = 37;
             this.label6.Text = "Среднеквадратичная погрешность\r\n аппроксимации\r\n\r\n";
             // 
-            // radioButtonChebushev
-            // 
-            this.radioButtonChebushev.AutoSize = true;
-            this.radioButtonChebushev.Location = new System.Drawing.Point(709, 318);
-            this.radioButtonChebushev.Name = "radioButtonChebushev";
-            this.radioButtonChebushev.Size = new System.Drawing.Size(79, 17);
-            this.radioButtonChebushev.TabIndex = 6;
-            this.radioButtonChebushev.TabStop = true;
-            this.radioButtonChebushev.Text = "Чебышева";
-            this.radioButtonChebushev.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonUniform
-            // 
-            this.radioButtonUniform.AutoSize = true;
-            this.radioButtonUniform.Checked = true;
-            this.radioButtonUniform.Location = new System.Drawing.Point(554, 318);
-            this.radioButtonUniform.Name = "radioButtonUniform";
-            this.radioButtonUniform.Size = new System.Drawing.Size(94, 17);
-            this.radioButtonUniform.TabIndex = 5;
-            this.radioButtonUniform.TabStop = true;
-            this.radioButtonUniform.Text = "Равномерное";
-            this.radioButtonUniform.UseVisualStyleBackColor = true;
-            // 
             // plot
             // 
-            this.plot.Location = new System.Drawing.Point(554, 381);
+            this.plot.Location = new System.Drawing.Point(792, 266);
             this.plot.Name = "plot";
             this.plot.Size = new System.Drawing.Size(238, 39);
             this.plot.TabIndex = 8;
@@ -174,19 +147,9 @@
             this.plot.UseVisualStyleBackColor = true;
             this.plot.Click += new System.EventHandler(this.plot_Click);
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(550, 291);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(222, 24);
-            this.label4.TabIndex = 34;
-            this.label4.Text = "Задать распределение";
-            // 
             // generate
             // 
-            this.generate.Location = new System.Drawing.Point(554, 341);
+            this.generate.Location = new System.Drawing.Point(792, 226);
             this.generate.Name = "generate";
             this.generate.Size = new System.Drawing.Size(238, 34);
             this.generate.TabIndex = 7;
@@ -194,26 +157,9 @@
             this.generate.UseVisualStyleBackColor = true;
             this.generate.Click += new System.EventHandler(this.generate_Click);
             // 
-            // experimentalCoefficientsTextBox
-            // 
-            this.experimentalCoefficientsTextBox.Location = new System.Drawing.Point(550, 116);
-            this.experimentalCoefficientsTextBox.Multiline = true;
-            this.experimentalCoefficientsTextBox.Name = "experimentalCoefficientsTextBox";
-            this.experimentalCoefficientsTextBox.Size = new System.Drawing.Size(234, 47);
-            this.experimentalCoefficientsTextBox.TabIndex = 4;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(547, 87);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(156, 26);
-            this.label5.TabIndex = 39;
-            this.label5.Text = "Коэффициенты для \r\nэкспериментальной функции";
-            // 
             // approximationCoefficientsTextBox
             // 
-            this.approximationCoefficientsTextBox.Location = new System.Drawing.Point(550, 195);
+            this.approximationCoefficientsTextBox.Location = new System.Drawing.Point(792, 140);
             this.approximationCoefficientsTextBox.Multiline = true;
             this.approximationCoefficientsTextBox.Name = "approximationCoefficientsTextBox";
             this.approximationCoefficientsTextBox.ReadOnly = true;
@@ -223,45 +169,60 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(547, 166);
+            this.label7.Location = new System.Drawing.Point(789, 111);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(133, 26);
             this.label7.TabIndex = 41;
             this.label7.Text = "Коэффициенты для \r\nфункции аппроксимации";
             // 
-            // label8
+            // compactValuesButton
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(550, 249);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(123, 13);
-            this.label8.TabIndex = 44;
-            this.label8.Text = "Количество разбиений";
+            this.compactValuesButton.Location = new System.Drawing.Point(792, 380);
+            this.compactValuesButton.Name = "compactValuesButton";
+            this.compactValuesButton.Size = new System.Drawing.Size(238, 49);
+            this.compactValuesButton.TabIndex = 43;
+            this.compactValuesButton.Text = "Уплотнить значения";
+            this.compactValuesButton.UseVisualStyleBackColor = true;
+            this.compactValuesButton.Click += new System.EventHandler(this.compactValuesButton_Click);
             // 
-            // partitionTextBox
+            // checkBox1
             // 
-            this.partitionTextBox.Location = new System.Drawing.Point(551, 266);
-            this.partitionTextBox.Name = "partitionTextBox";
-            this.partitionTextBox.Size = new System.Drawing.Size(237, 20);
-            this.partitionTextBox.TabIndex = 45;
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(792, 193);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(166, 17);
+            this.checkBox1.TabIndex = 45;
+            this.checkBox1.Text = "Использовать генерацию d";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Гипербола  f(x) = 1 + 2/x",
+            "Экспонента f(x) = 1 + e^x"});
+            this.comboBox1.Location = new System.Drawing.Point(792, 87);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(238, 21);
+            this.comboBox1.TabIndex = 47;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // SecondTaskForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 558);
-            this.Controls.Add(this.partitionTextBox);
-            this.Controls.Add(this.label8);
+            this.ClientSize = new System.Drawing.Size(1037, 613);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.compactValuesButton);
             this.Controls.Add(this.approximationCoefficientsTextBox);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.experimentalCoefficientsTextBox);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.errorTextBox);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.radioButtonChebushev);
-            this.Controls.Add(this.radioButtonUniform);
             this.Controls.Add(this.plot);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.generate);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.nTextBox);
@@ -290,16 +251,12 @@
         private System.Windows.Forms.TextBox aTextBox;
         private System.Windows.Forms.TextBox errorTextBox;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.RadioButton radioButtonChebushev;
-        private System.Windows.Forms.RadioButton radioButtonUniform;
         private System.Windows.Forms.Button plot;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button generate;
-        private System.Windows.Forms.TextBox experimentalCoefficientsTextBox;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox approximationCoefficientsTextBox;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox partitionTextBox;
+        private System.Windows.Forms.Button compactValuesButton;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

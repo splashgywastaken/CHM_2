@@ -1,6 +1,8 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,11 +18,11 @@ namespace FirstLabWindowsFormsApp.Main;
 // Добавить возможность использовать функцию без искажения при подсчёте коэффициентов
 //
 // В первой задаче не должна погрешность увеличиваться с увеличением количества узлов
-// 
-//
 
 class Approximation
 {
+    public bool UseDGeneration { get; set; }
+
     public double A { get; set; }
     public double B { get; set; }
     public double SquaredError { get; private set; }
@@ -33,9 +35,11 @@ class Approximation
     public double[] FDoubles { get; private set; }
     public double[] FTableDoubles { get; private set; }
     public double[] PhiDoubles { get; private set; }
-
-    public double[] ExperimentalCoefficients { get; set; }
+    
     public double[] ApproximationCoefficients { get; private set; }
+
+    public Func<double, double> CurrentFunction { get; private set; }
+    private Func<double, double> ApproximationFunction { get; set; }
 
     private IDistribution Distribution { get; set; }
 
@@ -43,17 +47,19 @@ class Approximation
         double a,
         double b,
         int n,
-        double[] experimentalCoefficients,
-        IDistribution distribution
+        IDistribution distribution,
+        int functionIndex
         )
     {
         A = a;
         B = b;
         N = n;
-        
+
+        UseDGeneration = true;
+
         Distribution = distribution;
-        ExperimentalCoefficients = experimentalCoefficients;
         ApproximationCoefficients = new double[2];
+        SetFunction(functionIndex);
     }
 
     public void GenerateData()
@@ -71,31 +77,60 @@ class Approximation
         FindSquaredError();
     }
 
-    public void Compact()
+    public void SetFunction(int functionIndex)
     {
-
-
-
+        if (functionIndex == 0)
+        {
+            CurrentFunction = Function;
+            ApproximationFunction = ApproximationFunc;
+        }
+        else
+        {
+            CurrentFunction = Exp;
+            ApproximationFunction = ApproximationExp;
+        }
     }
 
-    private double[] Partition(double[] array)
+    public void Condense()
     {
+        var newN = 3 * N - 2;
+        var tempX = new double[newN];
 
-        var n = array.Count();
-        var result = new List<double>(n * (PartitionNum + 1));
-        var temp = new double[PartitionNum];
-        var distribution = new UniformDistribution();
-
-        for (var i = 0; i < n - 1; i++)
+        //Получение массива X
+        for (var index = 0; index < N; index++)
         {
-            temp = distribution.Distribute(array[i], array[i + 1], PartitionNum);
-            for (var j = 0; j < 3; j++)
-                result.Add(temp[j]);
+            double h;
+            if (index + 1 != N)
+                h = (XDoubles[index + 1] - XDoubles[index]) / 3;
+            else
+                h = (XDoubles[index] - XDoubles[index - 1]) / 3;
+            if (!(3 * index - 1 < 0))
+                tempX[3 * index - 1] = XDoubles[index] - h;
+            tempX[3 * index] = XDoubles[index];
+            if (!(3 * index + 1 >= newN))
+                tempX[3 * index + 1] = XDoubles[index] + h;
         }
 
-        return result.ToArray();
+        tempX[0] = XDoubles[0];
+        tempX[newN - 1] = XDoubles[N - 1];
+
+        XDoubles = tempX;
+        N = newN;
+
+        GenerateFDoubles();
+        GenerateFTableDoubles();
+        //Поиск коэффициентов аппроксимации и генерирование вектора функции аппроксимации
+        CoefficientsCalculation();
+        GeneratePhiDoubles();
+
+        FindSquaredError();
 
     }
+
+    //private double[] Partition(double[] array)
+    //{
+        
+    //}
 
     private void CoefficientsCalculation()
     {
@@ -104,7 +139,7 @@ class Approximation
         var S = new double[n, n];
         var t = new double[n];
 
-        for (var index = 0; index < N; index++)
+        for (var index = 0; index < XDoubles.Length; index++)
         {
             var temp = 1 / XDoubles[index];
             S[0, 1] += temp;
@@ -131,35 +166,42 @@ class Approximation
     private void GenerateFDoubles()
     {
 
-        FDoubles = new double[N];
+        FDoubles = new double[XDoubles.Length];
 
-        for (var index = 0; index < N; index++)
+        for (var index = 0; index < XDoubles.Length; index++)
         {
-            FDoubles[index] = Function(XDoubles[index], ExperimentalCoefficients);
+            FDoubles[index] = CurrentFunction(XDoubles[index]);
         }
     }
 
     private void GeneratePhiDoubles()
     {
-        PhiDoubles = new double[N];
+        PhiDoubles = new double[XDoubles.Length];
 
-        for (var index = 0; index < N; index++)
+        for (var index = 0; index < XDoubles.Length; index++)
         {
-            PhiDoubles[index] = Function(XDoubles[index], ApproximationCoefficients);
+            PhiDoubles[index] = ApproximationFunction(XDoubles[index]);
         }
     }
 
     private void GenerateFTableDoubles()
     {
-        FTableDoubles = new double[N];
+        FTableDoubles = new double[XDoubles.Length];
 
+        if (!UseDGeneration)
+        {
+            FTableDoubles = FDoubles;
+            return;
+        }
+
+            
         var d = 0.2 * FDoubles.Max();
         var minValue = -d / 2;
         var maxValue = d / 2;
 
         var random = new Random();
 
-        for (var index = 0; index < N; index++)
+        for (var index = 0; index < XDoubles.Length; index++)
         {
             FTableDoubles[index] =     //(phi doubles)[i]
                 FDoubles[index] + random.NextDouble() * (maxValue - minValue) + minValue;
@@ -170,14 +212,23 @@ class Approximation
     {
         double result = 0;
 
-        for (var index = 0; index < N; index++)
+        for (var index = 0; index < XDoubles.Length; index++)
         {
             result += Math.Pow( FDoubles[index] - PhiDoubles[index], 2);
         }
         
-        SquaredError = result / N;
+        SquaredError = result / XDoubles.Length;
     }
 
-    private static double Function(double x, IReadOnlyList<double> coefficients)
-        => coefficients[0] + coefficients[1] / x;
+    private static double Function(double x)
+        => 1 + 2 / x;
+
+    private double ApproximationFunc(double x)
+        => ApproximationCoefficients[0] + ApproximationCoefficients[1] / x;
+
+    private static double Exp(double x)
+        => 0 + Math.Exp(1 * x);
+
+    private double ApproximationExp(double x)
+        => ApproximationCoefficients[0] + Math.Exp(ApproximationCoefficients[1] * x);
 }

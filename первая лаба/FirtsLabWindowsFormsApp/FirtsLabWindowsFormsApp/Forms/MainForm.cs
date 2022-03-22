@@ -20,11 +20,6 @@ public partial class MainForm : Form
         OpenNewForm(new SecondTaskForm());
     }
 
-    private void ThirdTaskButton_Click(object sender, EventArgs e)
-    {
-        OpenNewForm(new ThirdTaskForm());
-    }
-
     private static void OpenNewForm(Control form)
     {
         form.Show();

@@ -97,8 +97,8 @@ public partial class FirstTaskForm : Form
 
         if (_interpolation != null)
         {
-            _interpolation.A = Convert.ToInt32(aTextBox.Text);
-            _interpolation.B = Convert.ToInt32(bTextBox.Text);
+            _interpolation.A = Convert.ToDouble(aTextBox.Text);
+            _interpolation.B = Convert.ToDouble(bTextBox.Text);
             _interpolation.N = Convert.ToInt32(nTextBox.Text);
             
             _interpolation.SetFunctionAndCoefficients(
@@ -112,8 +112,8 @@ public partial class FirstTaskForm : Form
         {
             _interpolation = new Interpolation(
                 distribution,
-                Convert.ToInt32(aTextBox.Text),
-                Convert.ToInt32(bTextBox.Text),
+                Convert.ToDouble(aTextBox.Text),
+                Convert.ToDouble(bTextBox.Text),
                 Convert.ToInt32(nTextBox.Text),
                 coefficientsBox.Text.Split(' ').Select(Convert.ToDouble).ToArray(),
                 functionComboBox.SelectedIndex
