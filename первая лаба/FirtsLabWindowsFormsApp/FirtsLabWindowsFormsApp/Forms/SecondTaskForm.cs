@@ -85,8 +85,6 @@ public partial class SecondTaskForm : Form
         var pane = ApproximationPlot.GraphPane;
         pane.CurveList.Clear();
 
-        PaneInit(pane);
-
         if (checkBox1.Checked)
         {
             //Табличная функция
@@ -115,6 +113,8 @@ public partial class SecondTaskForm : Form
             Color.Blue
         );
 
+        PaneInit(pane);
+
         ApproximationPlot.AxisChange();
         ApproximationPlot.Invalidate();
     }
@@ -125,40 +125,16 @@ public partial class SecondTaskForm : Form
         // Включаем отображение сетки напротив крупных рисок по оси X
         pane.XAxis.MajorGrid.IsVisible = true;
 
-        // Задаем вид пунктирной линии для крупных рисок по оси X:
-        // Длина штрихов равна 10 пикселям, ...
-        pane.XAxis.MajorGrid.DashOn = 10;
-        // затем 5 пикселей - пропуск
-        pane.XAxis.MajorGrid.DashOff = 5;
-
-
         // Включаем отображение сетки напротив крупных рисок по оси Y
         pane.YAxis.MajorGrid.IsVisible = true;
 
-        // Аналогично задаем вид пунктирной линии для крупных рисок по оси Y
-        pane.YAxis.MajorGrid.DashOn = 10;
-        pane.YAxis.MajorGrid.DashOff = 5;
+        // Установим масштаб по умолчанию для оси X
+        pane.XAxis.Scale.MinAuto = true;
+        pane.XAxis.Scale.MaxAuto = true;
 
-
-        // Включаем отображение сетки напротив мелких рисок по оси X
-        pane.YAxis.MinorGrid.IsVisible = true;
-
-        // Задаем вид пунктирной линии для крупных рисок по оси Y:
-        // Длина штрихов равна одному пикселю, ...
-        pane.YAxis.MinorGrid.DashOn = 1;
-
-        // затем 2 пикселя - пропуск
-        pane.YAxis.MinorGrid.DashOff = 2;
-
-        // Включаем отображение сетки напротив мелких рисок по оси Y
-        pane.XAxis.MinorGrid.IsVisible = true;
-
-        // Аналогично задаем вид пунктирной линии для крупных рисок по оси Y
-        pane.XAxis.MinorGrid.DashOn = 1;
-        pane.XAxis.MinorGrid.DashOff = 2;
-
-        pane.XAxis.Scale.Max = 15.0;
-        pane.YAxis.Scale.Max = 15.0;
+        // Установим масштаб по умолчанию для оси Y
+        pane.YAxis.Scale.MinAuto = true;
+        pane.YAxis.Scale.MaxAuto = true;
     }
 
     private void DrawScatterPlot(
