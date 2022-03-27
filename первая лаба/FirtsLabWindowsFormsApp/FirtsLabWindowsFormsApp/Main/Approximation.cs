@@ -13,11 +13,6 @@ namespace FirstLabWindowsFormsApp.Main;
 
 //  Вариант 3
 //  функция phi(x) = a + b/x 
-// Добавить уплотнение
-// Взять для примера экспоненту
-// Добавить возможность использовать функцию без искажения при подсчёте коэффициентов
-//
-// В первой задаче не должна погрешность увеличиваться с увеличением количества узлов
 
 class Approximation
 {
@@ -144,11 +139,11 @@ class Approximation
             var temp = 1 / XDoubles[index];
             S[0, 1] += temp;
             S[1, 1] += temp * temp;
-            t[0] += FDoubles[index];
-            t[1] += FDoubles[index] * temp;
+            t[0] += FTableDoubles[index];
+            t[1] += FTableDoubles[index] * temp;
         }
 
-        S[0, 0] = N + 1;
+        S[0, 0] = N;
         S[1, 0] = S[0, 1];
         
         ApproximationCoefficients = new double[2];
@@ -203,7 +198,7 @@ class Approximation
 
         for (var index = 0; index < XDoubles.Length; index++)
         {
-            FTableDoubles[index] =     //(phi doubles)[i]
+            FTableDoubles[index] =
                 FDoubles[index] + random.NextDouble() * (maxValue - minValue) + minValue;
         }
     }
@@ -221,7 +216,7 @@ class Approximation
     }
 
     private static double Function(double x)
-        => 1 + 2 / x;
+        => 1 + 1 / x;
 
     private double ApproximationFunc(double x)
         => ApproximationCoefficients[0] + ApproximationCoefficients[1] / x;
