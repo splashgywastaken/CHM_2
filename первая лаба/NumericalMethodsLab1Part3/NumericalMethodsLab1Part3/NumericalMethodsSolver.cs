@@ -119,6 +119,7 @@ namespace NumericalMethodsLab1Part3
 
         }
 
+        //Добавить в отчёт
         private void CalculateSpline()
         {
             // Нижняя диагональ
@@ -148,6 +149,7 @@ namespace NumericalMethodsLab1Part3
                     6 * ((YDoubles[i + 1] - YDoubles[i]) / HDoubles[i] -
                          (YDoubles[i] - YDoubles[i - 1]) / HDoubles[i - 1]);
             }
+
             LinearSystem.ThomasAlgorithm(
                 bottomDiagonal,
                 mainDiagonal,

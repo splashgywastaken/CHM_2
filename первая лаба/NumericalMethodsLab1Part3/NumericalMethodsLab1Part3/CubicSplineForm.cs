@@ -32,6 +32,8 @@ namespace NumericalMethodsLab1Part3
                     return ThirdFunc;
                 case 3:
                     return FourthFunc;
+                case 4:
+                    return FifthFunc;
                 default:
                     return DefaultFunc;
             }
@@ -49,8 +51,11 @@ namespace NumericalMethodsLab1Part3
         private static double FourthFunc(double x)
             => x * x + 2 * x;
 
+        private static double FifthFunc(double x)
+            => x * x;
+
         private static double DefaultFunc(double x)
-            => x * x * x;
+            => x * x;
 
         private void PLot()
         {
@@ -95,7 +100,7 @@ namespace NumericalMethodsLab1Part3
                 splinePane,
                 _cubicSpline.XDoubles,
                 _cubicSpline.YDoubles,
-                _cubicSpline.N,
+                _cubicSpline.N + 1,
                 "Исходная функция",
                 Color.Red
             );
@@ -231,8 +236,8 @@ namespace NumericalMethodsLab1Part3
                 Convert.ToDouble(BTextBox.Text),
                 Convert.ToInt32(NTextBox.Text),
                 GetChosenFunc(),
-                GetLeftConditionValue(),
-                GetRightConditionValue(),
+                Convert.ToDouble(leftConditionTextBox.Text),
+                Convert.ToDouble(rightConditionTextBox.Text),
                 IsUniformCheckBox.Checked
             );
         }
@@ -273,13 +278,13 @@ namespace NumericalMethodsLab1Part3
         private double GetLeftConditionValue()
         {
             return
-                conditionLeftTrackBar.Value / 100.0 - 5;
+                conditionLeftTrackBar.Value / 1000.0 - 5;
         }
 
         private double GetRightConditionValue()
         {
             return
-                conditionRightTrackBar.Value / 100.0 - 5;
+                conditionRightTrackBar.Value / 1000.0 - 5;
         }
 
         private void conditionLeftTrackBar_Scroll(object sender, EventArgs e)

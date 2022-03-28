@@ -12,7 +12,7 @@ public class UniformDistribution : IDistribution
     )
     {
         var result = new double[n];
-        var temp = 1 / (n - 1);
+        var temp = 1.0 / (n - 1);
 
         for (var index = 0; index < n; index++)
         {

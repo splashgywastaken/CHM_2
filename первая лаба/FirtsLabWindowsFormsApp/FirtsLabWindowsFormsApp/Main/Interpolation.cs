@@ -180,9 +180,19 @@ public class Interpolation
             for (var index = 1; index < x.Length; index++)
             {
                 double mul = 1;
+
+                Console.WriteLine(
+                    "Вхождение для элемента с индексом суммы {0}",
+                    index
+                );
+
                 for (var innerIndex = 0; innerIndex < index; innerIndex++)
                 {
                     mul *= xVal - x[innerIndex];
+                    Console.WriteLine(
+                        "Вхождение для элемента с индексом произведения {0}",
+                        innerIndex
+                        );
                 }
 
                 result += divDiff[index] * mul;
