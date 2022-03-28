@@ -52,15 +52,24 @@
             this.conditionLeftTrackBar = new System.Windows.Forms.TrackBar();
             this.conditionRightTrackBar = new System.Windows.Forms.TrackBar();
             this.PolynomialGraph = new ZedGraph.ZedGraphControl();
+            this.setGraphSizeCheckBox = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.errorPointsToShowPercentageTextBox = new System.Windows.Forms.TextBox();
+            this.errorPointsToShowTrackBar = new System.Windows.Forms.TrackBar();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.conditionLeftTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.conditionRightTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorPointsToShowTrackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.errorPointsToShowTrackBar);
+            this.groupBox1.Controls.Add(this.errorPointsToShowPercentageTextBox);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.setGraphSizeCheckBox);
             this.groupBox1.Controls.Add(this.errorTextBox);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.IsUniformCheckBox);
@@ -73,16 +82,16 @@
             this.groupBox1.Controls.Add(this.NTextBox);
             this.groupBox1.Controls.Add(this.BTextBox);
             this.groupBox1.Controls.Add(this.ATextBox);
-            this.groupBox1.Location = new System.Drawing.Point(975, 12);
+            this.groupBox1.Location = new System.Drawing.Point(890, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(407, 310);
+            this.groupBox1.Size = new System.Drawing.Size(492, 310);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры";
             // 
             // errorTextBox
             // 
-            this.errorTextBox.Location = new System.Drawing.Point(99, 278);
+            this.errorTextBox.Location = new System.Drawing.Point(97, 213);
             this.errorTextBox.Name = "errorTextBox";
             this.errorTextBox.ReadOnly = true;
             this.errorTextBox.Size = new System.Drawing.Size(297, 20);
@@ -91,7 +100,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 281);
+            this.label8.Location = new System.Drawing.Point(4, 216);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(87, 13);
             this.label8.TabIndex = 17;
@@ -100,7 +109,9 @@
             // IsUniformCheckBox
             // 
             this.IsUniformCheckBox.AutoSize = true;
-            this.IsUniformCheckBox.Location = new System.Drawing.Point(198, 193);
+            this.IsUniformCheckBox.Checked = true;
+            this.IsUniformCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.IsUniformCheckBox.Location = new System.Drawing.Point(196, 128);
             this.IsUniformCheckBox.Name = "IsUniformCheckBox";
             this.IsUniformCheckBox.Size = new System.Drawing.Size(198, 30);
             this.IsUniformCheckBox.TabIndex = 5;
@@ -112,11 +123,11 @@
             // 
             this.funcCombobox.FormattingEnabled = true;
             this.funcCombobox.Items.AddRange(new object[] {
-            "16 + x - 2x^2 + 3x^2",
+            "16 + x - 2x^2 + 3x^3",
             "2cos(x) - sin(x)",
             "cos(pi*x) + e^(-1/x)",
             "x^2 + 2x"});
-            this.funcCombobox.Location = new System.Drawing.Point(112, 166);
+            this.funcCombobox.Location = new System.Drawing.Point(110, 101);
             this.funcCombobox.Name = "funcCombobox";
             this.funcCombobox.Size = new System.Drawing.Size(283, 21);
             this.funcCombobox.TabIndex = 4;
@@ -124,7 +135,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(310, 140);
+            this.label7.Location = new System.Drawing.Point(308, 75);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(86, 13);
             this.label7.TabIndex = 14;
@@ -132,7 +143,7 @@
             // 
             // BuildSplineButton
             // 
-            this.BuildSplineButton.Location = new System.Drawing.Point(211, 235);
+            this.BuildSplineButton.Location = new System.Drawing.Point(209, 170);
             this.BuildSplineButton.Name = "BuildSplineButton";
             this.BuildSplineButton.Size = new System.Drawing.Size(184, 37);
             this.BuildSplineButton.TabIndex = 13;
@@ -300,6 +311,47 @@
             this.PolynomialGraph.TabIndex = 0;
             this.PolynomialGraph.Load += new System.EventHandler(this.PolynomialGraph_Load);
             // 
+            // setGraphSizeCheckBox
+            // 
+            this.setGraphSizeCheckBox.AutoSize = true;
+            this.setGraphSizeCheckBox.Checked = true;
+            this.setGraphSizeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.setGraphSizeCheckBox.Location = new System.Drawing.Point(4, 174);
+            this.setGraphSizeCheckBox.Name = "setGraphSizeCheckBox";
+            this.setGraphSizeCheckBox.Size = new System.Drawing.Size(193, 30);
+            this.setGraphSizeCheckBox.TabIndex = 19;
+            this.setGraphSizeCheckBox.Text = "Устанавливать автоматический \r\nмасштаб в графиках";
+            this.setGraphSizeCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(7, 243);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(350, 13);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "Сколько точек (в процентах) отображать на графике погрешностей";
+            // 
+            // errorPointsToShowPercentageTextBox
+            // 
+            this.errorPointsToShowPercentageTextBox.Location = new System.Drawing.Point(363, 239);
+            this.errorPointsToShowPercentageTextBox.Name = "errorPointsToShowPercentageTextBox";
+            this.errorPointsToShowPercentageTextBox.ReadOnly = true;
+            this.errorPointsToShowPercentageTextBox.Size = new System.Drawing.Size(100, 20);
+            this.errorPointsToShowPercentageTextBox.TabIndex = 21;
+            this.errorPointsToShowPercentageTextBox.Text = "100";
+            // 
+            // errorPointsToShowTrackBar
+            // 
+            this.errorPointsToShowTrackBar.Location = new System.Drawing.Point(4, 259);
+            this.errorPointsToShowTrackBar.Maximum = 100;
+            this.errorPointsToShowTrackBar.Minimum = 1;
+            this.errorPointsToShowTrackBar.Name = "errorPointsToShowTrackBar";
+            this.errorPointsToShowTrackBar.Size = new System.Drawing.Size(488, 45);
+            this.errorPointsToShowTrackBar.TabIndex = 22;
+            this.errorPointsToShowTrackBar.Value = 100;
+            this.errorPointsToShowTrackBar.Scroll += new System.EventHandler(this.errorPointsToShowTrackBar_Scroll);
+            // 
             // CubicSplineForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -317,6 +369,7 @@
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.conditionLeftTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.conditionRightTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorPointsToShowTrackBar)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -346,6 +399,10 @@
         private System.Windows.Forms.TrackBar conditionRightTrackBar;
         private System.Windows.Forms.TextBox leftConditionTextBox;
         private System.Windows.Forms.TextBox rightConditionTextBox;
+        private System.Windows.Forms.CheckBox setGraphSizeCheckBox;
+        private System.Windows.Forms.TrackBar errorPointsToShowTrackBar;
+        private System.Windows.Forms.TextBox errorPointsToShowPercentageTextBox;
+        private System.Windows.Forms.Label label4;
     }
 }
 

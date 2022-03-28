@@ -38,7 +38,7 @@ namespace NumericalMethodsLab1Part3
         }
 
         private static double FirstFunc(double x)
-            => 16 + x - 2 * x * x + 3 * x * x;
+            => 16 + x - 2 * x * x + 3 * x * x * x;
         
         private static double SecondFunc(double x)
             => 2 * Math.Cos(x) - Math.Sin(x);
@@ -60,68 +60,42 @@ namespace NumericalMethodsLab1Part3
 
             PaneInit(splinePane);
 
-            //var x_points = new double[100];
-            //var y_points = new double[100];
-            //var e_points = new double[100];
-            //var s_points = new double[100];
-            //var func = GetChosenFunc();
-            //var Interpolate = _cubicSpline.Spline;
+            double[] xPoints;
+            var yPoints = new double[100];
+            var ePoints = new double[100];
+            var sPoints = new double[100];
+            var func = GetChosenFunc();
 
-            //var h = (Convert.ToDouble(BTextBox.Text) - Convert.ToDouble(ATextBox.Text)) / 100;
+            if (IsUniformCheckBox.Checked)
+            {
+                xPoints = Distribution.EvenNodes(
+                    Convert.ToDouble(ATextBox.Text),
+                    Convert.ToDouble(BTextBox.Text),
+                    100
+                );
+            }
+            else
+            {
+                xPoints = Distribution.ChebushevNodes(
+                    Convert.ToDouble(ATextBox.Text),
+                    Convert.ToDouble(BTextBox.Text),
+                    100
+                );
+            }
 
-            //x_points[0] = Convert.ToDouble(ATextBox.Text);
-            //y_points[0] = func(x_points[0]);
-            //s_points[0] = Interpolate(x_points[0]);
-            //e_points[0] = Math.Abs(s_points[0] - y_points[0]);
-            //for (var i = 1; i < _cubicSpline.N; i++)
-            //{
-            //    x_points[i] = x_points[i - 1] + h;
-            //    y_points[i] = func(x_points[i]);
-            //    s_points[i] = Interpolate(x_points[i]);
-            //    e_points[i] = Math.Abs(s_points[i] - y_points[i]);
-            //}
-
-            ////Исходная функция
-            //DrawGraph(
-            //    splinePane,
-            //    x_points,
-            //    y_points,
-            //    "Исходная функция",
-            //    Color.Red
-            //);
-
-            ////Интерполяционный кубический сплайн
-            //DrawGraph(
-            //    splinePane,
-            //    x_points,
-            //    s_points,
-            //    "Интерполяционный кубический сплайн",
-            //    Color.Blue
-            //);
-
-            //PolynomialGraph.AxisChange();
-            //PolynomialGraph.Invalidate();
-
-            ////Отрисовка графика погрешности
-            //var errorPane = ErrorGraph.GraphPane;
-            //errorPane.CurveList.Clear();
-
-            //PaneInit(errorPane);
-
-            ////Погрешность
-            //DrawGraph(
-            //    errorPane,
-            //    x_points,
-            //    e_points,
-            //    "Погрешность",
-            //    Color.DarkGreen
-            //);
+            for (var i = 0; i < 100; i++)
+            {
+                yPoints[i] = func(xPoints[i]);
+                sPoints[i] = _cubicSpline.Spline(xPoints[i]);
+                ePoints[i] = Math.Abs(sPoints[i] - yPoints[i]);
+            }
 
             //Исходная функция
-            DrawGraph(
+            DrawScatterPlot(
                 splinePane,
                 _cubicSpline.XDoubles,
                 _cubicSpline.YDoubles,
+                _cubicSpline.N,
                 "Исходная функция",
                 Color.Red
             );
@@ -129,8 +103,9 @@ namespace NumericalMethodsLab1Part3
             //Интерполяционный кубический сплайн
             DrawGraph(
                 splinePane,
-                _cubicSpline.XDoubles,
-                _cubicSpline.SDoubles,
+                xPoints,
+                sPoints,
+                100,
                 "Интерполяционный кубический сплайн",
                 Color.Blue
             );
@@ -143,22 +118,38 @@ namespace NumericalMethodsLab1Part3
             errorPane.CurveList.Clear();
 
             PaneInit(errorPane);
-            
+
+            ////Погрешность
+            //DrawGraph(
+            //    errorPane,
+            //    xPoints,
+            //    ePoints,
+            //    Convert.ToInt32(
+            //        ePoints.Length * GetErrorPointsPercentage() / 100 < 1 ? 
+            //            ePoints.Length : ePoints.Length * GetErrorPointsPercentage() / 100),
+            //    "Погрешность",
+            //    Color.DarkGreen
+            //);
+
             //Погрешность
             DrawGraph(
                 errorPane,
                 _cubicSpline.XDoubles,
                 _cubicSpline.ErrorDoubles,
+                Convert.ToInt32(
+                    _cubicSpline.ErrorDoubles.Length * GetErrorPointsPercentage() / 100 < 1 ?
+                        _cubicSpline.ErrorDoubles.Length : _cubicSpline.ErrorDoubles.Length * GetErrorPointsPercentage() / 100),
                 "Погрешность",
                 Color.DarkGreen
             );
+
 
             ErrorGraph.AxisChange();
             ErrorGraph.Invalidate();
             
         }
 
-        private static void PaneInit(GraphPane pane)
+        private void PaneInit(GraphPane pane)
         {
             // !!!
             // Включаем отображение сетки напротив крупных рисок по оси X
@@ -166,6 +157,9 @@ namespace NumericalMethodsLab1Part3
 
             // Включаем отображение сетки напротив крупных рисок по оси Y
             pane.YAxis.MajorGrid.IsVisible = true;
+
+            //Если не установлена галочка над чекбоксом, то не делаем автоматическое масштабирование
+            if (!setGraphSizeCheckBox.Checked) return;
 
             // Установим масштаб по умолчанию для оси X
             pane.XAxis.Scale.MinAuto = true;
@@ -180,13 +174,12 @@ namespace NumericalMethodsLab1Part3
             GraphPane pane,
             IReadOnlyList<double> xData,
             IReadOnlyList<double> yData,
+            int n,
             string graphName,
             Color color
             )
         {
             var list = new PointPairList();
-
-            var n = _cubicSpline.N;
 
             for (var index = 0; index < n; index++)
             {
@@ -216,13 +209,12 @@ namespace NumericalMethodsLab1Part3
             GraphPane pane,
             IReadOnlyList<double> xData,
             IReadOnlyList<double> yData,
+            int n,
             string graphName,
             Color color
         )
         {
             var list = new PointPairList();
-
-            var n = _cubicSpline.N;
 
             for (var index = 0; index < n; index++)
             {
@@ -260,7 +252,7 @@ namespace NumericalMethodsLab1Part3
         }
 
         //Обновление информации о сплайне и построение его графика
-        private void Update()
+        private void UpdateGraphs()
         {
             // Обновление информации о левой и правой границах
             _cubicSpline.LeftCondition = GetLeftConditionValue();
@@ -294,14 +286,14 @@ namespace NumericalMethodsLab1Part3
         {
             leftConditionTextBox.Text = GetLeftConditionValue().ToString();
             if (_cubicSpline != null)
-                Update();
+                UpdateGraphs();
         }
 
         private void conditionRightTrackBar_Scroll(object sender, EventArgs e)
         {
             rightConditionTextBox.Text = GetRightConditionValue().ToString();
             if (_cubicSpline != null)
-                Update();
+                UpdateGraphs();
         }
 
         private void conditionLeftLabel_Click(object sender, EventArgs e)
@@ -318,5 +310,18 @@ namespace NumericalMethodsLab1Part3
         {
 
         }
+
+        private void errorPointsToShowTrackBar_Scroll(object sender, EventArgs e)
+        {
+            errorPointsToShowPercentageTextBox.Text = GetErrorPointsPercentage().ToString();
+            if (_cubicSpline != null)
+                UpdateGraphs();
+        }
+
+        private int GetErrorPointsPercentage()
+        {
+            return errorPointsToShowTrackBar.Value;
+        }
+
     }
 }

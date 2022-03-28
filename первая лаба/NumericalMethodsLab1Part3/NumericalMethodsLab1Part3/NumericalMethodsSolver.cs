@@ -59,50 +59,25 @@ namespace NumericalMethodsLab1Part3
             CDoubles = new double[N];
             DDoubles = new double[N];
 
-            if (!uniform)
+            if (uniform)
             {
-                EvenNodes(a, b, N + 1);
+                XDoubles = Distribution.EvenNodes(a, b, N + 1);
                 IsUniform = true;
             }
             else
             {
-                ChebushevNodes(a, b, N + 1);
+                XDoubles = Distribution.ChebushevNodes(a, b, N + 1);
                 IsUniform = false;
+            }
+
+            for (var i = 0; i < N; i++)
+            {
+                HDoubles[i] = XDoubles[i + 1] - XDoubles[i];
             }
 
             CalculateYDoubles();
             BuildSpline();
             CalculateErrors();
-        }
-
-        private void EvenNodes(double a, double b, int n)
-        {
-            XDoubles[0] = a;
-            var h = (b - a) / (n - 1);
-            for (var i = 1; i < n; i++)
-            {
-                XDoubles[i] = XDoubles[i - 1] + h;
-            }
-            for (var i = 0; i < n - 1; i++)
-            {
-                HDoubles[i] = h;
-            }
-        }
-
-        private void ChebushevNodes(double a, double b, double n)
-        {
-            double
-                t1 = (a + b) / 2,
-                t2 = (b - a) / 2,
-                t3 = 1 / (2 * Convert.ToDouble(n)) * Math.PI;
-            for (var i = 0; i < n; i++)
-            {
-                XDoubles[i] = t1 - t2 * Math.Cos((2 * i + 1) * t3);
-            }
-            for (var i = 0; i < n; i++)
-            {
-                HDoubles[i] = XDoubles[i + 1] - XDoubles[i];
-            }
         }
 
         //Метод построения сплайна
@@ -146,37 +121,50 @@ namespace NumericalMethodsLab1Part3
 
         private void CalculateSpline()
         {
-            var A = new double[N];
-            var B = new double[N + 1];
-            var C = new double[N];
-            var D = new double[N + 1];
-            var m = new double[N + 1];
+            // Нижняя диагональ
+            var bottomDiagonal = new double[N];
+            // Главная диагональ
+            var mainDiagonal = new double[N + 1];
+            // Верхняя диагональ
+            var topDiagonal = new double[N];
+            // Правая часть
+            var rightPart = new double[N + 1];
+            // Результирующий вектор
+            var resultVector = new double[N + 1];
             for (var i = 0; i < N; i++)
-                A[i] = C[i] = HDoubles[i];
-            B[0] = 2 * HDoubles[0];
-            B[N] = 2 * HDoubles[N - 1];
+                bottomDiagonal[i] = topDiagonal[i] = HDoubles[i];
+            bottomDiagonal[0] = -1;
+            mainDiagonal[0] = 1;
+            mainDiagonal[N] = 2 * HDoubles[N - 1];
             for (var i = 1; i < N; i++)
-                B[i] = 2 * (HDoubles[i - 1] + HDoubles[i]);
+                mainDiagonal[i] = 2 * (HDoubles[i - 1] + HDoubles[i]);
             //левое условие
-            D[0] = 6 * ((YDoubles[1] - YDoubles[0]) / HDoubles[0] - LeftCondition);
+            rightPart[0] = 3 * HDoubles[0] * LeftCondition;
             //правое условие
-            D[N] = 6 * (RightCondition - (YDoubles[N] - YDoubles[N - 1]) / HDoubles[N - 1]);
+            rightPart[N] = 6 * (RightCondition - (YDoubles[N] - YDoubles[N - 1]) / HDoubles[N - 1]);
             for (var i = 1; i < N; i++)
             {
-                D[i] =
+                rightPart[i] =
                     6 * ((YDoubles[i + 1] - YDoubles[i]) / HDoubles[i] -
                          (YDoubles[i] - YDoubles[i - 1]) / HDoubles[i - 1]);
             }
-            LinearSystem.ThomasAlgorithm(A, B, C, ref m, D, N + 1);
+            LinearSystem.ThomasAlgorithm(
+                bottomDiagonal,
+                mainDiagonal,
+                topDiagonal,
+                ref resultVector,
+                rightPart,
+                N + 1
+                );
             for (var i = 0; i < N; i++)
             {
                 ADoubles[i] = YDoubles[i];
-                CDoubles[i] = m[i] / 2;
+                CDoubles[i] = resultVector[i] / 2;
                 BDoubles[i] = 
                     (YDoubles[i + 1] - YDoubles[i]) / HDoubles[i]
                     - HDoubles[i] * CDoubles[i]
-                    - HDoubles[i] * (m[i + 1] - m[i]) / 6;
-                DDoubles[i] = (m[i + 1] - m[i]) / (6 * HDoubles[i]);
+                    - HDoubles[i] * (resultVector[i + 1] - resultVector[i]) / 6;
+                DDoubles[i] = (resultVector[i + 1] - resultVector[i]) / (6 * HDoubles[i]);
             }
         }
         
@@ -197,6 +185,47 @@ namespace NumericalMethodsLab1Part3
         public double GetError() => ErrorDoubles.Max();
 
     }
+
+#region DISTRIBUTION
+
+public static class Distribution
+{
+    public static double[] EvenNodes(double a, double b, int n)
+    {
+
+        var XDoubles = new double[n];
+
+        XDoubles[0] = a;
+        var h = (b - a) / (n - 1);
+        for (var i = 1; i < n; i++)
+        {
+            XDoubles[i] = XDoubles[i - 1] + h;
+        }
+
+        return XDoubles;
+
+    }
+    
+    public static double[] ChebushevNodes(double a, double b, int n)
+    {
+
+        var XDoubles = new double[n];
+
+        double
+            t1 = (a + b) / 2,
+            t2 = (b - a) / 2,
+            t3 = 1 / (2 * Convert.ToDouble(n)) * Math.PI;
+        for (var i = 0; i < n; i++)
+        {
+            XDoubles[i] = t1 - t2 * Math.Cos((2 * i + 1) * t3);
+        }
+
+        return XDoubles;
+
+    }
+}
+
+#endregion
 
     #region LINEARSYSTEMS
 
