@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumericalMethodsLab2Part2", "NumericalMethodsLab2Part2\NumericalMethodsLab2Part2.csproj", "{CAF739EE-5CFA-48D7-9DB5-5D5168D919EF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CAF739EE-5CFA-48D7-9DB5-5D5168D919EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAF739EE-5CFA-48D7-9DB5-5D5168D919EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAF739EE-5CFA-48D7-9DB5-5D5168D919EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAF739EE-5CFA-48D7-9DB5-5D5168D919EF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DC081E5B-D67C-42D0-A573-D5F935612B47}
+	EndGlobalSection
+EndGlobal
