@@ -13,9 +13,10 @@ namespace NumericalMethodsLab2Part1
         private int N0 { get; }                                     // Начальное количество узлов разбиения интервала [a;b]
         private static int P => 3;                                              // Порядок метода Рунге - Кутта
         private double Epsilon0 { get; }                            // Погрешность, заданная пользователем
+        private double MinimalH { get; }
 
         public double[] GridN { get; private set; }                             // Равномерная сетка размера n
-        private double HN { get; set; }                                  // Погрешность для сетки размера n
+        public double HN { get; set; }                                  // Погрешность для сетки размера n
         private double[] Grid2N { get; set; }                            // Равномерная сетка размера 2n
         private double H2N { get; set; }                                 // Погрешность для сетки размера 2n
         public double[] ResultN { get; private set; }                           // Результирующий вектор размера n
@@ -31,6 +32,8 @@ namespace NumericalMethodsLab2Part1
             double y0
         )
         {
+            MinimalH = FindMinimalH();
+
             B = b;
             N0 = n0;
             Epsilon0 = epsilon0;
@@ -102,12 +105,15 @@ namespace NumericalMethodsLab2Part1
                 // Удваиваем количество точек на сетке
                 n *= 2;
                 n2 *= 2;
+
+                // Процесс решения прекращен, т.к. шаг стал меньше возможного
+                if (MinimalH > HN) return 2; 
                 // Процесс решения прекращен, т.к. с уменьшением шага погрешность не уменьшается
-                if (!(currentError < previousError)) return 1;
+                if (currentError > previousError) return 1;
                 // Решение не получено, двухсторонний метод Рунге-Кутта с данным начальным шагом не применим
                 if (!isSolved) return 4;
 
-            } while (!(currentError < Epsilon0));
+            } while (currentError > Epsilon0);
 
             // Завершение в соответствии с назначенным условием о достижении заданной точности
             return 0;
@@ -156,6 +162,18 @@ namespace NumericalMethodsLab2Part1
         public double FindError()
         {
             return Math.Abs(ResultN.Last() - Result2N.Last()) / (Math.Pow(2, P) - 1);
+        }
+
+        private double FindMinimalH()
+        {
+            var r = 1.0;
+
+            while (1.0 + r > 1.0)
+            {
+                r /= 2.0;
+            }
+
+            return r * 2.0;
         }
     }
 

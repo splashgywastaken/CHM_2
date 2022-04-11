@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ZedGraph;
 
@@ -36,9 +32,11 @@ namespace NumericalMethodsLab2Part2
             var response = method.GetResult();
 
             SetTextForControl(ResponseTextBox, response);
-            SetTextForControl(ErrorTextBox, RungeKuttaMethod.FindError());
+            SetTextForControl(YErrorTextBox, method.YError);
+            SetTextForControl(ZErrorTextBox, method.ZError);
             SetTextForControl(XLastTextBox, method.GridN.Last());
             SetTextForControl(YLastTextBox, method.Yn.Last());
+            SetTextForControl(ZLastTextBox, method.Zn.Last());
 
             switch (response)
             {
@@ -127,13 +125,14 @@ namespace NumericalMethodsLab2Part2
 
         private void PlotButton_Click(object sender, EventArgs e)
         {
-            Plot();
+            PlotY();
+            PlotZ();
         }
 
-        private void Plot()
+        private void PlotY()
         {
+            var pane = YGraphControl.GraphPane;
 
-            var pane = MainZedgraphControl.GraphPane;
             pane.CurveList.Clear();
 
             PaneInit(pane);
@@ -149,7 +148,7 @@ namespace NumericalMethodsLab2Part2
                 Color.Crimson
             );
 
-            var y_array = method.Last2IterationsZ.Dequeue();
+            var y_array = method.Last2IterationsY.Dequeue();
             var x_array = Distribution.EvenNodes(
                 method.A,
                 method.B,
@@ -162,11 +161,11 @@ namespace NumericalMethodsLab2Part2
                 x_array,
                 y_array,
                 y_array.Length,
-                "Предпоследнее решение",
-                Color.Black
+                "Предпредпоследнее решение",
+                Color.DarkViolet
             );
 
-            y_array = method.Last2IterationsZ.Dequeue();
+            y_array = method.Last2IterationsY.Dequeue();
             if (y_array != Array.Empty<double>())
             {
                 x_array = Distribution.EvenNodes(
@@ -181,13 +180,73 @@ namespace NumericalMethodsLab2Part2
                     x_array,
                     y_array,
                     y_array.Length,
-                    "Последнее решение",
+                    "Предпоследнее решение",
                     Color.Green
                 );
             }
 
-            MainZedgraphControl.AxisChange();
-            MainZedgraphControl.Invalidate();
+            YGraphControl.AxisChange();
+            YGraphControl.Invalidate();
+        }
+
+        private void PlotZ()
+        {
+            var pane = ZGraphControl.GraphPane;
+
+            pane.CurveList.Clear();
+
+            PaneInit(pane);
+            var n = method.GridN.Length;
+
+            // Вывод численного решения задачи Коши, соответствующего сетке с количеством подотрезков разбиения n0 
+            DrawGraph(
+                pane,
+                method.GridN,
+                method.Zn,
+                n,
+                "График численного решения (сетка с n0 подотрезков разбиения)",
+                Color.Crimson
+            );
+
+            var z_array = method.Last2IterationsZ.Dequeue();
+            var x_array = Distribution.EvenNodes(
+                method.A,
+                method.B,
+                z_array.Length
+            );
+
+            // Вывод численного решения задачи Коши, полученного в последних двух итерациях алгоритма решения
+            DrawGraph(
+                pane,
+                x_array,
+                z_array,
+                z_array.Length,
+                "Предпредпоследнее решение",
+                Color.DarkViolet
+            );
+
+            z_array = method.Last2IterationsZ.Dequeue();
+            if (z_array != Array.Empty<double>())
+            {
+                x_array = Distribution.EvenNodes(
+                    method.A,
+                    method.B,
+                    z_array.Length
+                );
+
+                // Вывод численного решения задачи Коши, полученного в последних двух итерациях алгоритма решения
+                DrawGraph(
+                    pane,
+                    x_array,
+                    z_array,
+                    z_array.Length,
+                    "Предпоследнее решение",
+                    Color.Green
+                );
+            }
+
+            ZGraphControl.AxisChange();
+            ZGraphControl.Invalidate();
         }
 
         private void PaneInit(GraphPane pane)
@@ -262,5 +321,47 @@ namespace NumericalMethodsLab2Part2
             pane.AddCurve(graphName, list, color, SymbolType.Circle);
         }
 
+        private void YGraph1_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeGraphVisibility(0, YGraph1, YGraphControl);
+        }
+
+        private void YGraph2_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeGraphVisibility(1, YGraph2, YGraphControl);
+        }
+
+        private void YGraph3_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeGraphVisibility(2, YGraph3, YGraphControl);
+        }
+
+        private void ZGraph1_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeGraphVisibility(0, ZGraph1, ZGraphControl);
+        }
+
+        private void ZGraph2_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeGraphVisibility(1, ZGraph2, ZGraphControl);
+        }
+
+        private void ZGraph3_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeGraphVisibility(2, ZGraph3, ZGraphControl);
+        }
+
+        private void ChangeGraphVisibility(int index, CheckBox checkBox, ZedGraphControl control)
+        {
+            var pane = control.GraphPane;
+
+            if (pane.CurveList[index] != null)
+            {
+                pane.CurveList[index].IsVisible = checkBox.Checked;
+            }
+
+            control.AxisChange();
+            control.Invalidate();
+        }
     }
 }

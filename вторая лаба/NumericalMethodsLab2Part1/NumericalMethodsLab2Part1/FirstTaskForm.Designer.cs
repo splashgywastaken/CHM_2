@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.GraphsGroupBox = new System.Windows.Forms.GroupBox();
-            this.RKZedgraphControl = new ZedGraph.ZedGraphControl();
+            this.ZedgraphControl = new ZedGraph.ZedGraphControl();
             this.InputGroupBox = new System.Windows.Forms.GroupBox();
             this.epsilonPower = new System.Windows.Forms.TextBox();
             this.epsilonNum = new System.Windows.Forms.TextBox();
@@ -58,6 +58,14 @@
             this.label10 = new System.Windows.Forms.Label();
             this.errrorTextBox = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.OnTextBox = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.HTextBox = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.GraphsGroupBox.SuspendLayout();
             this.InputGroupBox.SuspendLayout();
             this.OutputGroupBox.SuspendLayout();
@@ -65,7 +73,7 @@
             // 
             // GraphsGroupBox
             // 
-            this.GraphsGroupBox.Controls.Add(this.RKZedgraphControl);
+            this.GraphsGroupBox.Controls.Add(this.ZedgraphControl);
             this.GraphsGroupBox.Location = new System.Drawing.Point(12, 12);
             this.GraphsGroupBox.Name = "GraphsGroupBox";
             this.GraphsGroupBox.Size = new System.Drawing.Size(879, 714);
@@ -73,19 +81,19 @@
             this.GraphsGroupBox.TabStop = false;
             this.GraphsGroupBox.Text = "Графики";
             // 
-            // RKZedgraphControl
+            // ZedgraphControl
             // 
-            this.RKZedgraphControl.Location = new System.Drawing.Point(6, 16);
-            this.RKZedgraphControl.Name = "RKZedgraphControl";
-            this.RKZedgraphControl.ScrollGrace = 0D;
-            this.RKZedgraphControl.ScrollMaxX = 0D;
-            this.RKZedgraphControl.ScrollMaxY = 0D;
-            this.RKZedgraphControl.ScrollMaxY2 = 0D;
-            this.RKZedgraphControl.ScrollMinX = 0D;
-            this.RKZedgraphControl.ScrollMinY = 0D;
-            this.RKZedgraphControl.ScrollMinY2 = 0D;
-            this.RKZedgraphControl.Size = new System.Drawing.Size(867, 692);
-            this.RKZedgraphControl.TabIndex = 0;
+            this.ZedgraphControl.Location = new System.Drawing.Point(6, 16);
+            this.ZedgraphControl.Name = "ZedgraphControl";
+            this.ZedgraphControl.ScrollGrace = 0D;
+            this.ZedgraphControl.ScrollMaxX = 0D;
+            this.ZedgraphControl.ScrollMaxY = 0D;
+            this.ZedgraphControl.ScrollMaxY2 = 0D;
+            this.ZedgraphControl.ScrollMinX = 0D;
+            this.ZedgraphControl.ScrollMinY = 0D;
+            this.ZedgraphControl.ScrollMinY2 = 0D;
+            this.ZedgraphControl.Size = new System.Drawing.Size(867, 692);
+            this.ZedgraphControl.TabIndex = 0;
             // 
             // InputGroupBox
             // 
@@ -270,6 +278,14 @@
             // 
             // OutputGroupBox
             // 
+            this.OutputGroupBox.Controls.Add(this.HTextBox);
+            this.OutputGroupBox.Controls.Add(this.label14);
+            this.OutputGroupBox.Controls.Add(this.checkBox4);
+            this.OutputGroupBox.Controls.Add(this.checkBox3);
+            this.OutputGroupBox.Controls.Add(this.checkBox2);
+            this.OutputGroupBox.Controls.Add(this.checkBox1);
+            this.OutputGroupBox.Controls.Add(this.OnTextBox);
+            this.OutputGroupBox.Controls.Add(this.label13);
             this.OutputGroupBox.Controls.Add(this.YLastTextBox);
             this.OutputGroupBox.Controls.Add(this.label12);
             this.OutputGroupBox.Controls.Add(this.XLastTextBox);
@@ -287,7 +303,7 @@
             // 
             // YLastTextBox
             // 
-            this.YLastTextBox.Location = new System.Drawing.Point(6, 201);
+            this.YLastTextBox.Location = new System.Drawing.Point(6, 235);
             this.YLastTextBox.Name = "YLastTextBox";
             this.YLastTextBox.ReadOnly = true;
             this.YLastTextBox.Size = new System.Drawing.Size(242, 20);
@@ -297,7 +313,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label12.Location = new System.Drawing.Point(7, 166);
+            this.label12.Location = new System.Drawing.Point(7, 200);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(225, 32);
             this.label12.TabIndex = 6;
@@ -305,7 +321,7 @@
             // 
             // XLastTextBox
             // 
-            this.XLastTextBox.Location = new System.Drawing.Point(6, 143);
+            this.XLastTextBox.Location = new System.Drawing.Point(6, 177);
             this.XLastTextBox.Name = "XLastTextBox";
             this.XLastTextBox.ReadOnly = true;
             this.XLastTextBox.Size = new System.Drawing.Size(242, 20);
@@ -315,7 +331,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label11.Location = new System.Drawing.Point(7, 108);
+            this.label11.Location = new System.Drawing.Point(7, 142);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(225, 32);
             this.label11.TabIndex = 4;
@@ -323,7 +339,7 @@
             // 
             // responseTextBox
             // 
-            this.responseTextBox.Location = new System.Drawing.Point(6, 85);
+            this.responseTextBox.Location = new System.Drawing.Point(6, 77);
             this.responseTextBox.Name = "responseTextBox";
             this.responseTextBox.ReadOnly = true;
             this.responseTextBox.Size = new System.Drawing.Size(242, 20);
@@ -332,16 +348,16 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label10.Location = new System.Drawing.Point(6, 62);
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label10.Location = new System.Drawing.Point(3, 58);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(193, 20);
+            this.label10.Size = new System.Drawing.Size(162, 16);
             this.label10.TabIndex = 2;
             this.label10.Text = "Индикатор ошибки Error";
             // 
             // errrorTextBox
             // 
-            this.errrorTextBox.Location = new System.Drawing.Point(6, 39);
+            this.errrorTextBox.Location = new System.Drawing.Point(6, 35);
             this.errrorTextBox.Name = "errrorTextBox";
             this.errrorTextBox.ReadOnly = true;
             this.errrorTextBox.Size = new System.Drawing.Size(242, 20);
@@ -350,12 +366,100 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label9.Location = new System.Drawing.Point(6, 16);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(112, 20);
+            this.label9.Size = new System.Drawing.Size(93, 16);
             this.label9.TabIndex = 0;
             this.label9.Text = "Погрешность";
+            // 
+            // OnTextBox
+            // 
+            this.OnTextBox.Location = new System.Drawing.Point(6, 119);
+            this.OnTextBox.Name = "OnTextBox";
+            this.OnTextBox.ReadOnly = true;
+            this.OnTextBox.Size = new System.Drawing.Size(242, 20);
+            this.OnTextBox.TabIndex = 9;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label13.Location = new System.Drawing.Point(3, 100);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(100, 16);
+            this.label13.TabIndex = 8;
+            this.label13.Text = "Значение O(n)";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(0, 315);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(73, 17);
+            this.checkBox1.TabIndex = 10;
+            this.checkBox1.Text = "График 1";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Checked = true;
+            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox2.Location = new System.Drawing.Point(145, 315);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(73, 17);
+            this.checkBox2.TabIndex = 11;
+            this.checkBox2.Text = "График 2";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Checked = true;
+            this.checkBox3.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox3.Location = new System.Drawing.Point(0, 338);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(73, 17);
+            this.checkBox3.TabIndex = 12;
+            this.checkBox3.Text = "График 3";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Checked = true;
+            this.checkBox4.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox4.Location = new System.Drawing.Point(144, 337);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(73, 17);
+            this.checkBox4.TabIndex = 13;
+            this.checkBox4.Text = "График 4";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
+            // 
+            // HTextBox
+            // 
+            this.HTextBox.Location = new System.Drawing.Point(6, 281);
+            this.HTextBox.Name = "HTextBox";
+            this.HTextBox.ReadOnly = true;
+            this.HTextBox.Size = new System.Drawing.Size(242, 20);
+            this.HTextBox.TabIndex = 15;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label14.Location = new System.Drawing.Point(8, 258);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(204, 16);
+            this.label14.TabIndex = 14;
+            this.label14.Text = "Значение минимального шага";
             // 
             // FirstTaskForm
             // 
@@ -381,7 +485,7 @@
         private System.Windows.Forms.GroupBox GraphsGroupBox;
         private System.Windows.Forms.GroupBox InputGroupBox;
         private System.Windows.Forms.GroupBox OutputGroupBox;
-        private ZedGraph.ZedGraphControl RKZedgraphControl;
+        private ZedGraph.ZedGraphControl ZedgraphControl;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox FunctionComboBox;
         private System.Windows.Forms.TextBox IntervalLeftValueTextBox;
@@ -407,6 +511,14 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox YLastTextBox;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox HTextBox;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.TextBox OnTextBox;
+        private System.Windows.Forms.Label label13;
     }
 }
 

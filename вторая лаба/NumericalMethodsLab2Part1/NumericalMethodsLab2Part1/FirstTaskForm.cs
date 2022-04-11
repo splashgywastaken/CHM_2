@@ -9,7 +9,7 @@ namespace NumericalMethodsLab2Part1
 {
     public partial class FirstTaskForm : Form
     {
-        private RungeKuttaMethod _rungeKuttaMethod;
+        private RungeKuttaMethod method;
 
         public FirstTaskForm()
         {
@@ -29,11 +29,11 @@ namespace NumericalMethodsLab2Part1
         private void Plot()
         {
 
-            var pane = RKZedgraphControl.GraphPane;
+            var pane = ZedgraphControl.GraphPane;
             pane.CurveList.Clear();
 
             PaneInit(pane);
-            var n = _rungeKuttaMethod.GridN.Length;
+            var n = method.GridN.Length;
 
             // Вывод аналитического решения если выбрана нужная функция
             if (FunctionComboBox.SelectedIndex == 0)
@@ -41,13 +41,13 @@ namespace NumericalMethodsLab2Part1
                 var y = new double[n];
                 for (var index = 0; index < n; index++)
                 {
-                    var x = _rungeKuttaMethod.GridN[index];
+                    var x = method.GridN[index];
                     y[index] = -8.0 * x + 65.1556 * Math.Exp(x / 8.0) - 64.0;
                 }
 
                 DrawScatterPlot(
                     pane,
-                    _rungeKuttaMethod.GridN,
+                    method.GridN,
                     y,
                     n,
                     "Аналитическое решение задачи Коши",
@@ -59,17 +59,17 @@ namespace NumericalMethodsLab2Part1
             // Вывод численного решения задачи Коши, соответствующего сетке с количеством подотрезков разбиения n0 
             DrawGraph(
                 pane,
-                _rungeKuttaMethod.GridN,
-                _rungeKuttaMethod.ResultN,
+                method.GridN,
+                method.ResultN,
                 n,
                 "График численного решения (сетка с n0 подотрезков разбиения)",
                 Color.Crimson
             );
             
-            var y_array = _rungeKuttaMethod.ResultLast2Iterations.Dequeue();
+            var y_array = method.ResultLast2Iterations.Dequeue();
             var x_array = Distribution.EvenNodes(
-                _rungeKuttaMethod.A,
-                _rungeKuttaMethod.B,
+                method.A,
+                method.B,
                 y_array.Length
             );
 
@@ -80,15 +80,15 @@ namespace NumericalMethodsLab2Part1
                 y_array,
                 y_array.Length,
                 "Предпоследнее решение",
-                Color.Black
+                Color.Turquoise
             );
 
-            y_array = _rungeKuttaMethod.ResultLast2Iterations.Dequeue();
+            y_array = method.ResultLast2Iterations.Dequeue();
             if (y_array != Array.Empty<double>())
             {
                 x_array = Distribution.EvenNodes(
-                    _rungeKuttaMethod.A,
-                    _rungeKuttaMethod.B,
+                    method.A,
+                    method.B,
                     y_array.Length
                 );
 
@@ -103,8 +103,8 @@ namespace NumericalMethodsLab2Part1
                 );
             }
 
-            RKZedgraphControl.AxisChange();
-            RKZedgraphControl.Invalidate();
+            ZedgraphControl.AxisChange();
+            ZedgraphControl.Invalidate();
         }
 
         private void PaneInit(GraphPane pane)
@@ -184,7 +184,7 @@ namespace NumericalMethodsLab2Part1
         private void SolveButton_Click(object sender, EventArgs e)
         {
             // Задаём значения для решения задачи:
-            _rungeKuttaMethod = new RungeKuttaMethod(
+            method = new RungeKuttaMethod(
                 ControlTextToDouble(IntervalLeftValueTextBox),
                 ControlTextToDouble(IntervalRightValueTextBox),
                 ControlTextToInt(NTextBox),
@@ -193,12 +193,14 @@ namespace NumericalMethodsLab2Part1
                 ControlTextToDouble(BaseConditionTextBox)
             );
 
-            var response = _rungeKuttaMethod.GetResult();
+            var response = method.GetResult();
 
             SetTextForControl(responseTextBox, response);
-            SetTextForControl(errrorTextBox, _rungeKuttaMethod.FindError());
-            SetTextForControl(XLastTextBox, _rungeKuttaMethod.GridN.Last());
-            SetTextForControl(YLastTextBox, _rungeKuttaMethod.ResultN.Last());
+            SetTextForControl(errrorTextBox, method.FindError());
+            SetTextForControl(XLastTextBox, method.GridN.Last());
+            SetTextForControl(YLastTextBox, method.ResultN.Last());
+            SetTextForControl(OnTextBox, method.ResultN.Length);
+            SetTextForControl(HTextBox, method.HN);
 
             switch (response)
             {
@@ -295,6 +297,11 @@ namespace NumericalMethodsLab2Part1
 
                     BaseConditionTextBox.Text = "2,1";
                     BaseConditionTextBox.ReadOnly = true;
+
+                    checkBox1.Visible = true;
+                    checkBox2.Text = "График 2";
+                    checkBox3.Text = "График 3";
+                    checkBox4.Text = "График 4";
                 } 
                 break;
 
@@ -305,9 +312,47 @@ namespace NumericalMethodsLab2Part1
 
                     BaseConditionTextBox.Text = "";
                     BaseConditionTextBox.ReadOnly = false;
+
+                    checkBox1.Visible = false;
+                    checkBox2.Text = "График 1";
+                    checkBox3.Text = "График 2";
+                    checkBox4.Text = "График 3";
                     }
                 break;
             }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeGraphVisibility(0, checkBox1);
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeGraphVisibility(1, checkBox2);
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeGraphVisibility(2, checkBox3);
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeGraphVisibility(3, checkBox4);
+        }
+
+        private void ChangeGraphVisibility(int index, CheckBox checkBox)
+        {
+            var pane = ZedgraphControl.GraphPane;
+
+            if (pane.CurveList[index] != null)
+            {
+                pane.CurveList[index].IsVisible = checkBox.Checked;
+            }
+
+            ZedgraphControl.AxisChange();
+            ZedgraphControl.Invalidate();
         }
     }
 }
