@@ -232,7 +232,6 @@
             this.IntervalLeftValueTextBox.Name = "IntervalLeftValueTextBox";
             this.IntervalLeftValueTextBox.Size = new System.Drawing.Size(196, 20);
             this.IntervalLeftValueTextBox.TabIndex = 2;
-            this.IntervalLeftValueTextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label3
             // 

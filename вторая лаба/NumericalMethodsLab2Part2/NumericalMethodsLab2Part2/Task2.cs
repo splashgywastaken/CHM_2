@@ -14,7 +14,7 @@ namespace NumericalMethodsLab2Part2
             InitializeComponent();
         }
 
-        private RungeKuttaMethod method;
+        private RungeKuttaMethod _method;
 
         private void GenerateDataButton_Click(object sender, EventArgs e)
         {
@@ -23,20 +23,22 @@ namespace NumericalMethodsLab2Part2
 
         private void GenerateData()
         {
-            method = new RungeKuttaMethod(
+            _method = new RungeKuttaMethod(
                 ControlTextToDouble(xRightValue),
                 ControlTextToInt(N0TextBox),
                 GetUserError()
             );
 
-            var response = method.GetResult();
+            var response = _method.Solve();
 
             SetTextForControl(ResponseTextBox, response);
-            SetTextForControl(YErrorTextBox, method.YError);
-            SetTextForControl(ZErrorTextBox, method.ZError);
-            SetTextForControl(XLastTextBox, method.GridN.Last());
-            SetTextForControl(YLastTextBox, method.Yn.Last());
-            SetTextForControl(ZLastTextBox, method.Zn.Last());
+            SetTextForControl(YErrorTextBox, _method.YError);
+            SetTextForControl(ZErrorTextBox, _method.ZError);
+            SetTextForControl(XLastTextBox, _method.LastXn);
+            SetTextForControl(YLastTextBox, _method.LastYn);
+            SetTextForControl(ZLastTextBox, _method.LastZn);
+            SetTextForControl(OnTextBox, _method.LastN);
+            SetTextForControl(HTextBox, _method.LastHn);
 
             switch (response)
             {
@@ -133,44 +135,55 @@ namespace NumericalMethodsLab2Part2
         {
             var pane = YGraphControl.GraphPane;
 
+            pane.Title.Text = "График Y";
+            pane.YAxis.Title.Text = "Y axis";
+
             pane.CurveList.Clear();
 
             PaneInit(pane);
-            var n = method.GridN.Length;
-
-            // Вывод численного решения задачи Коши, соответствующего сетке с количеством подотрезков разбиения n0 
-            DrawGraph(
-                pane,
-                method.GridN,
-                method.Yn,
-                n,
-                "График численного решения (сетка с n0 подотрезков разбиения)",
-                Color.Crimson
-            );
-
-            var y_array = method.Last2IterationsY.Dequeue();
+            var y_array = _method.Last2IterationsY.Dequeue();
             var x_array = Distribution.EvenNodes(
-                method.A,
-                method.B,
+                _method.A,
+                _method.B,
                 y_array.Length
             );
 
-            // Вывод численного решения задачи Коши, полученного в последних двух итерациях алгоритма решения
+            // Вывод численного решения задачи Коши, соответствующего сетке с количеством подотрезков разбиения n0 
             DrawGraph(
                 pane,
                 x_array,
                 y_array,
                 y_array.Length,
-                "Предпредпоследнее решение",
-                Color.DarkViolet
+                "График численного решения (сетка с n0 подотрезков разбиения)",
+                Color.Crimson
             );
 
-            y_array = method.Last2IterationsY.Dequeue();
-            if (y_array != Array.Empty<double>())
+            if (_method.Last2IterationsY.Count >= 1)
             {
+                y_array = _method.Last2IterationsY.Dequeue();
                 x_array = Distribution.EvenNodes(
-                    method.A,
-                    method.B,
+                    _method.A,
+                    _method.B,
+                    y_array.Length
+                );
+
+                // Вывод численного решения задачи Коши, полученного в последних двух итерациях алгоритма решения
+                DrawGraph(
+                    pane,
+                    x_array,
+                    y_array,
+                    y_array.Length,
+                    "Предпредпоследнее решение",
+                    Color.DarkViolet
+                );
+            }
+
+            if (_method.Last2IterationsY.Count >= 1)
+            {
+                y_array = _method.Last2IterationsY.Dequeue();
+                x_array = Distribution.EvenNodes(
+                    _method.A,
+                    _method.B,
                     y_array.Length
                 );
 
@@ -193,44 +206,55 @@ namespace NumericalMethodsLab2Part2
         {
             var pane = ZGraphControl.GraphPane;
 
+            pane.Title.Text = "График Z";
+            pane.YAxis.Title.Text = "Z axis";
+
             pane.CurveList.Clear();
 
             PaneInit(pane);
-            var n = method.GridN.Length;
-
-            // Вывод численного решения задачи Коши, соответствующего сетке с количеством подотрезков разбиения n0 
-            DrawGraph(
-                pane,
-                method.GridN,
-                method.Zn,
-                n,
-                "График численного решения (сетка с n0 подотрезков разбиения)",
-                Color.Crimson
-            );
-
-            var z_array = method.Last2IterationsZ.Dequeue();
+            var z_array = _method.Last2IterationsZ.Dequeue();
             var x_array = Distribution.EvenNodes(
-                method.A,
-                method.B,
+                _method.A,
+                _method.B,
                 z_array.Length
             );
 
-            // Вывод численного решения задачи Коши, полученного в последних двух итерациях алгоритма решения
+            // Вывод численного решения задачи Коши, соответствующего сетке с количеством подотрезков разбиения n0 
             DrawGraph(
                 pane,
                 x_array,
                 z_array,
                 z_array.Length,
-                "Предпредпоследнее решение",
-                Color.DarkViolet
+                "График численного решения (сетка с n0 подотрезков разбиения)",
+                Color.Crimson
             );
-
-            z_array = method.Last2IterationsZ.Dequeue();
-            if (z_array != Array.Empty<double>())
+            
+            if (_method.Last2IterationsZ.Count >= 1)
             {
+                z_array = _method.Last2IterationsZ.Dequeue();
                 x_array = Distribution.EvenNodes(
-                    method.A,
-                    method.B,
+                    _method.A,
+                    _method.B,
+                    z_array.Length
+                );
+
+                // Вывод численного решения задачи Коши, полученного в последних двух итерациях алгоритма решения
+                DrawGraph(
+                    pane,
+                    x_array,
+                    z_array,
+                    z_array.Length,
+                    "Предпредпоследнее решение",
+                    Color.DarkViolet
+                );
+            }
+
+            if (_method.Last2IterationsZ.Count >= 1)
+            {
+                z_array = _method.Last2IterationsZ.Dequeue();
+                x_array = Distribution.EvenNodes(
+                    _method.A,
+                    _method.B,
                     z_array.Length
                 );
 
@@ -362,6 +386,17 @@ namespace NumericalMethodsLab2Part2
 
             control.AxisChange();
             control.Invalidate();
+        }
+
+        private void clearButton_Click(object sender, EventArgs e)
+        {
+            _method = null;
+
+            //Force garbage collection.
+            GC.Collect();
+
+            // Wait for all finalizers to complete before continuing.
+            GC.WaitForPendingFinalizers();
         }
     }
 }

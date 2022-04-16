@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace NumericalMethodsLab2Part2
 {
@@ -17,24 +18,23 @@ namespace NumericalMethodsLab2Part2
         private double MinH { get; }                          // Минимальный шаг
 
         // Значения которые метод генерирует
-        public double[] GridN { get; private set; }           // Равномерная сетка размера n 
-        private double Hn { get; set; }                       // Погрешность для сетки размера n
-        private double[] Grid2N { get; set; }                 // Равномерная сетка размера 2n
-        private double H2N { get; set; }                      // Погрешность для сетки размера 2n
-        public double[] Yn { get; private set; }              // Результирующий вектор y размера n
-        private double[] Y2N { get; set; }                    // Результирующий вектор y размера 2n
-        public double YError { get; private set; }                   // Погрешность для вектора Y
-        public double[] Zn { get; private set; }              // Результирующий вектор z размера n
-        private double[] Z2N { get; set; }                    // Результирующий вектор z размера 2n
-        public double ZError { get; private set; }                   // Погрешность для вектора Z
+        public int LastN { get; set; }
+        public double LastXn { get; set; }
+        public double LastHn { get; set; }
+        public double LastYn { get; private set; }
+        public double LastZn { get; set; }
+        public double YError { get; private set; }
+        public double ZError { get; private set; }
         public Queue<double[]> Last2IterationsY { get; } // Очередь из ответов на задачу (для вывода двух последних)
         public Queue<double[]> Last2IterationsZ { get; } // Очередь из ответов на задачу (для вывода двух последних)
+        private Queue<int> LastNQueue { get; } // Очередь из ответов на задачу (для вывода двух последних)
+        private Queue<int> LastN2Queue { get; } // Очередь из ответов на задачу (для вывода двух последних)
 
         public RungeKuttaMethod(
             double b,
             int n0,
             double epsilon0
-        )
+            )
         {
             double FindMinimalH()
             {
@@ -54,19 +54,55 @@ namespace NumericalMethodsLab2Part2
             B = b;
             N0 = n0;
             Epsilon0 = epsilon0;
+            LastNQueue = new Queue<int>();
+            LastN2Queue = new Queue<int>();
             Y0 = 1;
             Z0 = 1;
-
-            GridN = new double[N0];
-            Yn = new double[N0];
-            Y2N = new double[2 * N0];
-            Grid2N = new double[2 * N0];
 
             Last2IterationsY = new Queue<double[]>();
             Last2IterationsZ = new Queue<double[]>();
         }
 
-        public int GetResult()
+        public int Solve()
+        {
+            var result = GetResult();
+
+            int count = LastNQueue.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                double h = 0;
+                double h2 = 0;
+                int n = LastNQueue.Dequeue();
+                int n2 = LastN2Queue.Dequeue();
+
+                double[] x = BuildGrid(n, ref h);
+                double[] x2 = BuildGrid(n2, ref h);
+
+                double[] yn = null;
+                double[] zn = null;
+                double[] y2N = null;
+                double[] z2N = null;
+
+                SolveCauchy(n, x, h, ref yn, ref zn);
+                SolveCauchy(n2, x2, h2, ref y2N, ref z2N);
+
+                Last2IterationsY.Enqueue(yn);
+                Last2IterationsZ.Enqueue(zn);
+
+                if (i != count - 1) continue;
+
+                LastN = n;
+                LastHn = h;
+                LastXn = x.Last();
+                LastYn = yn.Last();
+                LastZn = zn.Last();
+            }
+
+            return result;
+        }
+
+        private int GetResult()
         {
             // Значения текущей погрешности и предыдущей для проверки на уменьшении погрешности при уменьшении шага
             double currentErrorY = 10;
@@ -76,17 +112,14 @@ namespace NumericalMethodsLab2Part2
             var n = N0;
             var n2 = 2 * N0;
 
-            double tempH = 0;
-            double temp2H = 0;
+            double h = 0;
+            double h2 = 0;
 
             do
             {
                 // Задаём равномерную сетку
-                GridN = BuildGrid(n, ref tempH);
-                Grid2N = BuildGrid(n2, ref temp2H);
-
-                Hn = tempH;
-                H2N = temp2H;
+                var x = BuildGrid(n, ref h);
+                var x2 = BuildGrid(n2, ref h2);
 
                 var previousErrorY = currentErrorY;
                 var previousErrorZ = currentErrorZ;
@@ -96,39 +129,34 @@ namespace NumericalMethodsLab2Part2
                 double[] y2N = null;
                 double[] z2N = null;
 
-                SolveCauchy(n, GridN, Hn, ref yn, ref zn);
-                SolveCauchy(n, Grid2N, H2N, ref y2N, ref z2N);
-
-                Yn = yn;
-                Zn = zn;
-                Y2N = y2N;
-                Z2N = z2N;
+                SolveCauchy(n, x, h, ref yn, ref zn);
+                SolveCauchy(n2, x2, h2, ref y2N, ref z2N);
 
                 var isSolved = 
-                       Yn.Length != 0 
-                    || Y2N.Length != 0 
-                    || Zn.Length != 0 
-                    || Z2N.Length != 0;
+                       yn.Length != 0 
+                    || y2N.Length != 0 
+                    || zn.Length != 0 
+                    || z2N.Length != 0;
 
-                Last2IterationsY.Enqueue(Yn);
-                while (Last2IterationsY.Count > 3)
+                LastNQueue.Enqueue(n);
+                while (LastNQueue.Count > 3)
                 {
-                    Last2IterationsY.Dequeue();
+                    LastNQueue.Dequeue();
                 }
-                Last2IterationsZ.Enqueue(Zn);
-                while (Last2IterationsZ.Count > 3)
+                LastN2Queue.Enqueue(n2);
+                while (LastN2Queue.Count > 3)
                 {
-                    Last2IterationsZ.Dequeue();
+                    LastN2Queue.Dequeue();
                 }
 
-                YError = currentErrorY = FindError(Yn, Y2N);
-                ZError = currentErrorZ = FindError(Zn, Z2N);
+                YError = currentErrorY = FindError(yn, y2N);
+                ZError = currentErrorZ = FindError(zn, z2N);
 
                 // Удваиваем количество точек на сетке
                 n *= 2;
                 n2 *= 2;
                 // Процесс решения прекращен, т.к. шаг стал меньше возможного
-                if (MinH > Hn) return 2;
+                if (MinH > h) return 2;
                 // Процесс решения прекращен, т.к. с уменьшением шага погрешность не уменьшается
                 if (!(currentErrorY < previousErrorY) && !(currentErrorZ < previousErrorZ)) return 1;
                 // Решение не получено, двухсторонний метод Рунге-Кутта с данным начальным шагом не применим
@@ -164,14 +192,32 @@ namespace NumericalMethodsLab2Part2
 
             for (var i = 1; i < n; i++)
             {
-                var k11 = K11(z[i - 1], h);
-                var k12 = K12(x[i - 1], y[i - 1], z[i - 1], h);
-                var k21 = K21(x[i - 1], y[i - 1], z[i - 1], h);
-                var k22 = K22(x[i - 1], y[i - 1], z[i - 1], h);
-                var k31 = K31(x[i - 1], y[i - 1], z[i - 1], h);
-                var k32 = K32(x[i - 1], y[i - 1], z[i - 1], h);
-                var k41 = K41(x[i - 1], y[i - 1], z[i - 1], h);
-                var k42 = K42(x[i - 1], y[i - 1], z[i - 1], h);
+                var k11 = Func1(z[i - 1]) *  h;
+                var k12 = h * Func2(
+                    x[i - 1], 
+                    y[i - 1],
+                    z[i - 1]
+                    );
+                var k21 = Func1(z[i - 1] * k12) * h;
+                var k22 = h * Func2(
+                    x[i - 1] + 1.0 / 3 * h,
+                    y[i - 1] + 1.0 / 3 * k11,
+                    z[i - 1] * k12
+                    );
+                var k31 = h * Func1(z[i - 1] - 1.0 / 3 * k11 + k12);
+                var k32 = h * Func2(
+                    x[i - 1] + 1.0 / 3 * h,
+                    y[i - 1] - 1.0 / 3 * k11 + k21,
+                    z[i - 1] - 1.0 / 3 * k12 + k22
+                    );
+                var k41 = h * Func1(
+                    z[i - 1] + k12 - k22 + k32
+                    );
+                var k42 = h * Func2(
+                    x[i - 1] + h,
+                    y[i - 1] + k11 - k21 + k31,
+                    z[i - 1] + k12 - k22 + k32
+                    );
 
                 y[i] = y[i - 1] + 1.0 / 8 * (k11 + 3 * k21 + 3 * k31 + k41);
                 z[i] = z[i - 1] + 1.0 / 8 * (k12 + 3 * k22 + 3 * k32 + k42);

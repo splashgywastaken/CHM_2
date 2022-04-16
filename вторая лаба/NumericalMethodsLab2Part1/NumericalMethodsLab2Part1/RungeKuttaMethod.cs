@@ -69,14 +69,14 @@ namespace NumericalMethodsLab2Part1
         public int GetResult()
         {
             // Значения текущей погрешности и предыдущей для проверки на уменьшении погрешности при уменьшении шага
-            double currentError = 10;
+            double currentError = 10.0;
             // Решаемо ли уравнение методом Рунге-Кутта или нет
             // Размерности
-            var n = N0;
-            var n2 = 2 * N0;
+            int n = N0;
+            int n2 = 2 * N0;
 
-            double tempH = 0;
-            double temp2H = 0;
+            double tempH = 0.0;
+            double temp2H = 0.0;
 
             do
             {
@@ -87,12 +87,12 @@ namespace NumericalMethodsLab2Part1
                 HN = tempH;
                 H2N = temp2H;
 
-                var previousError = currentError;
+                double previousError = currentError;
 
                 ResultN = SolveCauchy(n, GridN, HN);
                 Result2N = SolveCauchy(n2, Grid2N, H2N);
 
-                var isSolved = ResultN.Length != 0 || Result2N.Length != 0;
+                bool isSolved = ResultN.Length != 0 || Result2N.Length != 0;
                 
                 ResultLast2Iterations.Enqueue(ResultN);
                 while (ResultLast2Iterations.Count > 3)
@@ -129,14 +129,14 @@ namespace NumericalMethodsLab2Part1
         // Получение решения задачи Коши методом Рунге-Кутта порядка p
         private double[] SolveCauchy(int n, IReadOnlyList<double> x, double h)
         {
-            var y = new double[n];
+            double[] y = new double[n];
             y[0] = Func0;
 
             for (var index = 1; index < n; index++)
             {
-                var k1 = K1(x[index - 1], y[index - 1], h);
-                var k2 = K2(x[index - 1], y[index - 1], h, k1);
-                var k3 = K3(x[index - 1], y[index - 1], h, k2);
+                double k1 = K1(x[index - 1], y[index - 1], h);
+                double k2 = K2(x[index - 1], y[index - 1], h, k1);
+                double k3 = K3(x[index - 1], y[index - 1], h, k2);
                 
                 y[index] = y[index - 1] + 1.0 / 4.0 * (k1 + 3.0 * k3);
             }

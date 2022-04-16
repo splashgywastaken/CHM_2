@@ -81,6 +81,7 @@
             this.label17 = new System.Windows.Forms.Label();
             this.YErrorTextBox = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
+            this.clearButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -93,9 +94,9 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(12, 20);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 20);
+            this.label1.Size = new System.Drawing.Size(53, 20);
             this.label1.TabIndex = 1;
-            this.label1.Text = "y_1\'(x) = ";
+            this.label1.Text = "y\'(x) = ";
             // 
             // groupBox1
             // 
@@ -151,6 +152,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.clearButton);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.EpsilonRight);
             this.groupBox2.Controls.Add(this.label14);
@@ -195,10 +197,11 @@
             this.EpsilonRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.EpsilonRight.Location = new System.Drawing.Point(807, 42);
             this.EpsilonRight.Name = "EpsilonRight";
-            this.EpsilonRight.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.EpsilonRight.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.EpsilonRight.Size = new System.Drawing.Size(49, 22);
             this.EpsilonRight.TabIndex = 21;
-            this.EpsilonRight.Text = "10";
+            this.EpsilonRight.Text = "7";
+            this.EpsilonRight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label14
             // 
@@ -308,10 +311,10 @@
             this.xRightValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.xRightValue.Location = new System.Drawing.Point(487, 45);
             this.xRightValue.Name = "xRightValue";
-            this.xRightValue.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.xRightValue.Size = new System.Drawing.Size(28, 22);
             this.xRightValue.TabIndex = 8;
             this.xRightValue.Text = "1";
+            this.xRightValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label4
             // 
@@ -336,7 +339,7 @@
             // PlotButton
             // 
             this.PlotButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.PlotButton.Location = new System.Drawing.Point(1094, 25);
+            this.PlotButton.Location = new System.Drawing.Point(1094, 19);
             this.PlotButton.Name = "PlotButton";
             this.PlotButton.Size = new System.Drawing.Size(159, 28);
             this.PlotButton.TabIndex = 23;
@@ -357,7 +360,7 @@
             // GenerateDataButton
             // 
             this.GenerateDataButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.GenerateDataButton.Location = new System.Drawing.Point(917, 25);
+            this.GenerateDataButton.Location = new System.Drawing.Point(917, 19);
             this.GenerateDataButton.Name = "GenerateDataButton";
             this.GenerateDataButton.Size = new System.Drawing.Size(171, 28);
             this.GenerateDataButton.TabIndex = 22;
@@ -393,9 +396,9 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.Location = new System.Drawing.Point(9, 46);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(75, 20);
+            this.label2.Size = new System.Drawing.Size(58, 20);
             this.label2.TabIndex = 2;
-            this.label2.Text = "y_2\'(x) =  ";
+            this.label2.Text = "z\'(x) =  ";
             // 
             // groupBox3
             // 
@@ -672,6 +675,17 @@
             this.label18.TabIndex = 24;
             this.label18.Text = "Погрешность для Y";
             // 
+            // clearButton
+            // 
+            this.clearButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.clearButton.Location = new System.Drawing.Point(1094, 53);
+            this.clearButton.Name = "clearButton";
+            this.clearButton.Size = new System.Drawing.Size(159, 23);
+            this.clearButton.TabIndex = 24;
+            this.clearButton.Text = "Очистить память";
+            this.clearButton.UseVisualStyleBackColor = true;
+            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
+            // 
             // Task2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -746,6 +760,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private ZedGraph.ZedGraphControl ZGraphControl;
         private ZedGraph.ZedGraphControl YGraphControl;
+        private System.Windows.Forms.Button clearButton;
     }
 }
 

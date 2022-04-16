@@ -9,16 +9,11 @@ namespace NumericalMethodsLab2Part1
 {
     public partial class FirstTaskForm : Form
     {
-        private RungeKuttaMethod method;
+        private RungeKuttaMethod _method;
 
         public FirstTaskForm()
         {
             InitializeComponent();
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void PlotButton_Click(object sender, EventArgs e)
@@ -33,7 +28,7 @@ namespace NumericalMethodsLab2Part1
             pane.CurveList.Clear();
 
             PaneInit(pane);
-            var n = method.GridN.Length;
+            var n = _method.GridN.Length;
 
             // Вывод аналитического решения если выбрана нужная функция
             if (FunctionComboBox.SelectedIndex == 0)
@@ -41,13 +36,13 @@ namespace NumericalMethodsLab2Part1
                 var y = new double[n];
                 for (var index = 0; index < n; index++)
                 {
-                    var x = method.GridN[index];
+                    var x = _method.GridN[index];
                     y[index] = -8.0 * x + 65.1556 * Math.Exp(x / 8.0) - 64.0;
                 }
 
                 DrawScatterPlot(
                     pane,
-                    method.GridN,
+                    _method.GridN,
                     y,
                     n,
                     "Аналитическое решение задачи Коши",
@@ -59,17 +54,17 @@ namespace NumericalMethodsLab2Part1
             // Вывод численного решения задачи Коши, соответствующего сетке с количеством подотрезков разбиения n0 
             DrawGraph(
                 pane,
-                method.GridN,
-                method.ResultN,
+                _method.GridN,
+                _method.ResultN,
                 n,
                 "График численного решения (сетка с n0 подотрезков разбиения)",
                 Color.Crimson
             );
             
-            var y_array = method.ResultLast2Iterations.Dequeue();
+            var y_array = _method.ResultLast2Iterations.Dequeue();
             var x_array = Distribution.EvenNodes(
-                method.A,
-                method.B,
+                _method.A,
+                _method.B,
                 y_array.Length
             );
 
@@ -82,13 +77,13 @@ namespace NumericalMethodsLab2Part1
                 "Предпоследнее решение",
                 Color.Turquoise
             );
-
-            y_array = method.ResultLast2Iterations.Dequeue();
-            if (y_array != Array.Empty<double>())
+            
+            if (_method.ResultLast2Iterations.Count >= 1)
             {
+                y_array = _method.ResultLast2Iterations.Dequeue();
                 x_array = Distribution.EvenNodes(
-                    method.A,
-                    method.B,
+                    _method.A,
+                    _method.B,
                     y_array.Length
                 );
 
@@ -183,8 +178,10 @@ namespace NumericalMethodsLab2Part1
 
         private void SolveButton_Click(object sender, EventArgs e)
         {
-            // Задаём значения для решения задачи:
-            method = new RungeKuttaMethod(
+            _method = null;
+
+                // Задаём значения для решения задачи:
+            _method = new RungeKuttaMethod(
                 ControlTextToDouble(IntervalLeftValueTextBox),
                 ControlTextToDouble(IntervalRightValueTextBox),
                 ControlTextToInt(NTextBox),
@@ -193,14 +190,14 @@ namespace NumericalMethodsLab2Part1
                 ControlTextToDouble(BaseConditionTextBox)
             );
 
-            var response = method.GetResult();
+            var response = _method.GetResult();
 
             SetTextForControl(responseTextBox, response);
-            SetTextForControl(errrorTextBox, method.FindError());
-            SetTextForControl(XLastTextBox, method.GridN.Last());
-            SetTextForControl(YLastTextBox, method.ResultN.Last());
-            SetTextForControl(OnTextBox, method.ResultN.Length);
-            SetTextForControl(HTextBox, method.HN);
+            SetTextForControl(errrorTextBox, _method.FindError());
+            SetTextForControl(XLastTextBox, _method.GridN.Last());
+            SetTextForControl(YLastTextBox, _method.ResultN.Last());
+            SetTextForControl(OnTextBox, _method.ResultN.Length);
+            SetTextForControl(HTextBox, _method.HN);
 
             switch (response)
             {
