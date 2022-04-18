@@ -129,6 +129,12 @@ namespace NumericalMethodsLab2Part2
                 double[] y2N = null;
                 double[] z2N = null;
 
+                //Force garbage collection.
+                GC.Collect();
+
+                // Wait for all finalizers to complete before continuing.
+                GC.WaitForPendingFinalizers();
+
                 SolveCauchy(n, x, h, ref yn, ref zn);
                 SolveCauchy(n2, x2, h2, ref y2N, ref z2N);
 

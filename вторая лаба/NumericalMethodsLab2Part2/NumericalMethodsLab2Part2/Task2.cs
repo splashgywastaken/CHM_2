@@ -154,7 +154,7 @@ namespace NumericalMethodsLab2Part2
                 x_array,
                 y_array,
                 y_array.Length,
-                "График численного решения (сетка с n0 подотрезков разбиения)",
+                "График численного решения (сетка с "+ y_array.Length +" подотрезков разбиения)",
                 Color.Crimson
             );
 
@@ -173,7 +173,7 @@ namespace NumericalMethodsLab2Part2
                     x_array,
                     y_array,
                     y_array.Length,
-                    "Предпредпоследнее решение",
+                    "График численного решения (сетка с " + y_array.Length + " подотрезков разбиения)",
                     Color.DarkViolet
                 );
             }
@@ -193,7 +193,7 @@ namespace NumericalMethodsLab2Part2
                     x_array,
                     y_array,
                     y_array.Length,
-                    "Предпоследнее решение",
+                    "График численного решения (сетка с " + y_array.Length + " подотрезков разбиения)",
                     Color.Green
                 );
             }
@@ -225,7 +225,7 @@ namespace NumericalMethodsLab2Part2
                 x_array,
                 z_array,
                 z_array.Length,
-                "График численного решения (сетка с n0 подотрезков разбиения)",
+                "График численного решения (сетка с " + z_array.Length + " подотрезков разбиения)",
                 Color.Crimson
             );
             
@@ -244,7 +244,7 @@ namespace NumericalMethodsLab2Part2
                     x_array,
                     z_array,
                     z_array.Length,
-                    "Предпредпоследнее решение",
+                    "График численного решения (сетка с " + z_array.Length + " подотрезков разбиения)",
                     Color.DarkViolet
                 );
             }
@@ -264,7 +264,7 @@ namespace NumericalMethodsLab2Part2
                     x_array,
                     z_array,
                     z_array.Length,
-                    "Предпоследнее решение",
+                    "График численного решения (сетка с " + z_array.Length + " подотрезков разбиения)",
                     Color.Green
                 );
             }
