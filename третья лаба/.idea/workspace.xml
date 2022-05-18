@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ea399a14-5fca-4d8c-8b2f-eda017131875" name="Changes" comment="Third lab theory">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/теория/Korzunina_Shabunina_-_Chislennoe_reshenie_zadachi_Koshi_dlya_ODU_metodami_tipa_Runge-Kutta_Chast_1.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/теория/Korzunina_Shabunina_-_Chislennoe_reshenie_zadachi_Koshi_dlya_ODU_metodami_tipa_Runge-Kutta_Chast_1.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/теория/Korzunina_Shabunina_-_Metod_pristrelki.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/теория/Korzunina_Shabunina_-_Metod_pristrelki.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/теория/Korzunina_Shabunina_-_Metod_pristrelki_Individualnye_zadania.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/теория/Korzunina_Shabunina_-_Metod_pristrelki_Individualnye_zadania.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/теория/Laboratornaya_rabota_3.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/теория/Laboratornaya_rabota_3.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/теория/Non_LinearODE_Shooting_Method_Code_1.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/теория/Non_LinearODE_Shooting_Method_Code_1.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/теория/Numerical-Analysis-10E-by-Burden-and-Faires.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/теория/Numerical-Analysis-10E-by-Burden-and-Faires.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/теория/Raspredelenie_variantov_lr_3_-_gruppa_8.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/теория/Raspredelenie_variantov_lr_3_-_gruppa_8.pdf" afterDir="false" />
-    </list>
+    <list default="true" id="ea399a14-5fca-4d8c-8b2f-eda017131875" name="Changes" comment="Third lab theory" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,6 +11,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Jupyter Notebook" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -54,14 +46,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../мо/лабораторные/лабы/лаб5/Lab5.py" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
-  </component>
-  <component name="RunManager" selected="Python.Lab5">
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/projects/CHM_2/третья лаба/lab.py&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  }
+}</component>
+  <component name="RunManager" selected="Python.Lab">
     <configuration name="ChM_final" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="третья лаба" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -84,20 +78,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Lab5" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+    <configuration name="Lab" type="PythonConfigurationType" factoryName="Python">
       <module name="третья лаба" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="E:\Apps\anaconda3\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../../мо/лабораторные/лабы/лаб5" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../../мо/лабораторные/лабы/лаб5/Lab5.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lab.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -130,7 +124,7 @@
     </configuration>
     <list>
       <item itemvalue="Python.ChM_final" />
-      <item itemvalue="Python.Lab5" />
+      <item itemvalue="Python.Lab" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -147,6 +141,11 @@
       <workItem from="1652277150171" duration="345000" />
       <workItem from="1652620009143" duration="20421000" />
       <workItem from="1652680783811" duration="7100000" />
+      <workItem from="1652691690895" duration="654000" />
+      <workItem from="1652698229133" duration="3776000" />
+      <workItem from="1652702078759" duration="380000" />
+      <workItem from="1652703703415" duration="5128000" />
+      <workItem from="1652813933632" duration="316000" />
     </task>
     <task id="LOCAL-00001" summary="Made first task for the third lab">
       <created>1652688526846</created>
@@ -185,6 +184,7 @@
     <option name="LAST_COMMIT_MESSAGE" value="Third lab theory" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/_$Lab.coverage" NAME="Lab Coverage Results" MODIFIED="1652708860895" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/_$Lab5.coverage" NAME="Lab5 Coverage Results" MODIFIED="1652639169281" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../../мо/лабораторные/лабы/лаб5" />
     <SUITE FILE_PATH="coverage/_$ChM_final.coverage" NAME="ChM_final Coverage Results" MODIFIED="1652630947699" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
