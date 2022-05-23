@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ea399a14-5fca-4d8c-8b2f-eda017131875" name="Changes" comment="Third lab theory" />
+    <list default="true" id="ea399a14-5fca-4d8c-8b2f-eda017131875" name="Changes" comment="Third lab theory">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/третья лаба.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/третья лаба.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Лаба на питоне/ThirdLabPartOne.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Лаба на питоне/ThirdLabPartOne.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Лаба на питоне/ThirdLabPartTwo.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Лаба на питоне/ThirdLabPartTwo.ipynb" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,17 +53,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/projects/CHM_2/третья лаба/lab.py&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
-  }
-}</component>
-  <component name="RunManager" selected="Python.Lab">
-    <configuration name="ChM_final" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Лаба на питоне/ThirdLabFirstPart.py" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+  </component>
+  <component name="RunManager" selected="Python.ThirdLabSecondPart">
+    <configuration name="ThirdLabFirstPart" type="PythonConfigurationType" factoryName="Python">
       <module name="третья лаба" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -64,12 +68,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="E:\Apps\anaconda3\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Лаба на питоне" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ChM_final.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Лаба на питоне/ThirdLabFirstPart.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -78,20 +82,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Lab" type="PythonConfigurationType" factoryName="Python">
+    <configuration name="ThirdLabSecondPart" type="PythonConfigurationType" factoryName="Python">
       <module name="третья лаба" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="SDK_HOME" value="E:\Apps\anaconda3\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Лаба на питоне" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lab.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Лаба на питоне/ThirdLabSecondPart.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -123,8 +127,8 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.ChM_final" />
-      <item itemvalue="Python.Lab" />
+      <item itemvalue="Python.ThirdLabFirstPart" />
+      <item itemvalue="Python.ThirdLabSecondPart" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -146,6 +150,13 @@
       <workItem from="1652702078759" duration="380000" />
       <workItem from="1652703703415" duration="5128000" />
       <workItem from="1652813933632" duration="316000" />
+      <workItem from="1652968525632" duration="1231000" />
+      <workItem from="1653041472954" duration="220000" />
+      <workItem from="1653054171632" duration="288000" />
+      <workItem from="1653118237456" duration="13915000" />
+      <workItem from="1653212094667" duration="3324000" />
+      <workItem from="1653215450236" duration="31359000" />
+      <workItem from="1653288098078" duration="7556000" />
     </task>
     <task id="LOCAL-00001" summary="Made first task for the third lab">
       <created>1652688526846</created>
@@ -183,9 +194,42 @@
     <MESSAGE value="Third lab theory" />
     <option name="LAST_COMMIT_MESSAGE" value="Third lab theory" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../../../мо/лабораторные/лабы/лаб5/Lab5.py</url>
+          <line>62</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../../../мо/лабораторные/лабы/лаб5/Lab5.py</url>
+          <line>119</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Лаба на питоне/ThirdLabSecondPart.py</url>
+          <line>109</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Лаба на питоне/ThirdLabSecondPart.py</url>
+          <line>58</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
+          <url>notebook://D:/доки с рабочего стола/важные документы/вуз/6 семестр/чм/лабораторные/третья лаба/Лаба на питоне/ThirdLabPartOne.ipynb</url>
+          <line>5</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/_$Lab.coverage" NAME="Lab Coverage Results" MODIFIED="1652708860895" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/_$ThirdLabFirstPart.coverage" NAME="ThirdLabFirstPart Coverage Results" MODIFIED="1653294060251" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Лаба на питоне" />
     <SUITE FILE_PATH="coverage/_$Lab5.coverage" NAME="Lab5 Coverage Results" MODIFIED="1652639169281" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../../мо/лабораторные/лабы/лаб5" />
+    <SUITE FILE_PATH="coverage/_$ThirdLabSecondPart.coverage" NAME="ThirdLabSecondPart Coverage Results" MODIFIED="1653294386339" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Лаба на питоне" />
     <SUITE FILE_PATH="coverage/_$ChM_final.coverage" NAME="ChM_final Coverage Results" MODIFIED="1652630947699" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/_$Lab.coverage" NAME="ThirdLabSecondPart Coverage Results" MODIFIED="1653164172449" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Лаба на питоне" />
   </component>
 </project>
