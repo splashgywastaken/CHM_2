@@ -41,7 +41,6 @@ def x_i():
     return x_array
 
 
-# Функция первоначальной задачи Коши
 du_dx = lambda x, u, w: w
 
 dw_dx = f

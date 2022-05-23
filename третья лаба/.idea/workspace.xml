@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ea399a14-5fca-4d8c-8b2f-eda017131875" name="Changes" comment="Third lab theory">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/третья лаба.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/третья лаба.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lab.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Лаба на питоне/ThirdLabPartOne.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Лаба на питоне/ThirdLabPartOne.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Лаба на питоне/ThirdLabPartTwo.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Лаба на питоне/ThirdLabPartTwo.ipynb" afterDir="false" />
-    </list>
+    <list default="true" id="ea399a14-5fca-4d8c-8b2f-eda017131875" name="Changes" comment="Third lab theory" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,12 +46,12 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Лаба на питоне/ThirdLabFirstPart.py" />
-    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/projects/CHM_2"
+  }
+}]]></component>
   <component name="RunManager" selected="Python.ThirdLabSecondPart">
     <configuration name="ThirdLabFirstPart" type="PythonConfigurationType" factoryName="Python">
       <module name="третья лаба" />
@@ -157,6 +150,7 @@
       <workItem from="1653212094667" duration="3324000" />
       <workItem from="1653215450236" duration="31359000" />
       <workItem from="1653288098078" duration="7556000" />
+      <workItem from="1653308822420" duration="51000" />
     </task>
     <task id="LOCAL-00001" summary="Made first task for the third lab">
       <created>1652688526846</created>
@@ -226,10 +220,10 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/_$ThirdLabFirstPart.coverage" NAME="ThirdLabFirstPart Coverage Results" MODIFIED="1653294060251" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Лаба на питоне" />
-    <SUITE FILE_PATH="coverage/_$Lab5.coverage" NAME="Lab5 Coverage Results" MODIFIED="1652639169281" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../../мо/лабораторные/лабы/лаб5" />
-    <SUITE FILE_PATH="coverage/_$ThirdLabSecondPart.coverage" NAME="ThirdLabSecondPart Coverage Results" MODIFIED="1653294386339" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Лаба на питоне" />
-    <SUITE FILE_PATH="coverage/_$ChM_final.coverage" NAME="ChM_final Coverage Results" MODIFIED="1652630947699" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/_$Lab.coverage" NAME="ThirdLabSecondPart Coverage Results" MODIFIED="1653164172449" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Лаба на питоне" />
+    <SUITE FILE_PATH="coverage/_$ThirdLabSecondPart.coverage" NAME="ThirdLabSecondPart Coverage Results" MODIFIED="1653294386339" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Лаба на питоне" />
+    <SUITE FILE_PATH="coverage/_$Lab5.coverage" NAME="Lab5 Coverage Results" MODIFIED="1652639169281" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../../мо/лабораторные/лабы/лаб5" />
+    <SUITE FILE_PATH="coverage/_$ThirdLabFirstPart.coverage" NAME="ThirdLabFirstPart Coverage Results" MODIFIED="1653294060251" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Лаба на питоне" />
+    <SUITE FILE_PATH="coverage/_$ChM_final.coverage" NAME="ChM_final Coverage Results" MODIFIED="1652630947699" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
